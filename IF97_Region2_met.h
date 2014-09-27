@@ -35,7 +35,7 @@
 #ifndef IF97_REGION2_MET_H
 #define IF97_REGION2_MET_H
 
-#include "IF97_constants.h"
+#include "IF97_common.h"
 #include <math.h> 
 
 

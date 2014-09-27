@@ -75,6 +75,11 @@ If you wish to contribute to if97lib, please contact the administrator at martin
 in order to arrange for permissions to be able to "push" changes back to the Bitbucket repository.
 
 
+Mercurial is used for revision management, therefore you will need Mercurial installed.
+
+
+Once your commits are made, 
+
 
 
 Using Mercurial and Bitbucket

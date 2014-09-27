@@ -6,7 +6,7 @@
 
 //    IAPWS-IF97 Auxiliary Equation for the boundary between Regions 2 & 3
 
-#include "IF97_constants.h"
+#include "IF97_common.h"
 #include "IF97_B23.h"
 #include <math.h>  // for square root
   

@@ -10,7 +10,7 @@
 #ifndef IF97_B23_H
 #define IF97_B23_H
 
-	#include "IF97_constants.h"
+	#include "IF97_common.h"
 	#include "IF97_B23.h"
 	#include <math.h>  // for square root
 	#include <stdio.h> // for unit testing.  Remove once tested

@@ -12,7 +12,7 @@
 #ifndef IF97_REGION1_H
 #define IF97_REGION1_H
 
-#include "IF97_constants.h"
+#include "IF97_common.h"
 #include <math.h> 
 
 

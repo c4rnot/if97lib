@@ -7,7 +7,7 @@
 
 //    IAPWS-IF97 constants used throughout the formulation
 
-#include "IF97_constants.h"
+#include "IF97_common.h"IF97_constants.h
 
 
 // squares a double without using pow

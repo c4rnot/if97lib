@@ -32,7 +32,7 @@
   * ****************************************************************** */
    
 
-#include "IF97_constants.h"  //PSTAR TSTAR & sqr
+#include "IF97_common.h"  //PSTAR TSTAR & sqr
 #include "IF97_Region2.h"
 #include <math.h> // for pow, log
 /* #ifdef _OPENMP // multithreading via libgomp

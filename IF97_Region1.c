@@ -10,7 +10,7 @@
 // Exception:  Backwards equations not valid in metastable (superheated liquid) region
 
 
-#include "IF97_constants.h"  //PSTAR TSTAR sqr
+#include "IF97_common.h"  //PSTAR TSTAR sqr
 #include "IF97_Region1.h"
 #include <math.h> //  pow
 
