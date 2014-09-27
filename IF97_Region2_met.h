@@ -5,22 +5,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-//    IAPWS-IF97 Region 2: Single phase vapour region equations
+//    IAPWS-IF97 Region 2: metastable vapour region <= 10 MPa equations
 /* *********************************************************************
  * *******             VALIDITY                             ************
  * 
- * 273.15 K <= T <=  623.15 K    0 <= p <= Ps(T) (Eq 30 "Saturation Pressure basic Equation")
- * 623.15 K <= T <=  863.15 K    0 <= p <= p(T)  (Eq 5 "B23 Region 2 - 3 boundry equation")
- * 863.15 K <= T <= 1073.15 K    0 <= p <= 100 MPa
- * 
- * These functions also provide reasonable values for the metastable 
- * region above 10 MPa
+ * Valid in the metastable vapour region  from the saturated vapour line 
+ * to the 5% equilibrium moisture line (determined from the equilibrium 
+ * h' and h'' values calculated at the given pressure) for pressures 
+ * from the triple poiint to 10 MPa
+
+ *  611.657 Pa <= p <= 10 MPa
  * 
  * Note:  for temperatures between 273.15 and 273.16 K, the part of the 
  * range of validity between the pressures on the saturation pressure 
  * line (Eq 30) and on the sublimation line corresponds to metastable 
  * states
  * ****************************************************************** */
+ 
 /* ********************************************************************
   *         COMPILE AND LINK INSTRUCTIONS    (gcc)                          *
   * 
@@ -31,8 +32,8 @@
   * 
   * ***************************************************************** */
 
-#ifndef IF97_REGION2_H
-#define IF97_REGION2_H
+#ifndef IF97_REGION2_MET_H
+#define IF97_REGION2_MET_H
 
 #include "IF97_constants.h"
 #include <math.h> 
@@ -45,35 +46,36 @@
 
 	// specific Gibbs free energy in region 2 (kJ / kg)
 	// broken
-	double if97_r2_g (double p_MPa , double t_Kelvin);
+	double if97_r2met_g (double p_MPa , double t_Kelvin);
 
 	// specific volume in region 2  (metres cubed per kilogram)  
-	double if97_r2_v (double p_MPa , double t_Kelvin );
+	double if97_r2met_v (double p_MPa , double t_Kelvin );
 			
 	
 	// specific internal energy in region 2 (KJ / Kg)
-	double if97_r2_u (double p_MPa , double t_Kelvin );
+	double if97_r2met_u (double p_MPa , double t_Kelvin );
 	
 	
 	// specific entropy in region 2 (KJ / Kg.K)
-	double if97_r2_s (double p_MPa , double t_Kelvin );
+	double if97_r2met_s (double p_MPa , double t_Kelvin );
 	
 	
 	// specific enthalpy in region 2 (KJ / Kg)
-	double if97_r2_h (double p_MPa , double t_Kelvin );
+	double if97_r2met_h (double p_MPa , double t_Kelvin );
 	
 	
 	// specific isobaric heat capacity in region 2 (KJ / Kg.K)
-	double if97_r2_Cp (double p_MPa , double t_Kelvin );
+	double if97_r2met_Cp (double p_MPa , double t_Kelvin );
 	
 	
 	// specific isochoric heat capacity in region 2 (KJ / Kg.K)
-	double if97_r2_Cv (double p_MPa , double t_Kelvin );
+	double if97_r2met_Cv (double p_MPa , double t_Kelvin );
 	
 		
 	// speed of sound in region 2 (m/s)
-	double if97_r2_w (double p_MPa , double t_Kelvin );
+	double if97_r2met_w (double p_MPa , double t_Kelvin );
 
 
 
-#endif // IF97_REGION2_H
+
+#endif // IF97_REGION2_MET_H

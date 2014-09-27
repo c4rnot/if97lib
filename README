@@ -1,0 +1,120 @@
+# Welcome to the if97 library #
+
+
+Obtaining the latest version
+============================
+
+if97 is hosted on bitbucket using the Mercurial revision management system.
+
+The bitbucket page for this project is here:
+https://C4rnot@bitbucket.org/C4rnot/if97lib
+
+
+In order to get the latest version of the source (assuming you have Mercurial already installed):
+
+$ hg clone https://C4rnot@bitbucket.org/C4rnot/if97lib
+
+
+Alternatively, download a zip of the source from here:
+https://bitbucket.org/C4rnot/if97lib/downloads
+
+
+
+
+
+Compiling
+=========
+
+The Make system has not yet been implimented.
+
+A number of files use the C math library <math.h>.  -lm needs to be passed to the compiler to link this correctly.
+
+Some code uses OpenMP for multithreading.  Since openMP uses pragma calls to the preprocessor, the code will compile and run correctly, even if your compiler doesn't support OpenMP
+
+use the  -fopenmp flag to enable multithreaded calculation in gcc.  Please consult http://openmp.org for instructions for other compilers.
+
+The example below compiles and links constants.c, IF97_Region2.c, IF97_Region2_met.c, region2_test.c to produce the executable region2test_lnx
+
+$ gcc -fopenmp IF97_constants.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm
+
+
+
+
+
+
+
+
+
+Testing
+=======
+
+Units are made to test each of the regions according to the checks proposed inIAPWS-IF97.
+
+It is reccomended to check the output of these.
+
+
+
+References
+==========
+
+This library is based on the International Association for the Properties of Water and Steam Revised Release of the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam, which is available here:
+
+http://www.iapws.org/relguide/IF97-Rev.pdf
+
+
+
+
+
+
+
+Contributing to the if97lib code base
+=====================================
+
+
+If you wish to contribute to if97lib, please contact the administrator at martins_abyss@hotmail.com 
+in order to arrange for permissions to be able to "push" changes back to the Bitbucket repository.
+
+
+
+
+Using Mercurial and Bitbucket
+=============================
+Have a look here for instructions on using Mercurial.
+
+http://www.math.wisc.edu/~jeanluc/bitbucket_instructions.php
+
+
+
+
+
+other things in the Bitbucket standard README template
+======================================================
+
+
+This README would normally document whatever steps are necessary to get your application up and running.
+
+### What is this repository for? ###
+
+* Quick summary
+* Version
+* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+
+### How do I get set up? ###
+
+* Summary of set up
+* Configuration
+* Dependencies
+* Database configuration
+* How to run tests
+* Deployment instructions
+
+### Contribution guidelines ###
+
+* Writing tests
+* Code review
+* Other guidelines
+
+### Who do I talk to? ###
+
+* Repo owner or admin
+* Other community or team contact

@@ -48,6 +48,21 @@
 	#define IF97_TC 647.096  //  K  		Critical Temperature
 	#define IF97_PC 22.064 //  MPa			Critical Pressure
 	#define IF97_RHOC 322.0  //  kg / m3	Critical Density
+	
+	#define PSTAR_R1  16.53  // MPa
+	#define TSTAR_R1  1386.0  // K
+	
+	#define TSTAR_R2 540.0 // K
+	#define PSTAR_R2 1.0 // MPa
+	
+// ********COMMON FUNCTIONS**************//	
+
+// squares a double without using pow
+double sqr (double dblArg);
+
+// cubes a double without using pow
+double cube (double dblArg);
+
 
 
 #endif // IF97_CONSTS_H

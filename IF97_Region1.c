@@ -10,16 +10,10 @@
 // Exception:  Backwards equations not valid in metastable (superheated liquid) region
 
 
-#include "IF97_constants.h"
+#include "IF97_constants.h"  //PSTAR TSTAR sqr
 #include "IF97_Region1.h"
-#include <math.h> // for pow
+#include <math.h> //  pow
 
-
-const double PSTAR_R1 = 16.53 ;  // MPa
-const double TSTAR_R1 = 1386.0 ; // K
-
-// squares a double without using pow
-double sqr (double dblArg){	return dblArg * dblArg; }
 
 
 typedef struct sctGibbsCoeff {
@@ -82,10 +76,13 @@ const int MAX_GIBBS_COEFFS_R1 = 34;
 double if97_r1_Gamma (double if97_pi, double  if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
-	dblGammaSum = dblGammaSum + GIBBS_COEFFS_R1[i].ni*( pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji));
+		
+	dblGammaSum += GIBBS_COEFFS_R1[i].ni*( pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji));
 	}
+	
 return dblGammaSum;
 }
 	
@@ -98,10 +95,11 @@ double if97_r1_GammaPi (double if97_pi, double if97_tau) {
 	double dblGammaSum =0.0;
 	double dblGammapiI = 0.0;
 	
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
 				
 	dblGammapiI = - GIBBS_COEFFS_R1[i].ni*GIBBS_COEFFS_R1[i].Ii*( pow(7.1 - if97_pi, (GIBBS_COEFFS_R1[i].Ii-1)) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji));
-	dblGammaSum = dblGammaSum + dblGammapiI;
+	dblGammaSum += dblGammapiI;
 
 	}
 return dblGammaSum;
@@ -113,10 +111,13 @@ return dblGammaSum;
 double if97_r1_GammaPiPi (double if97_pi, double if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
-	dblGammaSum = dblGammaSum + GIBBS_COEFFS_R1[i].ni*GIBBS_COEFFS_R1[i].Ii*(GIBBS_COEFFS_R1[i].Ii-1)*( pow(7.1 - if97_pi, (GIBBS_COEFFS_R1[i].Ii-2)) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji));
+		
+	dblGammaSum += GIBBS_COEFFS_R1[i].ni*GIBBS_COEFFS_R1[i].Ii*(GIBBS_COEFFS_R1[i].Ii-1)*( pow(7.1 - if97_pi, (GIBBS_COEFFS_R1[i].Ii-2)) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji));
 	}
+	
 return dblGammaSum;
 }
 
@@ -127,10 +128,14 @@ return dblGammaSum;
 double if97_r1_GammaTau (double if97_pi, double if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
-	dblGammaSum = dblGammaSum + GIBBS_COEFFS_R1[i].ni * pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * GIBBS_COEFFS_R1[i].Ji * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji-1);
+		
+	dblGammaSum += GIBBS_COEFFS_R1[i].ni * pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * GIBBS_COEFFS_R1[i].Ji * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji-1);
+	
 	}
+	
 return dblGammaSum;
 }
 
@@ -141,9 +146,11 @@ return dblGammaSum;
 double if97_r1_GammaTauTau (double if97_pi, double if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
-	dblGammaSum = dblGammaSum + GIBBS_COEFFS_R1[i].ni*( pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * 
+		
+	dblGammaSum += GIBBS_COEFFS_R1[i].ni*( pow(7.1 - if97_pi, GIBBS_COEFFS_R1[i].Ii) * 
 								GIBBS_COEFFS_R1[i].Ji *(GIBBS_COEFFS_R1[i].Ji-1) * pow(if97_tau - 1.222, GIBBS_COEFFS_R1[i].Ji-2));
 	}
 return dblGammaSum;
@@ -156,10 +163,14 @@ return dblGammaSum;
 double if97_r1_GammaPiTau (double if97_pi, double if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_GIBBS_COEFFS_R1; i++) {
-	dblGammaSum = dblGammaSum - GIBBS_COEFFS_R1[i].ni * GIBBS_COEFFS_R1[i].Ii * ( pow(7.1 - if97_pi, (GIBBS_COEFFS_R1[i].Ii -1)) * GIBBS_COEFFS_R1[i].Ji * pow(if97_tau - 1.222, (GIBBS_COEFFS_R1[i].Ji -1)));
+		
+	dblGammaSum -= GIBBS_COEFFS_R1[i].ni * GIBBS_COEFFS_R1[i].Ii * ( pow(7.1 - if97_pi, (GIBBS_COEFFS_R1[i].Ii -1)) * GIBBS_COEFFS_R1[i].Ji * pow(if97_tau - 1.222, (GIBBS_COEFFS_R1[i].Ji -1)));
+	
 	}
+	
 return dblGammaSum;
 }
 
@@ -317,10 +328,11 @@ double if97_r1_t_ph (double p_MPa , double h_kJperKg ){
 
 	int i;
 	double dblHSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblHSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_BW_COEFFS_R1_TPH; i++) {
 		
-	dblHSum = dblHSum + BW_COEFFS_R1_TPH[i].ni * pow(if97pi, BW_COEFFS_R1_TPH[i].Ii) * pow( ( if97eta +1),  BW_COEFFS_R1_TPH[i].Ji);
+	dblHSum += BW_COEFFS_R1_TPH[i].ni * pow(if97pi, BW_COEFFS_R1_TPH[i].Ii) * pow( ( if97eta +1),  BW_COEFFS_R1_TPH[i].Ji);
 	}
 	
 return TSTAR_R1_TPH * dblHSum;
@@ -369,10 +381,11 @@ double if97_r1_t_ps (double p_MPa , double s_kJperKgK ){
 
 	int i;
 	double dblHSum =0.0;
-	
+
+	#pragma omp parallel for reduction(+:dblHSum) 	//handle loop multithreaded	
 	for (i=1; i <= MAX_BW_COEFFS_R1_TPS; i++) {
 		
-	dblHSum = dblHSum + BW_COEFFS_R1_TPH[i].ni * pow(if97pi, BW_COEFFS_R1_TPH[i].Ii) * pow( ( if97sigma + 2),  BW_COEFFS_R1_TPH[i].Ji);
+	dblHSum += BW_COEFFS_R1_TPH[i].ni * pow(if97pi, BW_COEFFS_R1_TPH[i].Ii) * pow( ( if97sigma + 2),  BW_COEFFS_R1_TPH[i].Ji);
 	}
 	
 return TSTAR_R1_TPS * dblHSum;
