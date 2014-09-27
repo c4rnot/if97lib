@@ -35,7 +35,7 @@ use the  -fopenmp flag to enable multithreaded calculation in gcc.  Please consu
 
 The example below compiles and links constants.c, IF97_Region2.c, IF97_Region2_met.c, region2_test.c to produce the executable region2test_lnx
 
-$ gcc -fopenmp IF97_constants.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm
+$ gcc -fopenmp IF97_common.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm
 
 
 
