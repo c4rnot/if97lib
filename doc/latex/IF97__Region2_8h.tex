@@ -1,0 +1,160 @@
+\hypertarget{IF97__Region2_8h}{\section{I\-F97\-\_\-\-Region2.\-h File Reference}
+\label{IF97__Region2_8h}\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}}
+}
+
+
+I\-A\-P\-W\-S-\/\-I\-F97 Region 2\-: Single phase vapour region equations.  
+
+
+{\ttfamily \#include \char`\"{}I\-F97\-\_\-common.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{IF97__Region2_8h_a1c23e9da8be9ab4939c0f2ace8579aef}{if97\-\_\-r2\-\_\-g} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_af645f038b09581db1dd98749989d5b9e}{if97\-\_\-r2\-\_\-v} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_a066ee21cce7ebb678d2fc788c9e8bf04}{if97\-\_\-r2\-\_\-u} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_ac03293425818ddd8d4545a20ab51452b}{if97\-\_\-r2\-\_\-s} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_a41d5ea4f9b19978cb06bddb452d346aa}{if97\-\_\-r2\-\_\-h} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_a85004ef332e4c7b6a23173c04aedb891}{if97\-\_\-r2\-\_\-\-Cp} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_af08bc544e9690c03d9dec605be8d6790}{if97\-\_\-r2\-\_\-\-Cv} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\item 
+double \hyperlink{IF97__Region2_8h_acb6fc79dae72aef624d43510e68c2f1f}{if97\-\_\-r2\-\_\-w} (double p\-\_\-\-M\-Pa, double t\-\_\-\-Kelvin)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+I\-A\-P\-W\-S-\/\-I\-F97 Region 2\-: Single phase vapour region equations. \begin{DoxyCopyright}{Copyright}
+Copyright Martin Lord 2014-\/2014. \par
+Distributed under the Boost Software License, Version 1.\-0. \par
+(See accompanying file L\-I\-C\-E\-N\-S\-E\-\_\-1\-\_\-0.\-txt or copy at \par
+\href{http://www.boost.org/LICENSE_1_0.txt}{\tt http\-://www.\-boost.\-org/\-L\-I\-C\-E\-N\-S\-E\-\_\-1\-\_\-0.\-txt}) \par
+
+\end{DoxyCopyright}
+\begin{DoxyAuthor}{Author}
+Martin Lord 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+29 Sep 2014
+\end{DoxyDate}
+V\-A\-L\-I\-D\-I\-T\-Y \par
+ \par
+273.\-15 K $<$= T $<$= 623.\-15 K 0 $<$= p $<$= Ps(\-T) (Eq 30 \char`\"{}\-Saturation Pressure basic Equation\char`\"{}) \par
+623.\-15 K $<$= T $<$= 863.\-15 K 0 $<$= p $<$= p(\-T) (Eq 5 \char`\"{}\-B23 Region 2 -\/ 3 boundry equation\char`\"{}) \par
+863.\-15 K $<$= T $<$= 1073.\-15 K 0 $<$= p $<$= 100 M\-Pa \par
+\par
+These functions also provide reasonable values for the metastable region above 10 M\-Pa \par
+\par
+Note\-: for temperatures between 273.\-15 and 273.\-16 K, the part of the range of validity between the pressures on the saturation pressure line (Eq 30) and on the sublimation line corresponds to metastable states \par
+ \begin{DoxySeeAlso}{See Also}
+\href{http://www.iapws.org/relguide/IF97-Rev.html}{\tt http\-://www.\-iapws.\-org/relguide/\-I\-F97-\/\-Rev.\-html} 
+\end{DoxySeeAlso}
+
+
+Definition in file \hyperlink{IF97__Region2_8h_source}{I\-F97\-\_\-\-Region2.\-h}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{IF97__Region2_8h_a85004ef332e4c7b6a23173c04aedb891}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-\-Cp@{if97\-\_\-r2\-\_\-\-Cp}}
+\index{if97\-\_\-r2\-\_\-\-Cp@{if97\-\_\-r2\-\_\-\-Cp}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-\-Cp}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-\-Cp (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_a85004ef332e4c7b6a23173c04aedb891}
+specific isobaric heat capacity in region 2 (K\-J / Kg.\-K) 
+
+Definition at line 391 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_af08bc544e9690c03d9dec605be8d6790}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-\-Cv@{if97\-\_\-r2\-\_\-\-Cv}}
+\index{if97\-\_\-r2\-\_\-\-Cv@{if97\-\_\-r2\-\_\-\-Cv}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-\-Cv}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-\-Cv (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_af08bc544e9690c03d9dec605be8d6790}
+specific isochoric heat capacity in region 2 (K\-J / Kg.\-K) 
+
+Definition at line 402 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_a1c23e9da8be9ab4939c0f2ace8579aef}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-g@{if97\-\_\-r2\-\_\-g}}
+\index{if97\-\_\-r2\-\_\-g@{if97\-\_\-r2\-\_\-g}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-g}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-g (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_a1c23e9da8be9ab4939c0f2ace8579aef}
+specific Gibbs free energy in region 2 (k\-J / kg) broken 
+
+Definition at line 328 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_a41d5ea4f9b19978cb06bddb452d346aa}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-h@{if97\-\_\-r2\-\_\-h}}
+\index{if97\-\_\-r2\-\_\-h@{if97\-\_\-r2\-\_\-h}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-h}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-h (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_a41d5ea4f9b19978cb06bddb452d346aa}
+specific enthalpy in region 2 (K\-J / Kg) 
+
+Definition at line 378 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_ac03293425818ddd8d4545a20ab51452b}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-s@{if97\-\_\-r2\-\_\-s}}
+\index{if97\-\_\-r2\-\_\-s@{if97\-\_\-r2\-\_\-s}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-s}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-s (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_ac03293425818ddd8d4545a20ab51452b}
+specific entropy in region 2 (K\-J / Kg.\-K) 
+
+Definition at line 366 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_a066ee21cce7ebb678d2fc788c9e8bf04}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-u@{if97\-\_\-r2\-\_\-u}}
+\index{if97\-\_\-r2\-\_\-u@{if97\-\_\-r2\-\_\-u}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-u}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-u (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_a066ee21cce7ebb678d2fc788c9e8bf04}
+specific internal energy in region 2 (K\-J / Kg) 
+
+Definition at line 351 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_af645f038b09581db1dd98749989d5b9e}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-v@{if97\-\_\-r2\-\_\-v}}
+\index{if97\-\_\-r2\-\_\-v@{if97\-\_\-r2\-\_\-v}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-v}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-v (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_af645f038b09581db1dd98749989d5b9e}
+specific volume in region 2 (metres cubed per kilogram) 
+
+Definition at line 340 of file I\-F97\-\_\-\-Region2.\-c.
+
+\hypertarget{IF97__Region2_8h_acb6fc79dae72aef624d43510e68c2f1f}{\index{I\-F97\-\_\-\-Region2.\-h@{I\-F97\-\_\-\-Region2.\-h}!if97\-\_\-r2\-\_\-w@{if97\-\_\-r2\-\_\-w}}
+\index{if97\-\_\-r2\-\_\-w@{if97\-\_\-r2\-\_\-w}!IF97_Region2.h@{I\-F97\-\_\-\-Region2.\-h}}
+\subsubsection[{if97\-\_\-r2\-\_\-w}]{\setlength{\rightskip}{0pt plus 5cm}double if97\-\_\-r2\-\_\-w (
+\begin{DoxyParamCaption}
+\item[{double}]{p\-\_\-\-M\-Pa, }
+\item[{double}]{t\-\_\-\-Kelvin}
+\end{DoxyParamCaption}
+)}}\label{IF97__Region2_8h_acb6fc79dae72aef624d43510e68c2f1f}
+speed of sound in region 2 (m/s) 
+
+Definition at line 416 of file I\-F97\-\_\-\-Region2.\-c.
+
