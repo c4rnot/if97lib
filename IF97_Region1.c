@@ -5,9 +5,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-//    IAPWS-IF97 Region 1 Equations
-// VALIDITY  273.15 K <= T <= 623.15 K     Psat <= p <= 100 MPa
-// Exception:  Backwards equations not valid in metastable (superheated liquid) region
+/**    IAPWS-IF97 Region 1 Equations
+ *  VALIDITY  273.15 K <= T <= 623.15 K     Psat <= p <= 100 MPa
+ * Exception:  Backwards equations not valid in metastable (superheated liquid) region
+ */
 
 
 #include "IF97_common.h"  //PSTAR TSTAR sqr
@@ -88,8 +89,8 @@ return dblGammaSum;
 	
 
 
-// [d gamma/d pi]with tau constant
-// Checked OK
+/** [d gamma/d pi]with tau constant
+ *  Checked OK  */
 double if97_r1_GammaPi (double if97_pi, double if97_tau) {  
 	int i;
 	double dblGammaSum =0.0;
