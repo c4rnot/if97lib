@@ -21,6 +21,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="IF97.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">if97lib
    &#160;<span id="projectnumber">Version 0.0 beta</span>
@@ -149,32 +150,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> * </span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> * $ gcc -fopenmp IF97_common.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> *  * \section refs References</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> * This library is based on the International Association for the Properties of Water and Steam Revised Release of the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam, which is available here:</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * http://www.iapws.org/relguide/IF97-Rev.pdf</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> *  * \section refs References</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * </span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> * This library is based on the International Association for the Properties of Water and Steam Revised Release of the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam, which is available here:</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> * </span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> * http://www.iapws.org/relguide/IF97-Rev.pdf</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * </span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="IF97__common_8h.html">IF97_common.h</a>&quot;</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">/** squares a double without using pow */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">   79</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">sqr</a> (<span class="keywordtype">double</span> dblArg) {    <span class="keywordflow">return</span> dblArg * dblArg; }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">/** squares a double without using pow */</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">   82</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">cube</a> (<span class="keywordtype">double</span> dblArg){    <span class="keywordflow">return</span> dblArg * dblArg * dblArg; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="ttc" id="IF97__common_8h_html_ac92bd9d84edd15aa7071ecd793a885d3"><div class="ttname"><a href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">sqr</a></div><div class="ttdeci">double sqr(double dblArg)</div><div class="ttdef"><b>Definition:</b> <a href="IF97__common_8c_source.html#l00079">IF97_common.c:79</a></div></div>
-<div class="ttc" id="IF97__common_8h_html_a6e481e31c80955e90c33082dae44ff9e"><div class="ttname"><a href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">cube</a></div><div class="ttdeci">double cube(double dblArg)</div><div class="ttdef"><b>Definition:</b> <a href="IF97__common_8c_source.html#l00082">IF97_common.c:82</a></div></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="IF97__common_8h.html">IF97_common.h</a>&quot;</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/** squares a double without using pow */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">   78</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">sqr</a> (<span class="keywordtype">double</span> dblArg) {    <span class="keywordflow">return</span> dblArg * dblArg; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">/** squares a double without using pow */</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">   81</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">cube</a> (<span class="keywordtype">double</span> dblArg){    <span class="keywordflow">return</span> dblArg * dblArg * dblArg; }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="ttc" id="IF97__common_8h_html_ac92bd9d84edd15aa7071ecd793a885d3"><div class="ttname"><a href="IF97__common_8h.html#ac92bd9d84edd15aa7071ecd793a885d3">sqr</a></div><div class="ttdeci">double sqr(double dblArg)</div><div class="ttdef"><b>Definition:</b> <a href="IF97__common_8c_source.html#l00078">IF97_common.c:78</a></div></div>
+<div class="ttc" id="IF97__common_8h_html_a6e481e31c80955e90c33082dae44ff9e"><div class="ttname"><a href="IF97__common_8h.html#a6e481e31c80955e90c33082dae44ff9e">cube</a></div><div class="ttdeci">double cube(double dblArg)</div><div class="ttdef"><b>Definition:</b> <a href="IF97__common_8c_source.html#l00081">IF97_common.c:81</a></div></div>
 <div class="ttc" id="IF97__common_8h_html"><div class="ttname"><a href="IF97__common_8h.html">IF97_common.h</a></div><div class="ttdoc">Constants and common functions used (internally) by the library. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 29 2014 23:38:02 for if97lib by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Sep 30 2014 23:36:20 for if97lib by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
