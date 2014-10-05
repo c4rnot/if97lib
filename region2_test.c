@@ -44,14 +44,17 @@ int main (int argc, char **argv)
 	printf ("\t\tT= 300 K \tT= 700 K \tT= 700 K\n");
 	printf ("\t\tp= 0.0035 MPa \tp= 0.0035 MPa \tp= 30 MPa\n\n");
 
-	printf ("g  (kJ/kg)\t?????????\t?????????\t???????????\tUsing freesteam\n");	
+	printf ("g  (kJ/kg)\t?????????\t?????????\t???????????\t(1)\n");	
 	printf ("v  (m3/kg)\t3.94913866e01\t9.23015898e01\t5.42946619e-3\n");
 	printf ("h  (kJ/kg)\t2.54991145e03\t3.33568375e03\t2.63149474e03\n");
 	printf ("u  (kJ/kg)\t2.41169160e03\t3.01262819e03\t2.46861076e03\n");
 	printf ("s  (kJ/kg.K)\t8.52238967e00\t1.01749996e01\t5.17540298e00\n");
 	printf ("Cp (kJ/kg.K)\t1.91300162e00\t2.08141274e00\t1.03505092e01\n");
-	printf ("Cv (kJ/kg.K)\t1.44132662e00\t1.61978333e00\t2.97553837e00\tFrom Moscow Power Institute check page\n");
-	printf ("w  (m/s)\t4.27920172e02\t6.44289068e02\t4.80386523e02\n\n*******OUTPUT************\n");
+	printf ("Cv (kJ/kg.K)\t1.44132662e00\t1.61978333e00\t2.97553837e00\t(2)\n");
+	printf ("w  (m/s)\t4.27920172e02\t6.44289068e02\t4.80386523e02\n\n");
+	
+	printf ("\n(1) Using Freesteam \n(2) Using Moscow Power Institute calculation \n    http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-metastable-vapor.xmcd\n\n");
+	printf ("*******OUTPUT************\n");
 
 	printf ("g  (kJ/kg)\t%.8e\t", if97_r2_g(0.0035, 300.0) );
 		printf("%.8e\t", if97_r2_g(0.0035, 700.0) );

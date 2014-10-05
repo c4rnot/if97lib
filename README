@@ -1,4 +1,12 @@
-# Welcome to the if97 library #
+# Welcome to the if97lib steam tables library #
+Introduction
+============================
+if97lib is an open source implimentation of the Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam, which van be found here:
+http://www.iapws.org/relguide/IF97-Rev.html
+
+if97lib is written in plain C, with multithreadding support via OpenMP and is released under the BOOST licence.
+
+if97lib IS NOT YET COMPLETE
 
 
 Obtaining the latest version
@@ -11,8 +19,7 @@ https://C4rnot@bitbucket.org/C4rnot/if97lib
 
 
 In order to get the latest version of the source (assuming you have Mercurial already installed):
-
-$ hg clone https://C4rnot@bitbucket.org/C4rnot/if97lib
+* hg clone https://C4rnot@bitbucket.org/C4rnot/if97lib
 
 
 Alternatively, download a zip of the source from here:
@@ -20,12 +27,25 @@ https://bitbucket.org/C4rnot/if97lib/downloads
 
 
 
-
-
 Compiling
 =========
+### Compiling Automatically ###
 
-The Make system has not yet been implimented.
+if97 uses the Waf make system.  
+See the file "wscript" for installation instructions for Waf and configuration of the if97 build.
+
+To compile and build simply run:
+* waf config
+* waf
+
+
+Further (rather bewildering) information on how to use Waf is available here:
+https://code.google.com/p/waf/
+
+
+
+
+### Compiling Manually ###
 
 A number of files use the C math library <math.h>.  -lm needs to be passed to the compiler to link this correctly.
 
@@ -33,14 +53,10 @@ Some code uses OpenMP for multithreading.  Since openMP uses pragma calls to the
 
 use the  -fopenmp flag to enable multithreaded calculation in gcc.  Please consult http://openmp.org for instructions for other compilers.
 
-The example below compiles and links constants.c, IF97_Region2.c, IF97_Region2_met.c, region2_test.c to produce the executable region2test_lnx
 
-$ gcc -fopenmp IF97_common.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm
+The example below compiles and links common.c, IF97_Region2.c, IF97_Region2_met.c, region2_test.c to produce the executable region2test_lnx
 
-
-
-
-
+* gcc -fopenmp IF97_common.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o region2test_lnx -lm
 
 
 
@@ -48,7 +64,7 @@ $ gcc -fopenmp IF97_common.c IF97_Region2.c IF97_Region2_met.c region2_test.c -o
 Testing
 =======
 
-Units are made to test each of the regions according to the checks proposed inIAPWS-IF97.
+Units are made to test each of the regions according to the checks proposed in IAPWS-IF97 based on the test tables provided in IAPES-IF97.
 
 It is reccomended to check the output of these.
 
@@ -69,57 +85,80 @@ http://www.iapws.org/relguide/IF97-Rev.pdf
 
 Contributing to the if97lib code base
 =====================================
-
-
 If you wish to contribute to if97lib, please contact the administrator at martins_abyss@hotmail.com 
 in order to arrange for permissions to be able to "push" changes back to the Bitbucket repository.
 
+Mercurial is used for revision management, therefore you will need to have Mercurial installed.
 
-Mercurial is used for revision management, therefore you will need Mercurial installed.
+On a debian based installation
+* sudo apt-get install mercurial
+
+On windows it can be downloaded along with a nice GUI from
+* http://tortoisehg.bitbucket.org/
 
 
-Once your commits are made, 
 
+### Using Mercurial and Bitbucket ###
 
+to download the source:
+* hg clone https://C4rnot@bitbucket.org/C4rnot/if97lib
+ 
+If you add a file to the sources, in order to add it to the mercurial archive 
+* hg add <filename>
+ 
+To commit (i.e. to make a snapshot of the state of the code, along with a note)
+* hg commit -m"<description of the commit>"
+ 
+To upload the commits back to the bitbucket archive:
+you will need to be recorded on bitbucket as a contributer to the project 
+Please contact martins_abyss@hotmail.com if you wish to contribute.
+* hg push
 
-Using Mercurial and Bitbucket
-=============================
-Have a look here for instructions on using Mercurial.
+To pull updates from elsewhere that have been uploaded to bitbucket
+* hg pull
+* hg update
+
+### More info on Mercurial ###
 
 http://www.math.wisc.edu/~jeanluc/bitbucket_instructions.php
 
+http://hginit.com/
+
+http://mercurial.selenic.com/guide
 
 
 
+### Commenting the Code ###
 
-other things in the Bitbucket standard README template
-======================================================
+Documentation for if97lib is auto-generated from code comments using Doxygen
+
+These comments need to be in a particular form to be picked up by Doxygen.  
+(In Geany comments which turn blue are picked up by Doxygen)
+
+A Tutorial is given here:
+http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html
 
 
-This README would normally document whatever steps are necessary to get your application up and running.
+The configuration file is "if97-doxy-config", and assuming you have Doxygen installed, to generate the documentation
+* doxygen if97-doxy-config
 
-### What is this repository for? ###
+The resulting documentation is located in the doc/ directory
 
-* Quick summary
-* Version
+
+
+Other useful Info
+=================
+
+
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+### TODO ###
 
-### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Structure of the code
+
+
+
