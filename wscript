@@ -13,6 +13,10 @@
 # $ chmod 755 waf
 # $ export PATH=$PWD:$PATH
 
+# TODO:  How to keep it in the path for the next login
+# suggest putting PATH="<path to waf>:$PATH"   into ~/.profile
+
+
 #  to build if97lib, from the directory containing this file simply:
 #  $ waf configure build
 

@@ -60,6 +60,11 @@
  * line (Eq 30) and on the sublimation line corresponds to metastable 
  * states \n
  * 
+ * For Backwards Equations \n 
+ * Region 2a up to 4 MPa \n
+ * Region 2b  above 5.85 kJ/kg.K \n
+ * Region 2c Below 5.85  kJ/kg.K \n
+ 
  * @see http://www.iapws.org/relguide/IF97-Rev.html
  */
 
@@ -107,6 +112,19 @@
 		
 	/** speed of sound in region 2 (m/s) */
 	double if97_r2_w (double p_MPa , double t_Kelvin );
+
+
+//**************************************************************
+//********* REGION 2 BACKWARDS EQUATIONS *************
+
+
+/** returns the pressure of the 2b-2c boundary in MPa for a given 
+ * enthalpy in kJ/kg */
+double IF97_B2bc_p (double h_kJperKg);
+
+/** returns the enthalpy of the 2b-2c boundary in kJ/kg for a given 
+ * pressure in MPa */
+double IF97_B2bc_h (double p_MPa);
 
 
 

@@ -432,5 +432,41 @@ double if97_r2_w (double p_MPa , double t_Kelvin ){
 
  
  
+/* *******************************************************************
+ * Region 2 Backwards Equations
+ */
+ 
+ // Region 2a up to 4 MPa
+ // Region 2b  above 5.85 kJ/kg.K
+ // Region 2c Below 5.85  kJ/kg.K
+ 
+ 
+ 
+ /* B2bc equation   determines whether we 
+  * are in region 2b or c for a 
+  * 
+  */
+
+const double IF97_B2bc_n[] = {
+	0						//n0 unused
+	, 0.90584278514723e3	//n1
+	, -0.67955786399241
+	, 0.12809002730136e-3
+	, 0.26526571908428e4
+	, 0.45257578905948e1}	;	//n5
+  
+/* returns the pressure of the 2b-2c boundary in MPa for a given 
+ * enthalpy in kJ/kg */
+double IF97_B2bc_p (double h_kJperKg){
+	//h_star = 1 kJ/kg, so this constant is ignored
+	return IF97_B2bc_n[1] + IF97_B2bc_n[2] * h_kJperKg + IF97_B2bc_n[3] * sqr(h_kJperKg) ;
+}
+
+/* returns the enthalpy of the 2b-2c boundary in kJ/kg for a given 
+ * pressure in MPa */
+double IF97_B2bc_h (double p_MPa){
+	// p_star = 1
+	return IF97_B2bc_n[4] + sqrt((p_MPa - IF97_B2bc_n[5]) / IF97_B2bc_n[3]);
+}
 
 

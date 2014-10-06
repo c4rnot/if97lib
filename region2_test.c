@@ -162,6 +162,29 @@ int main (int argc, char **argv)
 		printf("%.8e\t", if97_r2met_w(1.0,  440.0  ) );
 			printf("%.8e\t\n", if97_r2met_w(1.5, 450.0) );		
 	
+
+
+
+// B2bc Boundary Equation check
+// For verification the equations below must meet the following p-h point
+//
+// p= 1.00000000 E2 MPa
+// h= 3.516004323 E3 kJ/kg
+
+	printf ("\n\n************************************************************ \n" );
+	printf("IF97 REGION 2b -2c BOUNDARY FUNCTION CHECK \n\n" );
+	printf ("The output should be the following: \n");
+	printf("Pressure: \t\t1.00000000e02 MPa \n");	
+	printf("Temperature: \t\t3.516004323e03 kJ/kg \n\n*******OUTPUT************\n");	
+	
+	printf ( "IF97_B2bc_p pressure \t%.8e MPa\n" , IF97_B2bc_p (3.516004323E3) ); 
+	printf ( "IF97_B2bc_h Enthalpy \t%.8e kJ/kg\n\n" , IF97_B2bc_h (1.0e2) ); 
+
+
+
+
+
+
 	
 	
 	
