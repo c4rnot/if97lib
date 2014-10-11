@@ -36,7 +36,7 @@
  # include <omp.h>
  #endif
 */
-// #include <stdio.h>  used for debugging only
+#include <stdio.h>  // used for debugging only
 
 
 //***************************************************************
@@ -55,10 +55,11 @@ const double IF97_R3_n[] = {
 	,0.40511340542057E6
 	,-0.23855557567849
 	,0.65017534844798E3  // 10
-}
+};
 
 
-
+/* Returns the saturation pressure (MPa) for a given temperature (Kelvin) */
+// Checked OK
 double if97_r4_ps ( double ts_Kelvin) {
 	
 	// Eq 29b: simplified because T* = 1 K
@@ -76,10 +77,13 @@ return sqr(sqr(2 * C / (-B + sqrt( sqr(B) -4 * A * C)) ));
 }
 	
 	
+	
+/* Returns the saturation temperature (Kelvin) for a given pressure (MPa) */
+// Checked OK
 double if97_r4_ts (double ps_MPa ) {	
 	
 	// Eq 29a: simplified because p* = 1 MPa 
-	double B = pow(s_MPa, 0.25) ;
+	double B = pow(ps_MPa, 0.25) ;
 	
 	double E = sqr(B) +  IF97_R3_n[3] * B +  IF97_R3_n[6] ;
 	
@@ -89,9 +93,9 @@ double if97_r4_ts (double ps_MPa ) {
 	
 	double D = 2 * G / (-F - sqrt(sqr(F) -4 * E * G)) ;
  
-// Eq 31: Sinplified because T* = 1 K 
+// Eq 31: Simplified because T* = 1 K 
 return 	0.5 * (IF97_R3_n[10] + D - 
-		sqrt(sqr(IF97_R3_n[2] + D) - 4 * ( IF97_R3_n[9] + IF97_R3_n[10] * D)));
+		sqrt(sqr(IF97_R3_n[10] + D) - 4 * ( IF97_R3_n[9] + IF97_R3_n[10] * D)));
 }
 	
 	

@@ -46,10 +46,10 @@
 #include "IF97_common.h"
 #include <math.h> 
 
-/** Saturation pressure (MPa) for a given temperature (Kelvin) */
+/** Returns the saturation pressure (MPa) for a given temperature (Kelvin) */
 double if97_r4_ps ( double ts_Kelvin);
 
-/** Saturation temperature (Kelvin) for a given pressure (MPa) */
+/** Returns the saturation temperature (Kelvin) for a given pressure (MPa) */
 double if97_r4_ts (double ps_MPa );
 
 
