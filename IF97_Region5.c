@@ -44,8 +44,13 @@
 //****** REGION 5 *******************************
 
 
-// o
-definition {
+typedef struct sctGibbsCoeff_o {
+	int Ji;
+	double ni;
+} typR5coeff_o;
+
+// See Table 37
+const typR5coeff_o  GIBBS_COEFFS_R5_O[] = {
 	{0,    0.0}  // not used
 	,{0,    -0.13179983674201E2} // 1
 	,{1,    0.68540841634434E1}
@@ -55,17 +60,323 @@ definition {
 	,{2,    -0.32961626538917} //6
 };
 
+const int MAX_GIBBS_COEFFS_R5_O = 6;
+
+
+// ideal gas part of dimensionless gibbs free energy in Region5 :   See Equation 33
+double if97_r5_Gamma_o (double if97_pi, double  if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+	
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_O; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_O[i].ni * pow( if97_tau, GIBBS_COEFFS_R5_O[i].Ji);
+	}
+return log(if97_pi) + dblGammaSum;
+}
+ 
 
 
 
-// r
-definition {
-	 {0,    0,    0.0}
-	,{1,    1,    0.15736404855259E-2}
+typedef struct sctGibbsCoeff_r {
+	int Ii;
+	int Ji;
+	double ni;
+} typR5coeff_r;
+
+
+// See Table 38
+const typR5coeff_r  GIBBS_COEFFS_R5_R[] = {
+	 {0,    0,    0.0}  // not used
+	,{1,    1,    0.15736404855259E-2}  //1
 	,{1,    2,    0.90153761673944E-3}
 	,{1,    3,    -0.50270077677648E-2}
 	,{2,    3,    0.22440037409485E-5}
 	,{2,    9,    -0.41163275453471E-5}
-	,{3,    7,    0.37919454822955E-7}
+	,{3,    7,    0.37919454822955E-7} //6
 };
+
+const int MAX_GIBBS_COEFFS_R5_R = 6;
+
+// residual part of dimensionless gibbs free energy in Region5 :   See Equation 34
+double if97_r5_Gamma_r (double if97_pi, double  if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum +=   GIBBS_COEFFS_R5_R[i].ni *  pow(if97_pi, GIBBS_COEFFS_R5_R[i].Ii)*  pow(if97_tau, GIBBS_COEFFS_R5_R[i].Ji)	;
+		}		 
+	
+return dblGammaSum;
+}
+
+/* dimensionless gibbs free energy in Region 5 = g/RT:  
+ * The fundamental equation of region 2.   See Equation 32 */
+double if97_r5_Gamma (double if97_pi, double  if97_tau) {  
+			
+		return if97_r5_Gamma_o (if97_pi, if97_tau) + if97_r5_Gamma_r (if97_pi, if97_tau);
+}
+
+
+
+// [d gamma_o / d pi] keeping tau constant
+double if97_r5_GammaPi_o (double if97_pi) {
+		double GammaPi_o = 1.0 / if97_pi;
+		return GammaPi_o;
+}
+
+
+// [d squared gamma_o / d pi squared] keeping tau constant
+double if97_r5_GammaPiPi_o (double if97_pi) {
+	return -1.0 / sqr (if97_pi);
+}
+
+
+// [d gamma_o / d tau] keeping pi constant
+// Checked OK
+double if97_r5_GammaTau_o (double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;	
+		
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_O; i++) {
+		dblGammaSum += GIBBS_COEFFS_R5_O[i].ni * GIBBS_COEFFS_R5_O[i].Ji * pow(if97_tau, ( GIBBS_COEFFS_R5_O[i].Ji  - 1.0));
+	}
+	
+return dblGammaSum;	
+}
+
+
+// [d squared gamma_o / d tau squared] keeping pi constant
+double if97_r5_GammaTauTau_o (double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_O; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_O[i].ni * GIBBS_COEFFS_R5_O[i].Ji * ( GIBBS_COEFFS_R5_O[i].Ji  - 1.0) * pow(if97_tau, ( GIBBS_COEFFS_R5_O[i].Ji  - 2.0));
+	}		 
+
+return dblGammaSum;	
+}
+
+
+
+// [d squared gamma_o / d pi d tau] 
+const double if97_r5_GammaPiTau_o = 0.0;
+
+
+
+
+// [d gamma_r / d pi] keeping tau constant
+double if97_r5_GammaPi_r (double if97_pi, double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_R[i].ni	* GIBBS_COEFFS_R5_R[i].Ii
+								* pow( if97_pi, (GIBBS_COEFFS_R5_R[i].Ii - 1.0)) * pow(if97_tau, GIBBS_COEFFS_R5_R[i].Ji);
+	}
+	
+return dblGammaSum;
+}
+
+
+
+// [d squared gamma_r / d pi squared] keeping tau constant
+double if97_r5_GammaPiPi_r (double if97_pi, double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+	
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded	
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_R[i].ni	* GIBBS_COEFFS_R5_R[i].Ii * (GIBBS_COEFFS_R5_R[i].Ii - 1.0)
+								* pow(if97_pi, (GIBBS_COEFFS_R5_R[i].Ii - 2.0)) * pow(if97_tau, GIBBS_COEFFS_R5_R[i].Ji);
+	}
+
+return dblGammaSum;
+}
+
+
+
+// [d gamma_r / d tau] keeping pi constant
+double if97_r5_GammaTau_r (double if97_pi, double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;	
+		
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_R[i].ni	* pow( if97_pi, GIBBS_COEFFS_R5_R[i].Ii)
+							* GIBBS_COEFFS_R5_R[i].Ji * pow(if97_tau, (GIBBS_COEFFS_R5_R[i].Ji - 1.0)); 
+	}
+	
+return dblGammaSum;
+}
+
+
+// [d squared gamma_r / d tau squared] keeping pi constant
+double if97_r5_GammaTauTau_r (double if97_pi, double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_R[i].ni	* pow( if97_pi, GIBBS_COEFFS_R5_R[i].Ii) * GIBBS_COEFFS_R5_R[i].Ji
+								* (GIBBS_COEFFS_R5_R[i].Ji - 1.0) * pow(if97_tau, (GIBBS_COEFFS_R5_R[i].Ji - 2.0)); 
+	}
+
+return dblGammaSum;
+}
+
+
+
+// [d squared gamma_r / d tau squared] keeping pi constant
+double if97_r5_GammaPiTau_r (double if97_pi, double if97_tau) {
+	
+	int i;
+	double dblGammaSum = 0.0;		
+
+	#pragma omp parallel for reduction(+:dblGammaSum) 	//handle loop multithreaded		
+	for (i=1; i <= MAX_GIBBS_COEFFS_R5_R; i++) {
+		
+		dblGammaSum += GIBBS_COEFFS_R5_R[i].ni	* GIBBS_COEFFS_R5_R[i].Ii * pow(if97_pi, (GIBBS_COEFFS_R5_R[i].Ii - 1.0))
+							* GIBBS_COEFFS_R5_R[i].Ji * pow(if97_tau, ( GIBBS_COEFFS_R5_R[i].Ji - 1.0)); 
+	}
+
+return dblGammaSum;
+}
+
+
+
+
+//**********************************************************
+//********* REGION 5 PROPERTY EQUATIONS*********************
+
+// specific Gibbs free energy in region 2 (kJ / kg)
+double if97_r5_g (double p_MPa , double t_Kelvin) {  
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5 / t_Kelvin;
+	
+return IF97_R * t_Kelvin * if97_r5_Gamma(if97pi, if97tau);
+}
+
+
+// specific volume in region 2  (metres cubed per kilogram)  
+// inputs need to convert to pure SI, hence the ´magic´ numbers
+double if97_r5_v (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5 / t_Kelvin;
+	  
+	return (IF97_R *1000 * t_Kelvin / (p_MPa * 1e6) ) * if97pi * ( if97_r5_GammaPi_o(if97pi) + if97_r5_GammaPi_r(if97pi, if97tau));
+}
+
+
+// specific internal energy in region 2 (KJ / Kg)
+double if97_r5_u (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5/t_Kelvin;
+	
+	return (IF97_R* t_Kelvin ) * ((if97tau * (if97_r5_GammaTau_o(if97tau) +  if97_r5_GammaTau_r(if97pi, if97tau))) 
+								  - (if97pi * (if97_r5_GammaPi_o(if97pi) + if97_r5_GammaPi_r(if97pi, if97tau)))
+								  );
+}
+
+
+
+
+
+
+// specific entropy in region 2 (KJ / Kg.K)
+double if97_r5_s (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5/t_Kelvin;
+	
+	return (IF97_R ) * (if97tau * (if97_r5_GammaTau_o(if97tau) + if97_r5_GammaTau_r(if97pi,if97tau)) - if97_r5_Gamma(if97pi, if97tau))  ;
+}
+
+
+
+
+
+// specific enthalpy in region 2 (KJ / Kg)
+double if97_r5_h (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5/t_Kelvin;
+	
+	return IF97_R * t_Kelvin * if97tau * (if97_r5_GammaTau_o(if97tau) + if97_r5_GammaTau_r(if97pi, if97tau))   ;
+}
+
+
+
+
+
+// specific isobaric heat capacity in region 2 (KJ / Kg.K)
+// Checked OK
+double if97_r5_Cp (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5/t_Kelvin;
+	
+	return (-IF97_R * sqr(if97tau) * (if97_r5_GammaTauTau_o(if97tau) + if97_r5_GammaTauTau_r(if97pi, if97tau)))   ;
+}
+
+
+
+// specific isochoric heat capacity in region 2 (KJ / Kg.K)
+double if97_r5_Cv (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5 / t_Kelvin;
+		
+	return IF97_R * ((- sqr(if97tau) * (if97_r5_GammaTauTau_o(if97tau) + if97_r5_GammaTauTau_r(if97pi, if97tau))) - (
+	                sqr ( 1.0 + if97pi * if97_r5_GammaPi_r(if97pi, if97tau) - if97tau * if97pi * if97_r5_GammaPiTau_r(if97pi, if97tau))
+	                / (1.0 - sqr(if97pi) * if97_r5_GammaPiPi_r (if97pi, if97tau)))
+	                ) ;
+}
+
+
+// speed of sound in region 2 (m/s)
+// inputs need to convert to pure SI, hence the ´magic´ number 1000
+double if97_r5_w (double p_MPa , double t_Kelvin ){
+	
+	double if97pi = p_MPa / PSTAR_R5;
+	double if97tau = TSTAR_R5/t_Kelvin;
+	
+
+	
+	return sqrt( IF97_R * 1000 * t_Kelvin * ((1.0 + 2.0 * if97pi * if97_r5_GammaPi_r(if97pi, if97tau) + sqr(if97pi) * sqr(if97_r5_GammaPi_r(if97pi, if97tau))) /
+					((1.0 - sqr(if97pi) * if97_r5_GammaPiPi_r(if97pi, if97tau)) + 
+						( sqr ( 1.0 + if97pi * if97_r5_GammaPi_r(if97pi, if97tau) - if97tau * if97pi * if97_r5_GammaPiTau_r(if97pi, if97tau)) /
+							( sqr(if97tau) * (if97_r5_GammaTauTau_o(if97tau) + if97_r5_GammaTauTau_r(if97pi, if97tau)))
+						)
+					)
+				 )
+			   );
+}
+
+ 
+
 

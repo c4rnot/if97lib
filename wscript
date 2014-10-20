@@ -46,6 +46,15 @@ def configure(cnf):
         
 	cnf.env.CFLAGS = ['-g', '-Wall']
 	
+	# link time optimisation
+	#cnf.env.append_unique('CFLAGS', ['-flto'])
+	
+	# normal release level compiler optimisation
+	 #cnf.env.append_unique('CFLAGS', ['-O2'])
+	
+	# compiler optimisation for executable size
+	#cnf.env.append_unique('CFLAGS', ['-Os'])
+	
 	if  cnf.env.THREAD == True: 
 		cnf.env.append_unique('CFLAGS', ['-fopenmp'])
 	#cnf.env.CXXFLAGS = cnf.env.CFLAGS 
@@ -74,13 +83,15 @@ def build(bld):
 	
 	# To make a bespoke build rule, it takes the following form
 	# bld(rule='cp ${SRC} ${TGT}', source='region2test_lnx', target='region2test.exe')
+	bld(rule='doxygen ${SRC} ${TGT}', source='if97-doxy-config', target='doc')
 	
 	bld.program(source='region2_test.c', target='region2_test', use='libif97', lib = ['m', 'gomp']) 
 	bld.program(source='region1_test.c', target='region1_test', use='libif97', lib = ['m', 'gomp'])
 	bld.program(source='region4_test.c', target='region4_test', use='libif97', lib = ['m'])
+	bld.program(source='region5_test.c', target='region5_test', use='libif97', lib = ['m', 'gomp']) 
 	bld.program(source='b23_test.c',     target='B23test', use='libif97', lib = ['m', 'gomp']) 
 	
-	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region4.c IF97_B23.c', target='libif97') 
+	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region5.c IF97_Region4.c IF97_B23.c', target='libif97') 
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')

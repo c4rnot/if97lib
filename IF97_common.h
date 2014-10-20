@@ -55,6 +55,11 @@
 	#define TSTAR_R2 540.0 // K
 	#define PSTAR_R2 1.0 // MPa
 	
+	
+	
+	#define PSTAR_R5 1.0  //MPa
+	#define TSTAR_R5 1000.0 //K
+	
 // ********COMMON FUNCTIONS**************//	
 
 // squares a double without using pow
