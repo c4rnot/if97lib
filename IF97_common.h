@@ -55,10 +55,27 @@
 	#define TSTAR_R2 540.0 // K
 	#define PSTAR_R2 1.0 // MPa
 	
+	#define TSTAR_R2_BW 1.0 // K
+	#define PSTAR_R2_BW 1.0 //MPa
+	#define HSTAR_R2_BW 2000.0 //MPa	
+	
+	#define SSTAR_R2A_BW 2.0 // kJ/kW/K
+	#define SSTAR_R2B_BW 0.7853 // kJ/kW/K
+	#define SSTAR_R2C_BW 2.9251 // kJ/kW/K
 	
 	
 	#define PSTAR_R5 1.0  //MPa
 	#define TSTAR_R5 1000.0 //K
+	
+// ********COMMON DATA STRUCTURES **************//	
+	
+typedef struct sctIF97Coeffs_IJn {
+	int Ii;
+	int Ji;
+	double ni;
+} typIF97Coeffs_IJn;
+	
+	
 	
 // ********COMMON FUNCTIONS**************//	
 

@@ -45,13 +45,13 @@ int main (int argc, char **argv)
 	printf ("\t\tp= 0.5 MPa \tp= 30 MPa \tp= 30 MPa\n\n");
 
 	printf ("g  (kJ/kg)\t?????????\t?????????\t???????????\t(1)\n");	
-	printf ("v  (m3/kg)\t1.38455090e00\t2.30761299e–02\t3.11385219e-02\n");
-	printf ("h  (kJ/kg)\t5.21976855e03\t5.16723514e03\t6.57122604e03\n");
-	printf ("u  (kJ/kg)\t4.52749310e03\t4.47495124e03\t5.63707038e03\n");
-	printf ("s  (kJ/kg.K)\t9.65408875e00\t7.72970133e00\t8.53640523e00\n");
-	printf ("Cp (kJ/kg.K)\t2.61609445e00\t2.72724317e00\t2.88569882e00\n");
+	printf ("v  (m3/kg)\t1.38455090e+00\t2.30761299e–02\t3.11385219e-02\n");
+	printf ("h  (kJ/kg)\t5.21976855e+03\t5.16723514e+03\t6.57122604e+03\n");
+	printf ("u  (kJ/kg)\t4.52749310e+03\t4.47495124e+03\t5.63707038e+03\n");
+	printf ("s  (kJ/kg.K)\t9.65408875e+00\t7.72970133e+00\t8.53640523e+00\n");
+	printf ("Cp (kJ/kg.K)\t2.61609445e+00\t2.72724317e+00\t2.88569882e+00\n");
 	printf ("Cv (kJ/kg.K)\t?????????\t?????????\t???????????\\t(2)\n");
-	printf ("w  (m/s)\t9.17068690e02\t9.28548002e02\t1.06736948e03\n\n");
+	printf ("w  (m/s)\t9.17068690e+02\t9.28548002e+02\t1.06736948e+03\n\n");
 	
 	printf ("\n(1) Using Freesteam \n(2) Using Moscow Power Institute calculation \n    http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-metastable-vapor.xmcd\n\n");
 	printf ("*******OUTPUT************\n");

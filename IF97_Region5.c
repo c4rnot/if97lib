@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-//    IAPWS-IF97 Region 5:  ##description of region## equations
+//    IAPWS-IF97 Region 5:  High Temperature Region equations
 /* *********************************************************************
  * *******             VALIDITY                             ************
  * 
@@ -270,7 +270,7 @@ return dblGammaSum;
 //**********************************************************
 //********* REGION 5 PROPERTY EQUATIONS*********************
 
-// specific Gibbs free energy in region 2 (kJ / kg)
+// specific Gibbs free energy in region 5 (kJ / kg)
 double if97_r5_g (double p_MPa , double t_Kelvin) {  
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -280,8 +280,9 @@ return IF97_R * t_Kelvin * if97_r5_Gamma(if97pi, if97tau);
 }
 
 
-// specific volume in region 2  (metres cubed per kilogram)  
+// specific volume in region 5  (metres cubed per kilogram)  
 // inputs need to convert to pure SI, hence the ´magic´ numbers
+// Checked OK
 double if97_r5_v (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -291,7 +292,8 @@ double if97_r5_v (double p_MPa , double t_Kelvin ){
 }
 
 
-// specific internal energy in region 2 (KJ / Kg)
+// specific internal energy in region 5 (KJ / Kg)
+// Checked OK
 double if97_r5_u (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -307,7 +309,8 @@ double if97_r5_u (double p_MPa , double t_Kelvin ){
 
 
 
-// specific entropy in region 2 (KJ / Kg.K)
+// specific entropy in region 5 (KJ / Kg.K)
+// Checked OK
 double if97_r5_s (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -320,7 +323,8 @@ double if97_r5_s (double p_MPa , double t_Kelvin ){
 
 
 
-// specific enthalpy in region 2 (KJ / Kg)
+// specific enthalpy in region 5 (KJ / Kg)
+// Checked OK
 double if97_r5_h (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -333,7 +337,7 @@ double if97_r5_h (double p_MPa , double t_Kelvin ){
 
 
 
-// specific isobaric heat capacity in region 2 (KJ / Kg.K)
+// specific isobaric heat capacity in region 5 (KJ / Kg.K)
 // Checked OK
 double if97_r5_Cp (double p_MPa , double t_Kelvin ){
 	
@@ -345,7 +349,7 @@ double if97_r5_Cp (double p_MPa , double t_Kelvin ){
 
 
 
-// specific isochoric heat capacity in region 2 (KJ / Kg.K)
+// specific isochoric heat capacity in region 5 (KJ / Kg.K)
 double if97_r5_Cv (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
@@ -358,8 +362,9 @@ double if97_r5_Cv (double p_MPa , double t_Kelvin ){
 }
 
 
-// speed of sound in region 2 (m/s)
+// speed of sound in region 5 (m/s)
 // inputs need to convert to pure SI, hence the ´magic´ number 1000
+// checked OK
 double if97_r5_w (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R5;
