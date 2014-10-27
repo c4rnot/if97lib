@@ -75,7 +75,15 @@ typedef struct sctIF97Coeffs_IJn {
 	double ni;
 } typIF97Coeffs_IJn;
 	
-	
+
+typedef struct sctIF97Coeffs_Jn {
+	int Ji;
+	double ni;
+} typIF97Coeffs_Jn;
+
+
+
+
 	
 // ********COMMON FUNCTIONS**************//	
 

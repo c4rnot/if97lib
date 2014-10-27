@@ -45,14 +45,11 @@
 //***************************************************************
 //****** REGION 2 GIBBS FREE ENERGY AND DERIVATIVES**************
 
-typedef struct sctGibbsCoeff_o {
-	int Ji;
-	double ni;
-} typR2coeff_o;
+
 
 
 // see Table 10
-const typR2coeff_o  GIBBS_COEFFS_R2_O[] = {
+const typIF97Coeffs_Jn  GIBBS_COEFFS_R2_O[] = {
 	 {0,		 0.0} 			 //0  i starts at 1, so 0th i is not used
 	,{ 0 , -9.6927686500217 }  // 1
 	,{ 1 , 10.086655968018 }
@@ -86,15 +83,10 @@ return log(if97_pi) + dblGammaSum;
 
 
 
-typedef struct sctGibbsCoeff_r {
-	int Ii;
-	int Ji;
-	double ni;
-} typR2coeff_r;
 
 
 // See table 11
-const typR2coeff_r  GIBBS_COEFFS_R2_R[] = {
+const typIF97Coeffs_IJn  GIBBS_COEFFS_R2_R[] = {
 	{0,	 0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
 	,{1,       0,       -1.7731742473213E-003}
 	,{1,       1,       -1.7834862292358E-002}

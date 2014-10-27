@@ -44,13 +44,10 @@
 //****** REGION 5 *******************************
 
 
-typedef struct sctGibbsCoeff_o {
-	int Ji;
-	double ni;
-} typR5coeff_o;
+
 
 // See Table 37
-const typR5coeff_o  GIBBS_COEFFS_R5_O[] = {
+const typIF97Coeffs_Jn  GIBBS_COEFFS_R5_O[] = {
 	{0,    0.0}  // not used
 	,{0,    -0.13179983674201E2} // 1
 	,{1,    0.68540841634434E1}
@@ -80,15 +77,8 @@ return log(if97_pi) + dblGammaSum;
 
 
 
-typedef struct sctGibbsCoeff_r {
-	int Ii;
-	int Ji;
-	double ni;
-} typR5coeff_r;
-
-
 // See Table 38
-const typR5coeff_r  GIBBS_COEFFS_R5_R[] = {
+const typIF97Coeffs_IJn  GIBBS_COEFFS_R5_R[] = {
 	 {0,    0,    0.0}  // not used
 	,{1,    1,    0.15736404855259E-2}  //1
 	,{1,    2,    0.90153761673944E-3}
@@ -306,9 +296,6 @@ double if97_r5_u (double p_MPa , double t_Kelvin ){
 
 
 
-
-
-
 // specific entropy in region 5 (KJ / Kg.K)
 // Checked OK
 double if97_r5_s (double p_MPa , double t_Kelvin ){
@@ -318,9 +305,6 @@ double if97_r5_s (double p_MPa , double t_Kelvin ){
 	
 	return (IF97_R ) * (if97tau * (if97_r5_GammaTau_o(if97tau) + if97_r5_GammaTau_r(if97pi,if97tau)) - if97_r5_Gamma(if97pi, if97tau))  ;
 }
-
-
-
 
 
 // specific enthalpy in region 5 (KJ / Kg)

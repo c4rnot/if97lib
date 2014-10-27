@@ -17,12 +17,6 @@
 
 
 
-typedef struct sctGibbsCoeff {
-	int Ii;
-	int Ji;
-	double ni;
-} typR1coeff;
-
 
 
 //***************************************************************
@@ -31,7 +25,7 @@ typedef struct sctGibbsCoeff {
 // http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-Region1.xmcd
 
 // see Table 2
-const typR1coeff  GIBBS_COEFFS_R1[] = {
+const typIF97Coeffs_IJn  GIBBS_COEFFS_R1[] = {
 	 {0,	0,		 0.0} 				   //0  i starts at 1, so 0th i is not used
 	,{0,	-2,		 0.14632971213167E+00} //1
 	,{0,	-1,		-0.84548187169114E+00} //2
@@ -294,7 +288,7 @@ double if97_r1_w (double p_MPa , double t_Kelvin ){
 double if97_r1_t_ph (double p_MPa , double h_kJperKg ){
 
 		// see Table 6
-	const typR1coeff  BW_COEFFS_R1_TPH[] = {
+	const typIF97Coeffs_IJn  BW_COEFFS_R1_TPH[] = {
 	 {0,	0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
 	,{0,	0,	-0.23872489924521E3}  //1
 	,{0,	1,	 0.40421188637945E3}
@@ -345,7 +339,7 @@ return TSTAR_R1_TPH * dblHSum;
 double if97_r1_t_ps (double p_MPa , double s_kJperKgK ){
 	
 	// see Table 8
-	const typR1coeff  BW_COEFFS_R1_TPH[] = {
+	const typIF97Coeffs_IJn  BW_COEFFS_R1_TPH[] = {
 	 {0,	0,	 0.0} 				   //0  i starts at 1, so 0th i is not used			
 	,{0,	0,	174.78268058307}  //1
 	,{0,	1,	34.806930892873}
