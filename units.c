@@ -24,21 +24,22 @@
 //  dblPow0  + x . dblPow1 + x . dblPow2 ^ 2 ....
 // log to base dblLogBase (dblPow0  + x . dblPow1 + x . dblPow2 ^ 2 ....)
 // TODO calcs for logs
-double applyCoeffs(double input, typConvCoeffs coeffs) {
-return coeffs[0] + input * coeffs[1];
+
+double applyCoeffs (double input, typConvCoeffs coeffs) {
+return coeffs.dblPow[0] + input * coeffs.dblPow[1];
 }
 
 
 
-double applyInvCoeffs
+//double applyInvCoeffs
 
 const typUnit builtInUnits[] = {
 	{ "void", "-", DIMENSIONLESS, { {0, 1 }, 0.0}, "void", false} //dummy to make sure include file consistency
-#include "built_in_units.dat"
-}
+/*#include "built_in_units.dat" */
+};
 			
 				
-int getUnitIndex ( char[50] strUnit){
+int getUnitIndex ( char strUnit[]){
 // TODO
 	int i = 0;
 
@@ -67,7 +68,7 @@ typDimensions getDimensions (int unit){
 
 
 
-char[50] getUnitType (int unit){
+void getUnitType (int unit, char strUnitType[]){
 // TODO
 }			
 				

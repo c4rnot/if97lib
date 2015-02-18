@@ -14,8 +14,8 @@
 #define UNITS_H
 
 
-#include "units.h"
 #include <string.h>
+#include <stdbool.h>
 
 
 /* *********************************************************************
@@ -94,12 +94,13 @@ typedef struct sctDimensions {
 
 
 typedef struct sctUnitTypeDefinition {
-	char[50] strTypeName,
+	char strTypeName[50];
 	typDimensions fundamentalDimensions;
 }typUnitTypeDefinition;
 
 
 // this needs to match unitTypeT for mumbers and names
+/*
 typUnitTypeDefinition UnitTypeDefinitions[] = {
 	{"DIMENSIONLESS", 	{0, 0, 0}} // 0	
 	,{"MASS",			{1, 0, 0}} // 1
@@ -115,7 +116,7 @@ typUnitTypeDefinition UnitTypeDefinitions[] = {
 	//			ENTROPY = 11,
 	,{"SPEED", 			{1, 0, -1}} // 12,      needs new home VELOCITY {1, 0, -1} =12,
 	//			TEMPERATURE =13, 
-	,{"PRESSURE" 		{1, -1, -2}} // 14, 
+	,{"PRESSURE", 		{1, -1, -2}} // 14, 
 	,{"POWER", 			{1, 2, -3}} // 15,	
 	,{"TORQUE",			{1, 2, -2}} // 16;
 	,{"ACCELERATION", 	{1, 0, -2}} // 17,
@@ -151,15 +152,15 @@ typUnitTypeDefinition UnitTypeDefinitions[] = {
 				RADIATION_ABSORBED_DOSE = 37;
 				RADIATION_EQUIVALENT_DOSE = 38;
 						
-			*/	
+			
 				
 	,{"MASS_FLOW",			{1, 0, -1}} // 40,
 	,{"VOLUMETRIC_FLOW",	{0, 3, -1}} // 41,
 	,{"DYNAMIC_VISCOSITY", {1, -1, -1}} // 42;
 	,{"KINEMATIC VISCOSITY",	{0, 2, -1}} // 43;
 	,{"BULK_MODULOUS", 		{1, -1, -2}} // 44
-}
-
+};
+*/
 
 typedef struct sctConvCoeffs {
 	double dblPow[2];
@@ -185,7 +186,7 @@ typedef struct sctUnit {
  */
 
 /** gets the index of the unit for passing to other functions */
-int getUnitIndex ( char[50] strUnit)
+int getUnitIndex ( char strUnit[]);
 
 
 double convertUnit (double inVal, int inUnit, int outUnit);
@@ -196,7 +197,7 @@ double isCompatible (int inUnit, int outUnit);
 
 typDimensions getDimensions (int unit);
 
-char[50] getUnitType (int unit);
+void getUnitType (int unit, char strUnitType[]);
 
 
 #endif // UNITS_H
