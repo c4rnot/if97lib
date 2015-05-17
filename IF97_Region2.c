@@ -623,7 +623,7 @@ const typIF97Coeffs_IJn  COEFFS_R2C_BW_PH[] = {
 	,{6,    22,    0.12918582991878E-2}
 };
 
-const int MAX_COEFFS_R2C_BW_PH = 22;
+const int MAX_COEFFS_R2C_BW_PH = 23;
 
 //returns temperature (K) in region 2c for a given pressure and enhalpy
 //

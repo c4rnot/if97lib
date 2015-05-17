@@ -167,6 +167,7 @@ int main (int argc, char **argv)
 
 // B2bc Boundary Equation check
 // For verification the equations below must meet the following p-h point
+// see IAPWS-IF97 paragraph following Table 19
 //
 // p= 1.00000000 E2 MPa
 // h= 3.516004323 E3 kJ/kg
@@ -182,11 +183,63 @@ int main (int argc, char **argv)
 
 
 
+/* Region 2 Backwards Equations T(p,h) check:
+* see IAPWS-IF97 Table 24
+*
+* The results should be as follows
+*
+*	Region		p(MPa)			h(kJ/kg)		T(K)
+*	-------------------------------------------------
+*	2a			0.001			3000			5.34 433 241 E02
+*	2a			3				3000			5.75 373 370 E02
+*	2a			3				4000			1.01 077 577 E03
+*	-------------------------------------------------
+*	2b			5				3500			8.01 299 102 E02
+*	2b			5				4000			1.01 531 583 E03
+*	2b			25				3500			8.75 279 054 E02
+*	-------------------------------------------------
+*	2c			40				2700			7.43 056 411 E02
+*	2c			60				2700			7.91 137 067 E02
+*	2c			60				3200			8.82 756 860 E02
+*/
 
 
 
+	printf ("\n\n************************************************************ \n" );
+	printf ("IF97 REGION 2 T(p, h) BACKWARDS EQUATIONS CHECK \n\n" );
+	printf ("The output should be the following: \n\n");
 	
+	printf ("Region\tp(MPa)\th(kJ/kg)\tT(K)\n");
+	printf ("-------------------------------------------------\n");
+	printf ("2a\t0.001\t3000\t\t5.34433241E02\n");
+	printf ("2a\t3\t3000\t\t5.75373370E02\n");
+	printf ("2a\t3\t4000\t\t1.01077577E03\n");
+	printf ("-------------------------------------------------\n");
+	printf ("2b\t5\t3500\t\t8.01299102E02\n");
+	printf ("2b\t5\t4000\t\t1.01531583E03\n");
+	printf ("2b\t25\t3500\t\t8.75279054E02\n");
+	printf ("-------------------------------------------------\n");
+	printf ("2c\t40\t2700\t\t7.43056411E02\n");
+	printf ("2c\t60\t2700\t\t7.91137067E02\n");
+	printf ("2c\t60\t3200\t\t8.82756860E02\n\n");	
 	
+	printf ("*******OUTPUT************\n");
+	printf ("Region\tp(MPa)\th(kJ/kg)\tT(K)\n");
+	printf ("-------------------------------------------------\n");
+	
+	printf ("2a\t0.001\t3000\t\t%.8e\n", if97_r2a_t_ph(0.001,  3000.0) );
+	printf ("2a\t3\t3000\t\t%.8e\n", if97_r2a_t_ph(3.0,  3000.0) );
+	printf ("2a\t3\t4000\t\t%.8e\n", if97_r2a_t_ph(3.0,  4000.0) );
+		printf ("-------------------------------------------------\n");
+	printf ("2b\t5\t3500\t\t%.8e\n", if97_r2b_t_ph(5.0,  3500.0) );
+	printf ("2b\t5\t4000\t\t%.8e\n", if97_r2b_t_ph(5.0,  4000.0) );
+	printf ("2b\t25\t3500\t\t%.8e\n", if97_r2b_t_ph(25.0,  3500.0) );
+		printf ("-------------------------------------------------\n");
+	printf ("2c\t40\t2700\t\t%.8e\n", if97_r2c_t_ph(40.0,  2700.0) );
+	printf ("2c\t60\t2700\t\t%.8e\n", if97_r2c_t_ph(60.0,  2700.0) );
+	printf ("2c\t60\t3200\t\t%.8e\n", if97_r2c_t_ph(60.0,  3200.0) );		
+		
+		
 	
 // check threading using OpenMP test
 	printf ("\n\n************************************************************ \n" );

@@ -7,8 +7,8 @@
 
 //    IAPWS-IF97 constants used throughout the formulation
 
-#ifndef IF97_CONSTS_H
-#define IF97_CONSTS_H
+#ifndef IF97_COMMON_H
+#define IF97_COMMON_H
 
 
 // ********REGION BOUNDARY CONSTANTS**************//
@@ -95,4 +95,4 @@ double cube (double dblArg);
 
 
 
-#endif // IF97_CONSTS_H
+#endif // IF97_COMMON_H

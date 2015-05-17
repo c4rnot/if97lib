@@ -118,14 +118,28 @@
 //********* REGION 2 BACKWARDS EQUATIONS *************
 
 
-/** returns the pressure of the 2b-2c boundary in MPa for a given 
- * enthalpy in kJ/kg */
+/** returns the pressure (MPa) of the 2b-2c boundary for a given 
+ * enthalpy (kJ/kg) */
 double IF97_B2bc_p (double h_kJperKg);
 
-/** returns the enthalpy of the 2b-2c boundary in kJ/kg for a given 
- * pressure in MPa */
+
+/** returns the enthalpy (kJ/kg) of the 2b-2c boundary  for a given 
+ * pressure (MPa) */
 double IF97_B2bc_h (double p_MPa);
 
 
+/** returns temperature (K) in region 2a for a given pressure (MPa) 
+ * and enhalpy (kJ/kg) */
+double if97_r2a_t_ph (double p_MPa, double h_kJperkg);
+
+
+/** returns temperature (K) in region 2b for a given pressure (MPa) 
+ * and enhalpy (kJ/kg) */
+double if97_r2b_t_ph (double p_MPa, double h_kJperkg);
+
+
+/** returns temperature (K) in region 2c for a given pressure (MPa) 
+ * and enhalpy (kJ/kg) */
+double if97_r2c_t_ph (double p_MPa, double h_kJperkg);
 
 #endif // IF97_REGION2_H

@@ -9,7 +9,7 @@
 * A SHORT PROGRAMME TO CHECK REGION 5 PROPERTY EQUATIONS 
 * *********************************************************************/
 
-//TODO  insert correct conditions and check table
+//TODO  insert correct conditions for g and Cv and check table
 
 #include "IF97_Region5.h"
 #include <stdio.h>
@@ -20,7 +20,7 @@ int main (int argc, char **argv)
 {
 
 /* PROPERY (FORWARDS) EQUATIONS
-* see IAPWS-IF97 Table 15
+* see IAPWS-IF97 Table 42
 *
 * The results should be as follows
 *
@@ -39,7 +39,7 @@ int main (int argc, char **argv)
 */
 
 	printf ("\n\n************************************************************ \n" );
-	printf ("IF97 REGION 2 PROPERTY (FORWARDS) EQUATIONS CHECK \n\n" );
+	printf ("IF97 REGION 5 (high temperature steam) PROPERTY (FORWARDS) EQUATIONS CHECK \n\n" );
 	printf ("The output should be the following: \n\n");
 	printf ("\t\tT= 1500 K \tT= 1500 K \tT= 2000 K\n");
 	printf ("\t\tp= 0.5 MPa \tp= 30 MPa \tp= 30 MPa\n\n");
