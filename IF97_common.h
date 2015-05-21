@@ -76,6 +76,13 @@ typedef struct sctIF97Coeffs_IJn {
 } typIF97Coeffs_IJn;
 	
 
+typedef struct sctIF97Coeffs_IdJn {  //for R2 backwards
+	double Ii;
+	int Ji;
+	double ni;
+} typIF97Coeffs_IdJn;
+
+
 typedef struct sctIF97Coeffs_Jn {
 	int Ji;
 	double ni;

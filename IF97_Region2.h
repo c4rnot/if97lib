@@ -142,4 +142,19 @@ double if97_r2b_t_ph (double p_MPa, double h_kJperkg);
  * and enhalpy (kJ/kg) */
 double if97_r2c_t_ph (double p_MPa, double h_kJperkg);
 
+
+/** returns temperature (K) in region 2a for a given pressure (MPa) 
+ * and entropy (kJ/kg.K) */
+double if97_r2a_t_ps (double p_MPa, double s_kJperkgK );
+
+
+/** returns temperature (K) in region 2b for a given pressure (MPa) 
+ * and entropy (kJ/kg.K) */
+double if97_r2b_t_ps (double p_MPa, double s_kJperkgK );
+
+
+/** returns temperature (K) in region 2c for a given pressure (MPa) 
+ * and entropy (kJ/kg.K) */
+double if97_r2c_t_ps (double p_MPa, double s_kJperkgK );
+
 #endif // IF97_REGION2_H
