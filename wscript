@@ -85,8 +85,10 @@ def build(bld):
 	# bld(rule='cp ${SRC} ${TGT}', source='region2test_lnx', target='region2test.exe')
 	bld(rule='doxygen ${SRC} ${TGT}', source='if97-doxy-config', target='doc')
 	
-	bld.program(source='region2_test.c', target='region2_test', use='libif97', lib = ['m', 'gomp']) 
+
 	bld.program(source='region1_test.c', target='region1_test', use='libif97', lib = ['m', 'gomp'])
+	bld.program(source='region2_test.c', target='region2_test', use='libif97', lib = ['m', 'gomp']) 
+	bld.program(source='region3_test.c', target='region3_test', use='libif97', lib = ['m', 'gomp']) 	
 	bld.program(source='region4_test.c', target='region4_test', use='libif97', lib = ['m'])
 	bld.program(source='region5_test.c', target='region5_test', use='libif97', lib = ['m', 'gomp']) 
 	bld.program(source='b23_test.c',     target='B23test', use='libif97', lib = ['m', 'gomp']) 

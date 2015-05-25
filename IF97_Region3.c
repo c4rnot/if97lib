@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-//    IAPWS-IF97 Region 3: vapour: saturation to critical region equations
+//    IAPWS-IF97 Region 3: low temperature supercritical and metastable region equations
 /* *********************************************************************
  * *******             VALIDITY                             ************
  * 623.15 K <=T <= T ( p ) [B23 temperature equation]
@@ -89,7 +89,7 @@ const typIF97Coeffs_IJn  PHI_COEFFS_R3[] = {
 const int MAX_COEFFS_PHI_R3 = 40;
 
 // dimensionless helmholz free energy in Region3 :   See Equation 28
-double if97_r3_phi (double if97_delta, double  if97_tau) {
+double if97_r3_Phi (double if97_delta, double  if97_tau) {
 	
 	int i;
 	double dblPhiSum = 0.0;
@@ -201,3 +201,107 @@ return   dblPhiSum;
 
 
 
+//**********************************************************
+//********* REGION 3 PROPERTY EQUATIONS*********************
+
+// specific Helmholz free energy in region 3 (kJ / kg)
+double if97_r3_hhz (double rho_kgPerM3 , double t_Kelvin) {  
+	
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau = IF97_TC / t_Kelvin;
+	
+return IF97_R * t_Kelvin * if97_r3_Phi(if97delta, if97tau);
+}
+
+
+
+// pressure (MPa) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_p (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau =  IF97_TC / t_Kelvin;
+	
+return  rho_kgPerM3 *  IF97_R * t_Kelvin * if97delta * if97_r3_PhiTau(if97delta, if97tau);
+}	
+
+
+// specific internal energy (kJ/kg) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_u (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau = IF97_TC / t_Kelvin;
+	
+return IF97_R * t_Kelvin * if97tau * if97_r3_PhiTau(if97delta, if97tau);
+}	
+
+
+// specific entropy (kJ/kg K) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_s (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau = IF97_TC / t_Kelvin;
+	
+return IF97_R * ( if97tau * if97_r3_PhiTau(if97delta, if97tau) - if97_r3_Phi(if97delta, if97tau)) ;
+}	
+
+
+// specific enthalpy (kJ/kg) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_h (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau = IF97_TC / t_Kelvin;
+	
+return IF97_R * t_Kelvin * ( if97tau * if97_r3_PhiTau(if97delta, if97tau) - if97delta * if97_r3_PhiDelta(if97delta, if97tau)) ;
+}	
+
+
+
+// specific isochoric heat capacity Cv (kJ/kg K) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_Cv (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau =  IF97_TC / t_Kelvin;
+	
+return  - IF97_R * ( sqr (if97tau ) * if97_r3_PhiTauTau(if97delta, if97tau) ) ;
+}	
+
+
+
+// specific isobaric heat capacity Cp (kJ/kg K) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_Cp (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau = IF97_TC / t_Kelvin;
+	
+	double numerator = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
+	
+	
+	double denominator = 2.0 * if97delta * if97_r3_PhiDelta(if97delta, if97tau) + sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau) ;
+	
+return  -sqr(if97tau)* if97_r3_PhiTauTau(if97delta, if97tau) + numerator / denominator ;
+}	
+
+
+
+// speed of sound w (m/s) in region 3 for a given density (kg/m3) and temperature (K)
+double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
+		
+	double if97delta = rho_kgPerM3 / IF97_RHOC;
+	double if97tau =  IF97_TC / t_Kelvin;
+	
+	double part1 = 2.0 * if97delta * if97_r3_PhiDelta( if97delta, if97tau) ;
+	
+	double part2 = sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau);
+	
+	double part3num = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
+	
+	
+	double part3denom = sqr(if97tau) * if97_r3_PhiTau(if97delta, if97tau); ;
+	
+return  part1 + part2 - part3num / part3denom ;
+}	
+
+
+
+
+// TODO Phase Equilibrium equations from table 31
