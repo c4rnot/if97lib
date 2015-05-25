@@ -4,12 +4,15 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-//    IAPWS-IF97 Region 3: xxx region equations
+//    IAPWS-IF97 Region 3: vapour: saturation to critical region equations
 /* *********************************************************************
  * *******             VALIDITY                             ************
  * 623.15 K <=T <= T ( p ) [B23 temperature equation]
  * p ( T ) [B23 temperature equation] <= p <= 100 MPa .
  * 
+ * In addition, region 3 yields reasonable values inthe metastable regions
+ * (superheated liquid and subcooleed steam close to the saturated liquid
+ * and saturated vapor line
  * 
  * ****************************************************************** */
  
@@ -31,22 +34,15 @@
  # include <omp.h>
  #endif
 */
-// #include <stdio.h>  used for debugging only
+// #include <stdio.h>  //used for debugging only
 
 
 //***************************************************************
 //****** REGION 3 HELMHOLTZ FREE ENERGY AND DERIVATIVES**************
 
-typedef struct sctHHCoeff {
-	int Ii;
-	int Ji;
-	double ni;
-} typR3coeff;
-
-
 
 	
-const typR3coeff  HH_COEFFS_R3[] = {
+const typIF97Coeffs_IJn  PHI_COEFFS_R3[] = {
 	{0,    0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
 	,{ 0,    0,    0.10658070028513E1}	// "0, 0" are "-, -" in the standard
 	,{ 0,    0,    -0.15732845290239E2}
@@ -89,6 +85,119 @@ const typR3coeff  HH_COEFFS_R3[] = {
 	,{ 10,    1,    -0.16557679795037E-3}
 	,{ 11,    26,    -0.44923899061815E-4}
 };
+
+const int MAX_COEFFS_PHI_R3 = 40;
+
+// dimensionless helmholz free energy in Region3 :   See Equation 28
+double if97_r3_phi (double if97_delta, double  if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *  pow(if97_delta, PHI_COEFFS_R3[i].Ii)*  pow((if97_tau ), PHI_COEFFS_R3[i].Ji)	;
+		}		 
+	
+return  PHI_COEFFS_R3[1].ni * log(if97_delta) + dblPhiSum;
+}
+
+
+
+
+
+// [d phi / d delta] keeping tau constant
+double if97_r3_PhiDelta(double if97_delta, double if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *   PHI_COEFFS_R3[i].Ii *  pow(if97_delta , PHI_COEFFS_R3[i].Ii - 1.0 ) *  pow( if97_tau, PHI_COEFFS_R3[i].Ji)	;
+		}		 
+	
+return  PHI_COEFFS_R3[1].ni /if97_delta + dblPhiSum;
+}
+
+
+
+// [d phi / d tau] keeping delta constant
+double if97_r3_PhiTau(double if97_delta, double if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *  pow(if97_delta ,  PHI_COEFFS_R3[i].Ii) *  PHI_COEFFS_R3[i].Ji *  pow( if97_tau, PHI_COEFFS_R3[i].Ji - 1.0)	;
+		}		 
+	
+return  dblPhiSum;
+}
+
+
+// [d phi / d delta sqr] keeping tau constant
+double if97_r3_PhiDeltaDelta(double if97_delta, double if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *   PHI_COEFFS_R3[i].Ii * (PHI_COEFFS_R3[i].Ii -1 ) * pow(if97_delta , PHI_COEFFS_R3[i].Ii - 2.0 ) *  pow( if97_tau, PHI_COEFFS_R3[i].Ji)	;
+		}		 
+	
+return  - PHI_COEFFS_R3[1].ni / sqr(if97_delta) + dblPhiSum;
+}
+
+
+
+// [d phi / d Tau sqr] keeping delta constant
+double if97_r3_PhiTauTau(double if97_delta, double if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *   pow (if97_delta, PHI_COEFFS_R3[i].Ii )  *   PHI_COEFFS_R3[i].Ji * (PHI_COEFFS_R3[i].Ji - 1.0) *  (PHI_COEFFS_R3[i].Ii -1 ) *  pow( if97_tau, PHI_COEFFS_R3[i].Ji - 2.0)	;
+		}		 
+	
+return   dblPhiSum;
+}
+
+
+
+
+// [d sqr phi / d delta d Tau] 
+double if97_r3_PhiDeltaTau(double if97_delta, double if97_tau) {
+	
+	int i;
+	double dblPhiSum = 0.0;
+	
+	
+	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
+	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) { 
+	
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *  PHI_COEFFS_R3[i].Ii  * pow (if97_delta, PHI_COEFFS_R3[i].Ii -1) * PHI_COEFFS_R3[i].Ji * pow (if97_tau, PHI_COEFFS_R3[i].Ji - 1.0) ;
+		}		 
+	
+return   dblPhiSum;
+}
+
+
+
 
 
 

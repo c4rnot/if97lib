@@ -91,7 +91,7 @@ def build(bld):
 	bld.program(source='region5_test.c', target='region5_test', use='libif97', lib = ['m', 'gomp']) 
 	bld.program(source='b23_test.c',     target='B23test', use='libif97', lib = ['m', 'gomp']) 
 	
-	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region5.c IF97_Region4.c IF97_B23.c', target='libif97') 
+	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region3.c IF97_Region4.c IF97_Region5.c IF97_B23.c', target='libif97') 
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')
