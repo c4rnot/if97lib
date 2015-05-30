@@ -91,6 +91,30 @@ typedef struct sctIF97Coeffs_Jn {
 
 
 
+enum phase_t { 
+	SOLID = 0,  solid = 0,   Solid = 0,	
+	LIQUID = 1, liquid = 1, Liquid =1,	
+	WET = 2, wet = 2, Wet = 2,	
+	VAPOUR = 3, vapour = 3, Vapour =3,  
+};
+
+
+typedef struct sctSteamState {  //-9999 if not applicable
+	double p_MPa;
+	double t_K;
+	double h_kJperkg;
+	double s_kJperkgK;
+	double Cv_kJperkgK;
+	double Cp_kJperkgK;
+	double Vs_MperSec;
+	double rho_kgperM3;
+	double qual_pct ;
+	enum phase_t phase;
+	int iRegion;
+	char strSteamTables[50];
+} typSteamState;
+
+
 	
 // ********COMMON FUNCTIONS**************//	
 

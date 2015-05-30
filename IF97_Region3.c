@@ -1,4 +1,4 @@
-//          Copyright Martin Lord 2014-2014.
+//          Copyright Martin Lord 2014-2015.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -34,7 +34,7 @@
  # include <omp.h>
  #endif
 */
-// #include <stdio.h>  //used for debugging only
+ #include <stdio.h>  //used for debugging only
 
 
 //***************************************************************
@@ -171,9 +171,9 @@ double if97_r3_PhiTauTau(double if97_delta, double if97_tau) {
 	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
 	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) {
 	
-		dblPhiSum +=   PHI_COEFFS_R3[i].ni *   pow (if97_delta, PHI_COEFFS_R3[i].Ii )  *   PHI_COEFFS_R3[i].Ji * (PHI_COEFFS_R3[i].Ji - 1.0) *  (PHI_COEFFS_R3[i].Ii -1 ) *  pow( if97_tau, PHI_COEFFS_R3[i].Ji - 2.0)	;
+		dblPhiSum += PHI_COEFFS_R3[i].ni * pow( if97_delta, PHI_COEFFS_R3[i].Ii) * PHI_COEFFS_R3[i].Ji 
+						* (PHI_COEFFS_R3[i].Ji  - 1.0) * pow(if97_tau, PHI_COEFFS_R3[i].Ji  - 2.0);
 		}		 
-	
 return   dblPhiSum;
 }
 
@@ -190,7 +190,8 @@ double if97_r3_PhiDeltaTau(double if97_delta, double if97_tau) {
 	#pragma omp parallel for reduction(+:dblPhiSum) 	//handle loop multithreaded
 	for (i=2; i <= MAX_COEFFS_PHI_R3 ; i++) { 
 	
-		dblPhiSum +=   PHI_COEFFS_R3[i].ni *  PHI_COEFFS_R3[i].Ii  * pow (if97_delta, PHI_COEFFS_R3[i].Ii -1) * PHI_COEFFS_R3[i].Ji * pow (if97_tau, PHI_COEFFS_R3[i].Ji - 1.0) ;
+		dblPhiSum +=   PHI_COEFFS_R3[i].ni *  PHI_COEFFS_R3[i].Ii  * pow (if97_delta, PHI_COEFFS_R3[i].Ii -1) 
+							* PHI_COEFFS_R3[i].Ji * pow (if97_tau, PHI_COEFFS_R3[i].Ji - 1.0) ;
 		}		 
 	
 return   dblPhiSum;
@@ -221,7 +222,7 @@ double if97_r3_p (double rho_kgPerM3 , double t_Kelvin ) {
 	double if97delta = rho_kgPerM3 / IF97_RHOC;
 	double if97tau =  IF97_TC / t_Kelvin;
 	
-return  rho_kgPerM3 *  IF97_R * t_Kelvin * if97delta * if97_r3_PhiTau(if97delta, if97tau);
+return  0.001 * rho_kgPerM3 *  IF97_R * t_Kelvin * if97delta * if97_r3_PhiDelta(if97delta, if97tau);  // factor of 1000 because R  needs to go from kJ/kg to J/kg
 }	
 
 
@@ -251,7 +252,7 @@ double if97_r3_h (double rho_kgPerM3 , double t_Kelvin ) {
 	double if97delta = rho_kgPerM3 / IF97_RHOC;
 	double if97tau = IF97_TC / t_Kelvin;
 	
-return IF97_R * t_Kelvin * ( if97tau * if97_r3_PhiTau(if97delta, if97tau) - if97delta * if97_r3_PhiDelta(if97delta, if97tau)) ;
+return IF97_R * t_Kelvin * ( if97tau * if97_r3_PhiTau(if97delta, if97tau) + if97delta * if97_r3_PhiDelta(if97delta, if97tau)) ;
 }	
 
 
@@ -278,7 +279,11 @@ double if97_r3_Cp (double rho_kgPerM3 , double t_Kelvin ) {
 	
 	double denominator = 2.0 * if97delta * if97_r3_PhiDelta(if97delta, if97tau) + sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau) ;
 	
-return  -sqr(if97tau)* if97_r3_PhiTauTau(if97delta, if97tau) + numerator / denominator ;
+return  IF97_R * (-sqr(if97tau) * if97_r3_PhiTauTau(if97delta, if97tau) 
+		
+		+  sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) 
+			/ (2.0 * if97delta * if97_r3_PhiDelta(if97delta, if97tau) + sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau))
+					);
 }	
 
 
@@ -296,9 +301,9 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
 	double part3num = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
 	
 	
-	double part3denom = sqr(if97tau) * if97_r3_PhiTau(if97delta, if97tau); ;
+	double part3denom = sqr(if97tau) * if97_r3_PhiTauTau(if97delta, if97tau); ;
 	
-return  part1 + part2 - part3num / part3denom ;
+  return  sqrt(IF97_R * 1000.0 * t_Kelvin * (part1 + part2 - part3num / part3denom)) ;  // 1000 because R in in KJ / Kg.K  not J / Kg.K 
 }	
 
 
