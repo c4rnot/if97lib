@@ -106,4 +106,27 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) ;
 
 // TODO Phase Equilibrium equations from table 31
 
+
+
+
+/* **********************************************************
+********* REGION 3 BACKWARDS EQUATIIONS v(p,t) **************
+* 
+* Revised Supplementary Release on Backward Equations for Specific Volume 
+* as a Function of Pressure and Temperature v(p,T) for Region 3 of the 
+* IAPWS Industrial Formulation 1997 for the Thermodynamic Properties
+* of Water and Steam.
+* 
+*  
+* http://iapws.org/relguide/Supp-VPT3-2014.pdf
+*/
+
+/** checks if a combination of Pressure (MPa) and Temperature (K) is in 
+ * the near critical region where the IAPWS-IF97 numerical consistency 
+ * criteria of 0.001% on enthalpy and entropy and 0.1% on Cp and Vs are 
+ * not met.  See figure 2   
+ */
+bool isNearCritical(double p_MPa, double t_K);
+
+
 #endif // IF97_REGION3_H

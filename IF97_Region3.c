@@ -274,11 +274,7 @@ double if97_r3_Cp (double rho_kgPerM3 , double t_Kelvin ) {
 	double if97delta = rho_kgPerM3 / IF97_RHOC;
 	double if97tau = IF97_TC / t_Kelvin;
 	
-	double numerator = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
-	
-	
-	double denominator = 2.0 * if97delta * if97_r3_PhiDelta(if97delta, if97tau) + sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau) ;
-	
+		
 return  IF97_R * (-sqr(if97tau) * if97_r3_PhiTauTau(if97delta, if97tau) 
 		
 		+  sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) 
@@ -298,10 +294,11 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
 	
 	double part2 = sqr(if97delta) * if97_r3_PhiDeltaDelta(if97delta, if97tau);
 	
-	double part3num = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) - if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
+	double part3num = sqr (if97delta * if97_r3_PhiDelta(if97delta, if97tau) 
+			- if97delta * if97tau * if97_r3_PhiDeltaTau(if97delta, if97tau)) ;
 	
 	
-	double part3denom = sqr(if97tau) * if97_r3_PhiTauTau(if97delta, if97tau); ;
+	double part3denom = sqr(if97tau) * if97_r3_PhiTauTau(if97delta, if97tau);
 	
   return  sqrt(IF97_R * 1000.0 * t_Kelvin * (part1 + part2 - part3num / part3denom)) ;  // 1000 because R in in KJ / Kg.K  not J / Kg.K 
 }	
@@ -310,3 +307,132 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
 
 
 // TODO Phase Equilibrium equations from table 31
+
+
+
+/*  TODO:  What are Joule Thompson Coefficient, isothermal throttling coefficient
+ *  and isentropic temperature - pressure coefficient in the Moscow Power 
+ * Institute page for region 3?
+ * 
+ * http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-Region3.xmcd
+ */
+
+
+
+/* **********************************************************
+********* REGION 3 BACKWARDS EQUATIIONS v(p,t) **************
+* 
+* Revised Supplementary Release on Backward Equations for Specific Volume 
+* as a Function of Pressure and Temperature v(p,T) for Region 3 of the 
+* IAPWS Industrial Formulation 1997 for the Thermodynamic Properties
+* of Water and Steam.
+* 
+*  
+* http://iapws.org/relguide/Supp-VPT3-2014.pdf
+*/
+
+
+typIF97Coeffs_Jn T3AB_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,   0.154793624129415e04}	
+	,{1,    -0.187661219490113e03}
+	,{2,	0.213144632222113e02}
+	,{-1	-0.191887498864292e04}
+	,{-2,	0.918419702359447e03}
+};
+
+
+typIF97Coeffs_Jn T3CD_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,   0.585276996696349e03}	
+	,{1,    0.278233532206915e01}
+	,{2,	-0.127283549295878e-1}
+	,{3,	0.159090746562729e-3}
+};
+
+
+
+typIF97Coeffs_Jn T3GH_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,   -0.249284240900418e05}	
+	,{1,    0.428143584791546e04}
+	,{2,	-0.269029173140130e03}
+	,{3,	0.751608051114157e01}
+	,{4,	-0.787105249910383e-1}
+};
+
+
+
+typIF97Coeffs_Jn T3IJ_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.584814781649163e03}	
+	,{1,    -0.616179320924617e00}
+	,{2,	0.260763050899562e00}
+	,{3,	-0.587071076864459e-2}
+	,{4,	0.515308185433082e-4}
+};
+
+
+
+typIF97Coeffs_Jn T3JK_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.617229772068439e03}	
+	,{1,    -0.770600270141675e01}
+	,{2,	0.697072596851896e00}
+	,{3,	-0.157391839848015e-1}
+	,{4,	0.137897492684194e-3}
+};
+
+
+
+typIF97Coeffs_Jn T3MN_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.535339483742384e03}	
+	,{1,    0.761978122720128e01}
+	,{2,	-0.158365725441648e00}
+	,{3,	0.192871054508108e-2}
+};
+
+
+
+typIF97Coeffs_Jn T3OP_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.969461372400213e03}	
+	,{1,    -0.332500170441278e03}
+	,{2,	0.642859598466067e02}
+	,{-1,	0.773845935768222e03}
+	,{-2,	-0.152313732937084e04}
+};
+
+
+typIF97Coeffs_Jn T3QU_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.565603648239126e03}	
+	,{1,    0.529062258221122e01}
+	,{2,	-0.102020639611016e00}
+	,{3,	0.122240301070145e-2}
+};
+
+
+
+typIF97Coeffs_Jn T3RX_P_R3_COEFFS[] = {
+	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
+	,{0,	0.584561202520006e03}	
+	,{1,    -0.102961025163669e01}
+	,{2,	0.243293362700452e00}
+	,{3,	-0.294905044740799e-2}
+};
+
+
+
+bool isNearCritical(double p_MPa, double t_K){
+
+//TODO
+	
+};
+
+
+
+
+
+

@@ -9,7 +9,7 @@
 
 #ifndef IF97_COMMON_H
 #define IF97_COMMON_H
-
+#include <stdbool.h>
 
 // ********REGION BOUNDARY CONSTANTS**************//
 
