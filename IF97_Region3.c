@@ -22,13 +22,15 @@
   * This library uses math.h, so must have the -lm  link flag
   * 
   * The library is programmed to be able to use OpenMP multithreading   
-  * use the -fopenmp complie flag to enable multithreadded code
+  * use the -fopenmp compile flag to enable multithreadded code
   * 
   * ****************************************************************** */
    
 
 #include "IF97_common.h"  //PSTAR TSTAR & sqr
 #include "IF97_Region3.h"
+#include "IF97_Region4.h" 
+#include "IF97_B23.h"   // not strictly required but used in v(p,t) subregion selector as an error detector
 #include <math.h> // for pow, log
 /* #ifdef _OPENMP // multithreading via libgomp
  # include <omp.h>
@@ -332,19 +334,21 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
 */
 
 
+// The following sets of coefficients from table 1.
+
 typIF97Coeffs_Jn T3AB_P_R3_COEFFS[] = {
 	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
-	,{0,   0.154793624129415e04}	
+	,{0,	0.154793642129415e04}	
 	,{1,    -0.187661219490113e03}
 	,{2,	0.213144632222113e02}
-	,{-1	-0.191887498864292e04}
+	,{-1,	-0.191887498864292e04}
 	,{-2,	0.918419702359447e03}
 };
 
 
 typIF97Coeffs_Jn T3CD_P_R3_COEFFS[] = {
 	{0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
-	,{0,   0.585276996696349e03}	
+	,{0,   0.585276966696349e03}	
 	,{1,    0.278233532206915e01}
 	,{2,	-0.127283549295878e-1}
 	,{3,	0.159090746562729e-3}
@@ -428,9 +432,240 @@ typIF97Coeffs_Jn T3RX_P_R3_COEFFS[] = {
 bool isNearCritical(double p_MPa, double t_K){
 
 //TODO
-	
+return -1;	
 };
 
+//  Region 3a/3b boundary. see equation 2.  critical isentrope from 25MPa to 100 MPa
+double if97_r3ab_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+
+	for (i=1; i <= (int)(sizeof(T3AB_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += (double)T3AB_P_R3_COEFFS[i].ni  * pow( log(p_MPa), T3AB_P_R3_COEFFS[i].Ji );
+	}	
+	
+return dblPhiSum;
+};
+
+// Region 3c/3d boundary.  See equation 1. valid: 25 - 40 MPa
+double if97_r3cd_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3CD_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3CD_P_R3_COEFFS[i].ni * pow( p_MPa, T3CD_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+// Region 3e/3f boundary.  see equation 3.  valid 22.5 - 40 MPa
+double if97_r3ef_p_t (double p_MPa){
+	
+	const double DPhiDPi = 3.727888004;
+	
+return 	DPhiDPi * (p_MPa- 22.064) + 647.096;
+};
+
+
+// Region 3g/3h boundary.  See equation 1. Valid 22.5 - 25 MPa
+double if97_r3gh_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3GH_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3GH_P_R3_COEFFS[i].ni * pow( p_MPa, T3GH_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+
+// Region 3i/3j boundary. See equation 1.  valid 22.5 - 25 MPa  ~v= 0.0041 m3/kg
+double if97_r3ij_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3GH_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3IJ_P_R3_COEFFS[i].ni * pow( p_MPa, T3IJ_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+
+// Region 3j/3k boundary. See equation 1. Valid 20.5 - 25 MPa.  ~ v = v"(20.5 MPa)
+double if97_r3jk_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3JK_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3JK_P_R3_COEFFS[i].ni * pow( p_MPa, T3JK_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+// Region 3m/3n boundary. See equation 1. valid: 22.5 - 23 MPa. ~v=0.0028 m3/kg 
+double if97_r3mn_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3MN_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3MN_P_R3_COEFFS[i].ni * pow( p_MPa, T3MN_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+
+// Region 3o/3p boundary. see equation 2. valid: 22.5 - 23 MPa. ~v=0.0034 m3/kg 
+double if97_r3op_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3OP_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3OP_P_R3_COEFFS[i].ni * pow( log(p_MPa), T3OP_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+// Region 3q/3u boundary. See equation 1. valid: Psat(643.15 K) - 22.5 MPa
+double if97_r3qu_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3QU_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3QU_P_R3_COEFFS[i].ni * pow( p_MPa, T3QU_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+
+// Region 3r/3x boundary. See equation 1.  valid: Psat(643.15 K) - 22.5 MPa
+double if97_r3rx_p_t (double p_MPa){
+	int i;
+	double dblPhiSum = 0.0;
+	
+	for (i=1; i <= (int)(sizeof(T3RX_P_R3_COEFFS)/sizeof(typIF97Coeffs_Jn) -1 ) ; i++) {
+		dblPhiSum += T3RX_P_R3_COEFFS[i].ni * pow( p_MPa, T3RX_P_R3_COEFFS[i].Ji)	;
+	}	
+	
+return dblPhiSum;
+};
+
+
+
+// Region 1=3a, 2=3b, 3=3c etc...    100 = near critical   0 = error: not region 3
+// this function assumes you are already know you are in region 3
+// see table 2
+int if97_r3_pt_subregion(double p_MPa, double t_K){
+	const double P3_CD = 1.900881189173929e01; // bottom of table 2
+	
+	// First, make sure we are in R3
+	if ((p_MPa > IF97_R3_UPRESS) || (p_MPa < IF97_B23_LPRESS)) return 0 ; // not R3
+	else if ((t_K < IF97_R3_LTEMP)  ||  (IF97_B23T(p_MPa) < t_K)) return 0 ;  // not R3
+	
+	// now check through table 2 by pressure range
+	if (p_MPa > 40.0) {   // already checked below 100 MPa (R3_UPRESS)
+		if (t_K >  if97_r3ab_p_t(p_MPa)) return 2;  //3b
+		else return 1; //3a
+	}
+	
+	else if (p_MPa > 25.0) {   // already checked below or equal to 40 MPa 
+		if (if97_r3ab_p_t(p_MPa)  < t_K ){ // right of de/ab line fig 3
+			if (t_K <= if97_r3ef_p_t(p_MPa)) return 5;  //3e
+			else return 6;  // 3f
+		}	
+		// now on or left of de/ab line
+		else if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+		else return 4;  // 3d		
+	}
+	
+	else if (p_MPa > 23.0) {   // already checked below or equal to 25 MPa 
+		if (if97_r3ef_p_t(p_MPa) < t_K ){ // right of ef line fig 4
+			if (t_K > if97_r3jk_p_t(p_MPa)) return 11;  //3k
+			else if (t_K > if97_r3ij_p_t(p_MPa)) return 10; //3j
+			else return 9;  //3i
+		}	
+		// now on or left of ef line
+		else if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+		else if (t_K <= if97_r3gh_p_t(p_MPa)){
+			if (p_MPa > 23.5) return 7;  // 3g   23.5 MPa < p <= 25 MPa
+			else return 12; // 3l :  23 MPa < p <= 23.5 MPa
+		}
+		else return 8;	// 3h
+	}	
+
+	else if (p_MPa > 22.5) {   // already checked below or equal to 23.0 MPa 
+		if (if97_r3ef_p_t(p_MPa) < t_K ){ // right of ef line fig 4
+			if (t_K > if97_r3jk_p_t(p_MPa)) return 11;  //3k
+			else if (t_K > if97_r3ij_p_t(p_MPa)) return 10; //3j
+			else if (t_K > if97_r3op_p_t(p_MPa)) return 16; //3p
+			else return 15;  //3o
+		}	
+		// now on or left of ef line
+		else if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+		else if (t_K <= if97_r3gh_p_t(p_MPa)) return 12;  // 3l
+		else if (t_K <= if97_r3mn_p_t(p_MPa)) return 13;  //3m
+		else return 14;	// 3n
+	}	
+
+
+	else if (p_MPa > if97_r4_ps(643.15)) {   // above Psat(643.15 K) to  below or equal 22.5 MPa 
+		if (if97_r3rx_p_t(p_MPa)  < t_K ){ // right of rx line fig 4
+			if (t_K > if97_r3jk_p_t(p_MPa)) return 11;  //3k
+			else return 18;  //3r
+		}	
+		else if ( t_K <= if97_r3qu_p_t(p_MPa)){ // on or left of of qu line fig 4
+			if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+			else return 17;  //3q
+		}			
+		else return 100;	// near supercritical region
+	}	
+
+
+	else if (p_MPa > 20.5) {   // above 20.5 to  below or equal Psat(643.15 K)
+		if (if97_r4_ts(p_MPa) <= t_K ){ // on or right of saturation line fig 3
+			if (t_K > if97_r3jk_p_t(p_MPa)) return 11;  //3k
+			else return 18;  //3r
+		}	
+		
+		// left of saturation line fig 3
+		else if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+		else return 17;  //3q
+	}		
+	
+	else if (p_MPa > P3_CD) {   // above P3cd to  below or equal 20.5 MPa
+		if (if97_r4_ts(p_MPa) <= t_K ) return  20; //3t  : on or right of saturation line fig 3
+	
+		// left of saturation line fig 3
+		else if (t_K <= if97_r3cd_p_t(p_MPa)) return 3;  //3c
+		else return 19;  //3s
+	}		
+	
+	else if (p_MPa > if97_r4_ps(IF97_R3_LTEMP)) {   // above Psat(623.15 K) to  below or equal P3cd 
+		if (if97_r4_ts(p_MPa) <= t_K ) return  20; //3t  : on or right of saturation line fig 3
+	
+		// left of saturation line fig 3
+		else return 3;  //3c
+	}		
+	
+	else return 0 ; //  this should never execute
+}	
+
+
+	
+	
 
 
 

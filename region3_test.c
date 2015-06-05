@@ -85,7 +85,42 @@ int main (int argc, char **argv)
 			printf("%.8e\t\n", if97_r3_w(500.0, 750.0) );		
 	
 	
+	
+	
+	
+	/* BACKWARDS v (p, t)  EQUATIONS
+*/
+	printf ("\n\nIF97 REGION 3 BACKWARDS v(p,T) SUBREGION BOUNDARIES CHECK \n" );
+	printf ("\nTable 3 of supplementary release for v(p, T) for region3: June 2014\n\n" );
+	printf ("The output should be the following: \n\n");
+	printf ("Equation\tP (MPa)\tT (Kelvin)\n");
 
+	printf ("T3ab(p)\t40\t6.930341408e02\n");
+	printf ("T3cd(p)\t25\t6.493659208e02\n");
+	printf ("T3ef(p)\t40\t7.139593992e02\n");
+	printf ("T3gh(p)\t23\t6.498873759e02\n");
+	printf ("T3ij(p)\t23\t6.515778091e02\n");
+	
+	printf ("T3jk(p)\t23\t6.558338344e02\n");	
+	printf ("T3mn(p)\t22.8\t6.496054133e02\n");	
+	printf ("T3op(p)\t22.8\t6.500106943e02\n");	
+	printf ("T3qu(p)\t22\t6.456355027e02\n");	
+	printf ("T3rx(p)\t22\t6.482622754e02\n");
+	
+	printf ("\n\n*******OUTPUT************\n");
+	printf ("Equation\tP (MPa)\tT (Kelvin)\n");	
+	
+	printf ("T3ab(p)\t40\t%.9e\n", if97_r3ab_p_t(40.0));	
+	printf ("T3cd(p)\t25\t%.9e\n", if97_r3cd_p_t(25.0));		
+	printf ("T3ef(p)\t40\t%.9e\n", if97_r3ef_p_t(40.0));		
+	printf ("T3gh(p)\t23\t%.9e\n", if97_r3gh_p_t(23.0));
+	printf ("T3ij(p)\t23\t%.9e\n", if97_r3ij_p_t(23.0));	
+	
+	printf ("T3jk(p)\t23\t%.9e\n", if97_r3jk_p_t(23.0));	
+	printf ("T3mn(p)\t22.8\t%.9e\n", if97_r3mn_p_t(22.8));	
+	printf ("T3op(p)\t22.8\t%.9e\n", if97_r3op_p_t(22.8));	
+	printf ("T3qu(p)\t22\t%.9e\n", if97_r3qu_p_t(22.0));	
+	printf ("T3rx(p)\t22\t%.9e\n", if97_r3rx_p_t(22.0));
 
 	return 0;
 }
