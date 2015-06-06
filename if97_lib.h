@@ -25,7 +25,7 @@
  * (See accompanying file LICENSE_1_0.txt or copy at \n
  * http://www.boost.org/LICENSE_1_0.txt) \n
  * 
- * @file IF97_Region3.h
+ * @file if97_lib.h
  * @author Martin Lord
  * @date 28 May 2015
  * @brief IAPWS-IF97 Steam Tables
@@ -95,7 +95,7 @@ double if97_pt_gamma(double p_MPa, double t_K);
 typSteamState if97_pt_state(double p_MPa, double t_K);
 
 
-// PH
+// PH  TODO
 
 /** t_K for a given p_MPa and h_KJperKg */
 double if97_ph_t(double p_MPa, double h_KJperKg);
@@ -119,7 +119,7 @@ double if97_ph_Vs(double p_MPa, double h_KJperKg);
 double if97_ph_gamma(double p_MPa, double h_KJperKg);
 
 
-// PS
+// PS  TODO
 
 /** t_K for a given p_MPa and h_KJperKgK */
 double if97_ps_t(double p_MPa, double h_KJperKgK);
@@ -148,7 +148,7 @@ typSteamState if97_ps_state(double p_MPa, double h_KJperKgK);
 
 
 
-// TQ
+// TQ   TODO
 
 /** specific h_KJperKg for a given t_K and qual_pct */
 double if97_tq_h(double t_K, double qual_pct);
@@ -179,7 +179,7 @@ typSteamState if97_tq_state(double t_K, double qual_pct);
 
 
 
-//PQ
+//PQ  TODO
 
 /** specific h_KJperKg for a given p_MPa and qual_pct */
 double if97_pq_h(double p_MPa, double qual_pct);

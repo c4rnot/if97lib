@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # encoding: utf-8
 
-#  This is the makefile for if97lib.
+#  This is the makefile for libif97.
 
 # in order to run waf, you will need a working copy of Python2 or Python3
 # You will also need the waf script
@@ -17,12 +17,12 @@
 # suggest putting PATH="<path to waf>:$PATH"   into ~/.profile
 
 
-#  to build if97lib, from the directory containing this file simply:
+#  to build libif97, from the directory containing this file simply:
 #  $ waf configure build
 
 
 
-APPNAME = 'if97lib'
+APPNAME = 'libif97'
 VERSION = '0.1pre'
 
 top = '.'   # root of project is the directory this script sits in
@@ -87,15 +87,15 @@ def build(bld):
 	#bld(rule='doxygen ${SRC} ${TGT}', source='if97-doxy-config', target='doc')
 
 	
-	bld.program(source='if97_lib_test.c', target='if97_lib_test', use='libif97', lib = ['m', 'gomp'])
-	bld.program(source='region1_test.c', target='region1_test', use='libif97', lib = ['m', 'gomp'])
-	bld.program(source='region2_test.c', target='region2_test', use='libif97', lib = ['m', 'gomp']) 
-	bld.program(source='region3_test.c', target='region3_test', use='libif97', lib = ['m', 'gomp']) 	
-	bld.program(source='region4_test.c', target='region4_test', use='libif97', lib = ['m'])
-	bld.program(source='region5_test.c', target='region5_test', use='libif97', lib = ['m', 'gomp']) 
-	bld.program(source='b23_test.c',     target='B23test', use='libif97', lib = ['m', 'gomp']) 
+	bld.program(source='if97_lib_test.c', target='if97_lib_test', use='if97', lib = ['m', 'gomp'])
+	bld.program(source='region1_test.c', target='region1_test', use='if97', lib = ['m', 'gomp'])
+	bld.program(source='region2_test.c', target='region2_test', use='if97', lib = ['m', 'gomp']) 
+	bld.program(source='region3_test.c', target='region3_test', use='if97', lib = ['m', 'gomp']) 	
+	bld.program(source='region4_test.c', target='region4_test', use='if97', lib = ['m'])
+	bld.program(source='region5_test.c', target='region5_test', use='if97', lib = ['m', 'gomp']) 
+	bld.program(source='b23_test.c',     target='B23test', use='if97', lib = ['m', 'gomp']) 
 	
-	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region3.c IF97_Region4.c IF97_Region5.c IF97_B23.c if97_lib.c', target='libif97') 
+	bld.stlib(source='IF97_common.c IF97_Region1.c IF97_Region2.c IF97_Region2_met.c IF97_Region3.c IF97_Region4.c IF97_Region5.c IF97_B23.c if97_lib.c', target='if97') 
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')
