@@ -89,8 +89,6 @@ typedef struct sctIF97Coeffs_Jn {
 } typIF97Coeffs_Jn;
 
 
-
-
 enum phase_t { 
 	SOLID = 0,  solid = 0,   Solid = 0,	
 	LIQUID = 1, liquid = 1, Liquid =1,	
@@ -115,6 +113,7 @@ typedef struct sctSteamState {  //-9999 if not applicable
 } typSteamState;
 
 
+
 	
 // ********COMMON FUNCTIONS**************//	
 
@@ -124,6 +123,22 @@ double sqr (double dblArg);
 // cubes a double without using pow
 double cube (double dblArg);
 
+
+
+/* ********ERROR HANDLING**************
+ * errorCode can be passed by reference to a function
+ * and checked afterwards by an error handler
+ */	
+
+//int if_97_err = 0 ;  
+
+
+/* ******ERROR CODES*****************
+ * 
+ * 0 = no error
+ * 
+ * 500 = Secant Method Error: Number of iterations exceeded
+ */
 
 
 #endif // IF97_COMMON_H

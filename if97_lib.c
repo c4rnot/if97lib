@@ -59,8 +59,10 @@ int region_pt(double p_MPa, double t_K) {
 		else return 2;	
 	} 
 	
-	else if (t_K < IF97_R1_UTEMP) return 1;
-	
+
+	else if (t_K < IF97_R1_UTEMP) {
+		return 1;
+		}
 	else if  (IF97_B23T(p_MPa) < t_K) return 2;
 	
 	else return 3;
@@ -91,17 +93,21 @@ double if97_pt_h(double p_MPa, double t_K){
 
 switch (region_pt(p_MPa, t_K)) {
 	case 1 :
+		printf ("\n Wrong region 1!\n");	
 		return if97_r1_h(p_MPa, t_K);
 		break;
 	case 2 :
+		printf ("\n found the right region\n");	
 		return if97_r2_h(p_MPa, t_K);
 		break;
 	case 3:
 		//return if97_r3_h(rho_kgperM3, t_K);
 		//TODO.
+		printf ("\n Wrong region 3!\n");	
 		return -9999.0;
 		break;
-	case 5: //practically impossible
+	case 5: 
+		printf ("\n Wrong region 5!\n");	
 		return if97_r5_h(p_MPa, t_K);
 		break;
 	}
