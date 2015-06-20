@@ -36,6 +36,7 @@
 #define IF97_REGION1_H
 
 #include "IF97_common.h"
+#include "IF97_Region1bw.h"
 #include <math.h> 
 
 
@@ -74,16 +75,6 @@
 	/** speed of sound in region 1 (m/s) */
 	double if97_r1_w (double p_MPa , double t_Kelvin );
 
-
-//***********************************************************
-//********* REGION 1 BACKWARDS EQUATIONS*********************
-
-	/** temperature (K) in region 1 for a given pressure and enthalpy */
-	double if97_r1_t_ph (double p_MPa , double h_kJperKg );
-	
-	/** temperature (K) in region 1 for a given pressure and entropy */
-	double if97_r1_t_ps (double p_MPa , double s_kJperKgK );
-	
 	
 
 #endif // IF97_REGION1_H
