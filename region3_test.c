@@ -122,6 +122,41 @@ int main (int argc, char **argv)
 	printf ("T3qu(p)\t22\t%.9e\n", if97_r3qu_p_t(22.0));	
 	printf ("T3rx(p)\t22\t%.9e\n", if97_r3rx_p_t(22.0));
 
+
+
+
+	printf ("\n\nIF97 REGION 3 BACKWARDS v(p,T) CHECK \n" );
+	printf ("\nTable 3 of supplementary release for v(p, T) for region3: June 2014\n\n" );
+	printf ("The output should be the following: \n\n");
+	printf ("Equation\tP (MPa)\tT (Kelvin)\tv (m3/kg\n");
+	printf ("v3a(p,t)\t50\t630\t1.470853100e-3\n");	
+	printf ("v3a(p,t)\t80\t670\t1.503831359e-3\n");	
+	printf ("-----------------------------------------\n");	
+	printf ("v3b(p,t)\t50\t710\t2.204728587e-3\n");	
+	printf ("v3b(p,t)\t80\t750\t1.973692940e-3\n");	
+	printf ("-----------------------------------------\n");	
+	printf ("v3c(p,t)\t20\t630\t1.761696406e-3\n");	
+	printf ("v3c(p,t)\t30\t650\t1.819560617e-3\n");	
+	printf ("-----------------------------------------\n");	
+	printf ("v3d(p,t)\t20\t656\t2.245587720e-3\n");	
+	printf ("v3d(p,t)\t30\t670\t2.506897702e-3\n");	
+	printf ("-----------------------------------------\n");	
+
+
+	printf ("\n\n*******OUTPUT************\n");
+	printf ("Equation\tP (MPa)\tT (Kelvin)\tv (m3/kg\n");
+	printf ("v3a(p,t)\t50\t630\t%.9e\n", if97_r3a_v_pt(50.0, 630.0));	
+	printf ("v3a(p,t)\t80\t670\t%.9e\n", if97_r3a_v_pt(80.0, 670.0));
+	printf ("-----------------------------------------\n");	
+	printf ("v3b(p,t)\t50\t710\t%.9e\n", if97_r3b_v_pt(50.0, 710.0));	
+	printf ("v3b(p,t)\t80\t750\t%.9e\n", if97_r3b_v_pt(80.0, 750.0));
+	printf ("-----------------------------------------\n");
+	printf ("v3c(p,t)\t20\t630\t%.9e\n", if97_r3c_v_pt(20.0, 630.0));	
+	printf ("v3c(p,t)\t30\t650\t%.9e\n", if97_r3c_v_pt(30.0, 650.0));
+	printf ("-----------------------------------------\n");
+	printf ("v3d(p,t)\t26\t656\t%.9e\n", if97_r3d_v_pt(26.0, 656.0));	
+	printf ("v3d(p,t)\t30\t670\t%.9e\n", if97_r3d_v_pt(30.0, 670.0));
+
 	return 0;
 }
 

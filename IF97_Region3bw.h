@@ -118,5 +118,86 @@ double if97_r3rx_p_t (double p_MPa);
  */
 int if97_r3_pt_subregion(double p_MPa, double t_K);
 
+/* **************************************************** */
+
+/** specific volume (m3/kg) in region 3a for a given temperature (K) and pressure (MPa) */
+double if97_r3a_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3b for a given temperature (K) and pressure (MPa) */
+double if97_r3b_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3c for a given temperature (K) and pressure (MPa) */
+double if97_r3c_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3d for a given temperature (K) and pressure (MPa) */
+double if97_r3d_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3e for a given temperature (K) and pressure (MPa) */
+double if97_r3e_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3f for a given temperature (K) and pressure (MPa) */
+double if97_r3f_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3g for a given temperature (K) and pressure (MPa) */
+double if97_r3g_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3h for a given temperature (K) and pressure (MPa) */
+double if97_r3h_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3i for a given temperature (K) and pressure (MPa) */
+double if97_r3i_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3j for a given temperature (K) and pressure (MPa) */
+double if97_r3j_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3k for a given temperature (K) and pressure (MPa) */
+double if97_r3k_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3l for a given temperature (K) and pressure (MPa) */
+double if97_r3l_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3m for a given temperature (K) and pressure (MPa) */
+double if97_r3m_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3n for a given temperature (K) and pressure (MPa) */
+double if97_r3n_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3o for a given temperature (K) and pressure (MPa) */
+double if97_r3o_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3p for a given temperature (K) and pressure (MPa) */
+double if97_r3p_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3q for a given temperature (K) and pressure (MPa) */
+double if97_r3q_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3r for a given temperature (K) and pressure (MPa) */
+double if97_r3r_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3s for a given temperature (K) and pressure (MPa) */
+double if97_r3s_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3t for a given temperature (K) and pressure (MPa) */
+double if97_r3t_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3u for a given temperature (K) and pressure (MPa) */
+double if97_r3u_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3v for a given temperature (K) and pressure (MPa) */
+double if97_r3v_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3w for a given temperature (K) and pressure (MPa) */
+double if97_r3w_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3x for a given temperature (K) and pressure (MPa) */
+double if97_r3x_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3y for a given temperature (K) and pressure (MPa) */
+double if97_r3y_v_pt (double p_MPa, double t_K);
+
+/** specific volume (m3/kg) in region 3z for a given temperature (K) and pressure (MPa) */
+double if97_r3z_v_pt (double p_MPa, double t_K);
+
+
 
 #endif // IF97_REGION3BW_H
