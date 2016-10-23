@@ -678,7 +678,7 @@ double if97_r3d_v_pt (double p_MPa, double t_K){
 			* pow(pow((theta - V3D_PT_RC.b), V3D_PT_RC.d ), V3D_PT_COEFFS[i].Ji);
 	}
 
-	return V3D_PT_RC.vStar * pow(omegasum , (V3D_PT_RC.c );
+	return V3D_PT_RC.vStar * pow(omegasum , V3D_PT_RC.c );
 }
 
 
