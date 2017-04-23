@@ -40,7 +40,7 @@ def configure(cnf):
 	cnf.load('compiler_c')
 	# cnf.load('compiler_cxx') #uncomment if there is c++ code
 	
-	print 'Compile with multithreadding support	: ' , cnf.options.thread
+	print ('Compile with multithreadding support	: ' , cnf.options.thread)
 	
 	cnf.env.THREAD = cnf.options.thread
         
@@ -63,7 +63,7 @@ def configure(cnf):
 	#ctx.env.append_unique('CFLAGS', ['-g', '-O2'])
 	#ctx.env.prepend_value('CFLAGS', ['-O3']) 
 
-	print 'CFLAGS					:',  cnf.env.CFLAGS
+	print ('CFLAGS					:',  cnf.env.CFLAGS)
 	# print(type(cnf.env))
 	#print(cnf.env)
         
