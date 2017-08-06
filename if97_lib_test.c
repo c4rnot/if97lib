@@ -96,10 +96,14 @@ int main (int argc, char **argv)
 	 
 	printf ("\n\n *** Testing Winsteam Compatibility  ****** \n\n" );
 	printf ("StmPT (100 [bar], ""SI"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "SI"));
-	printf ("StmPT (100 [psi], ""eng"" should be 327.81 °F:  Calculated as %.8f\n", StmPT(100, "SI"));
-	printf ("StmPT (100 (psig), ""engg"" should be 337.43 °C:  Calculated as %.8f\n", StmPT(100, "SI"));
-	printf ("StmPT (100 (bar), ""SI"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "SI"));	
-	
+	printf ("StmPT (100 [bar], ""1"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "1"));
+	printf ("StmPT (100 [psi], ""eng"" should be 327.82 °F:  Calculated as %.8f\n", StmPT(100, "enG"));
+	printf ("StmPT (100 (psig), ""engg"" should be 337.88 °F:  Calculated as %.8f\n", StmPT(100, "engg"));
+	printf ("StmPT (100 (psig), ""enggo"" should fail:  Calculated as %.8f\n", StmPT(100, "enggo"));	
+	printf ("StmPT (10 (MPa), ""SIF"" should be 584.149 K °C:  Calculated as %.8f\n", StmPT(10, "SIF"));	
+	printf ("StmPT (100 (kPa), ""SIK"" should be 99.61 °C:  Calculated as %.8f\n", StmPT(100, "Sik"));
+	printf ("StmPT (100 (bar), ""MET"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "met"));
+	printf ("StmPT (100 (ata), ""METF"" should be 309.57 °C:  Calculated as %.8f\n", StmPT(100, "metf"));
 	
 return 0;
 }
