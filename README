@@ -31,13 +31,15 @@ Compiling
 =========
 ### Compiling Automatically ###
 
-if97 uses the Waf make system.  
+if97 uses the Waf make system. This needs Python 2.5 or higher to be installed.  
 See the file "wscript" for installation instructions for Waf and configuration of the if97 build.
 
 To compile and build simply run:
 * waf config
 * waf
 
+
+Waf will look for a suitable compiler eg. gcc, msvcrt.   On windows, I use MinGW.  Make sure that the path environment variable is set up to point to it.
 
 Further (rather bewildering) information on how to use Waf is available here:
 https://code.google.com/p/waf/

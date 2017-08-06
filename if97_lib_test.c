@@ -14,6 +14,8 @@
 #include "iapws_surftens.h"
 #include "solve.h"
 #include <stdio.h>
+#include "winsteam_compatibility.h"
+
 
 
 int main (int argc, char **argv)
@@ -90,9 +92,14 @@ int main (int argc, char **argv)
 	printf ("iterations	%li\n", solution.lIterations);		
 	printf ("error code	%i\n", solution.iErrCode);		
 	 
+		printf  ("\n\n\n");
+	 
+	printf ("\n\n *** Testing Winsteam Compatibility  ****** \n\n" );
+	printf ("StmPT (100 [bar], ""SI"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "SI"));
+	printf ("StmPT (100 [psi], ""eng"" should be 327.81 °F:  Calculated as %.8f\n", StmPT(100, "SI"));
+	printf ("StmPT (100 (psig), ""engg"" should be 337.43 °C:  Calculated as %.8f\n", StmPT(100, "SI"));
+	printf ("StmPT (100 (bar), ""SI"" should be 310.99 °C:  Calculated as %.8f\n", StmPT(100, "SI"));	
 	
 	
-	
-
 return 0;
 }

@@ -186,6 +186,6 @@ goto running
 
 @echo Using %PYTHON%
 
-set WAF=waf-1.9.10
+set WAF=waf-2.0.0pre4
 
 "%PYTHON%" -x "%~dp0%WAF%" %*  & Endlocal & exit /b %ERRORLEVEL%

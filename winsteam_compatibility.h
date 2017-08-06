@@ -44,12 +44,21 @@
  * Dyn
 */
 
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>  // for tolower
+#include "units.h"  // unit conversion library
+#include <float.h>  //for minimum number storable for each type
+#include "if97_lib.h" // IF 97 steam tables in MPa, K, kg, kJ 
+
+#define UNITSTRLEN 5
+
 
 // SATURATION LINE
 
 
 /** saturation temperature for a given pressure */
-double StmPT(double pressure);
+double StmPT(double pressure, char* unitset);
 
 /** saturation pressure for a given temperatrue */
 double StmTP(double temperature);
@@ -193,6 +202,9 @@ double StmTEMPIT(double temp68);
 double StmTEMPTI(double temp90);
 
 // text StmVER(void);
+
+/** get the integer value of the unit set calls for 67 tables  are +10*/
+int getUnitSetNo (char *unitset);
 
 #endif // IF97_WINSTEAM_H
 

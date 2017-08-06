@@ -86,8 +86,8 @@ def build(bld):
 	
 	#bld(rule='doxygen ${SRC} ${TGT}', source='if97-doxy-config', target='doc')
 
-	
-	bld.program(source='if97_lib_test.c', target='if97_lib_test', use='if97', lib = ['m', 'gomp'])
+
+	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'winsteam_compatibility'] , lib = ['m', 'gomp', 'units'])
 	bld.program(source='region1_test.c', target='region1_test', use='if97', lib = ['m', 'gomp'])
 	bld.program(source='region2_test.c', target='region2_test', use='if97', lib = ['m', 'gomp']) 
 	bld.program(source='region3_test.c', target='region3_test', use='if97', lib = ['m', 'gomp']) 	
@@ -99,6 +99,8 @@ def build(bld):
 	IF97_Region2.c IF97_Region2bw.c IF97_Region2_met.c	\
 	IF97_Region3.c IF97_Region3bw.c IF97_Region4.c 	IF97_Region5.c IF97_B23.c \
 	iapws_surftens.c solve.c if97_lib.c', target='if97') 
+
+	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', use='if97', lib = ['units'])	
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')
