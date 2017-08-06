@@ -61,7 +61,7 @@
 double StmPT(double pressure, char* unitset);
 
 /** saturation pressure for a given temperatrue */
-double StmTP(double temperature);
+double StmTP(double temperature, char* unitset);
 
 
 // PT
