@@ -172,7 +172,7 @@ switch ( getUnitSetNo(unitset)){
 			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "celcius", "kelvin" )), "MPa", "bar"  );  
 
 		case 2: // "engg"
-			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "fahrenheit", "kelvin" )) - 0.101325, "MPa"  , "psi" );  
+			return (convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "fahrenheit", "kelvin" )), "MPa"  , "psi" ) - 14.69594878);  
 
 		case 3: //"sif":
 			return if97_Ts_p(temperature);
@@ -204,6 +204,9 @@ switch ( getUnitSetNo(unitset)){
 
 /*  specific enthalpy for a given pressure and temperature */
 double StmPTH(double pressure, double temperature);
+
+
+
 
 /*  specific entropy for a given pressure and temperature */
 double StmPTS(double pressure, double temperature);
