@@ -1,0 +1,69 @@
+//          Copyright Martin Lord 2014-2014.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+//  Conversion coefficients
+//
+//  name * multiplication + offset = converts_to
+// ,{"name", "symbol", TYPE,	{{ offset, multiplication}, unused }		"converts_to",   SI?}
+
+// Mass
+,{ "kilogram", "kg", 	MASS, { {0.0, 1.0 }, 0.0},	"kilogram", true}
+,{ "pound (avdp)", "lb", 	MASS, { {0.0, 0.45359237 }, 0.0},	"kilogram", true}
+
+
+
+// Length
+
+
+
+//Temperature
+,{ "Kelvin", "°K", 	TEMPERATURE, { {0.0, 1.0 }, 0.0},	"Kelvin", true}
+,{ "Celcius", "°C", TEMPERATURE, { {+ 273.15, 1.0 },  0.0}, "Kelvin", false}
+,{ "Centigrade", "°C", TEMPERATURE, { {+ 273.15, 1.0 }, 0.0},	"Kelvin", false}
+,{ "Rankine", "°R", TEMPERATURE,  { { 0.0, 5.0/9.0 }, 0.0}, "Kelvin", false}
+,{ "Fahrenheit", "°F", TEMPERATURE, { {(+ 459.67 * 5.0/9.0), 5.0/9.0 }, 0.0}, "Kelvin", false}
+
+
+//Pressure
+,{ "Bar", "bar", PRESSURE, { {0.0, 100000.0 }, 0.0}, "Pascal", false}
+,{ "Pascal", "Pa", PRESSURE, { {0.0, 1.0 }, 0.0}, "Pascal", true}
+,{ "psi", "psi", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
+//,{ "psi absolute", "psia", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
+//,{ "psi gauge", "psig", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
+,{ "standard atmosphere", "atm", PRESSURE, { {0.0, 101325.0 }, 0.0}, "Pascal", false}
+,{ "technical atmosphere", "at", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
+,{ "kilogram force per square centimetre", "kgf/cm^2", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
+,{ "millimetres of mercury", "mmHg", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
+,{ "torr", "torr", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
+,{ "inches of mercury", "inHg", PRESSURE, { {0.0, 3386.388158 }, 0.0}, "Pascal", false}
+,{ "Kilopascal", "kPa", PRESSURE, { {0.0, 1e3 }, 0.0}, "Pascal", false}
+,{ "kPa", "kPa", PRESSURE, { {0.0, 1e3 }, 0.0}, "Pascal", false}
+,{ "Megapascal", "MPa", PRESSURE, { {0.0, 1e6 }, 0.0}, "Pascal", false}
+
+//Energy
+,{ "Joule", "J", ENERGY, { {0.0, 1.0 }, 0.0}, "Joule", true}
+,{ "kilojoule", "kJ", ENERGY, { {0.0, 1000.0 }, 0.0}, "Joule", false}
+,{ "BTU", "BTU", ENERGY, { {0.0, 1055.055853 }, 0.0}, "Joule", false}
+,{ "kilocalorie", "kCal", ENERGY, { {0.0, 4186.8 }, 0.0}, "Joule", false}
+
+// Thermodynamic derived units: Specific Enthalpy
+,{ "Joule per kilogram", "J/kg", SPECIFIC_ENTHALPY, { {0.0, 1.0 }, 0.0}, "Joule per kilogram", true}
+,{ "kilojoule per kilogram", "kJ/kg", SPECIFIC_ENTHALPY, { {0.0, 1000.0 }, 0.0}, "Joule per kilogram", false}
+,{ "btu per pound", "BTU/lb", SPECIFIC_ENTHALPY, { {0.0, 1055.055853 /0.45359237 }, 0.0}, "Joule per kilogram", false}
+,{ "kilocalorie per kilogram", "kJ/kg", SPECIFIC_ENTHALPY, { {0.0, 4186.8 }, 0.0}, "Joule per kilogram", false}
+
+// Thermodynamic derived units: Specific Entropy
+,{"joule per kilogram kelvin", "J/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 1.0}, 0.0 },		"joule per kilogram kelvin",   true}
+,{"kilojoule per kilogram kelvin", "kJ/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 1000.0}, 0.0 },		"joule per kilogram kelvin",   false}
+
+,{"BTU per pound Fahrenheit", "btu/(lbm F)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
+
+,{"BTU per pound rankine", "btu/(lbm R)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
+
+
+
+
+
+
+

@@ -37,7 +37,7 @@
 #include "units.h"  // unit conversion library
 #include <float.h>  //for minimum number storable for each type
 #include "if97_lib.h" // IF 97 steam tables in MPa, K, kg, kJ 
-//#include "winsteam_compatibility.h"
+#include "winsteam_compatibility.h"
 
 #define UNITSTRLEN 5
 

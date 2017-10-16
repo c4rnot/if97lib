@@ -100,7 +100,9 @@ def build(bld):
 	IF97_Region3.c IF97_Region3bw.c IF97_Region4.c 	IF97_Region5.c IF97_B23.c \
 	iapws_surftens.c solve.c if97_lib.c', target='if97') 
 
-	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', use='if97', lib = ['units'])	
+	bld.stlib(source='units.c', target='units')
+
+	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = ['if97', 'units'])	
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')
