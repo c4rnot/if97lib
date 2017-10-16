@@ -55,22 +55,22 @@
 // SATURATION LINE
 
 
-/** saturation temperature for a given pressure */
+/** saturation temperature (K) for a given pressure (MPa) */
 double if97_Ps_t(double Ps_MPa);
 
-/** saturation pressure for a given temperatrue */
+/** saturation pressure (MPa) for a given temperature (K) */
 double if97_Ts_p(double Ts_K);
 
 
 // PT
 
-/** specific enthalpy for a given p_MPa and t_K */
+/** specific enthalpy (kJ/kg) for a given p_(MPa) and t_(K) */
 double if97_pt_h(double p_MPa, double t_K);
 
-/** specific entropy for a given p_MPa and t_K */
+/** specific entropy (kJ/kg/K)for a given p_(MPa) and t_(K) */
 double if97_pt_s(double p_MPa, double t_K);
 
-/** specific volume for a given p_MPa and t_K */
+/** specific volume (kg/m3)for a given p_(MPa) and t_(K) */
 double if97_pt_v(double p_MPa, double t_K);
 
 /** specific isochoric heat capacity for a given p_MPa and t_K */
@@ -85,10 +85,10 @@ double if97_pt_k(double p_MPa, double t_K);
 /** dynamic viscosity for a given p_MPa and t_K  TODO */
 double if97_pt_mu(double p_MPa, double t_K);
 
-/** speed of sound for a given p_MPa and t_K */
+/** speed of sound (m/s)for a given p_(MPa) and t_(K) */
 double if97_pt_Vs(double p_MPa, double t_K);
 
-/** isentropic expansion coefficient for a given p_MPa and t_K */
+/** isentropic expansion coefficient (-) for a given p_MPa and t_K */
 double if97_pt_gamma(double p_MPa, double t_K);
 
 /** full steam state for a given p_MPa and t_K */
@@ -168,7 +168,7 @@ double if97_tq_k(double t_K, double qual_pct);
 /** dynamic viscosity for a given t_K and qual_pct */
 double if97_tq_mu(double t_K, double qual_pct);
 
-/** sonic speed for a given t_K and qual_pct */
+/** sonic speed (m/s)for a given t_(K) and quality_(percent) */
 double if97_tq_Vs(double t_K, double qual_pct);
 
 /** isentropic expansion coefficient # TODO - what is this? # for a given t_K and qual_pct */
@@ -181,7 +181,7 @@ typSteamState if97_tq_state(double t_K, double qual_pct);
 
 //PQ  TODO
 
-/** specific h_KJperKg for a given p_MPa and qual_pct */
+/** specific h_(KJ/Kg) for a given p_(MPa) and steam quality_(percent) */
 double if97_pq_h(double p_MPa, double qual_pct);
 
 /** specific h_KJperKgK for a given p_MPa and qual_pct */

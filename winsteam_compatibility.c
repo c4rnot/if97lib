@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <string.h>   // for strcmp
 #include <ctype.h>  // for tolower
-#include "units.h"  // unit conversion library
+#include "units.h"  // unit conversion library, lowercase
 #include <float.h>  //for minimum number storable for each type
 #include "if97_lib.h" // IF 97 steam tables in MPa, K, kg, kJ 
 #include "winsteam_compatibility.h"
@@ -163,7 +163,7 @@ double StmPT(double pressure, char* unitset){
 
 /*  saturation pressure for a given temperatrue */
 double StmTP(double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
+	switch ( getUnitSetNo(unitset)){
 		case 0: //eng
 			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "MPa", "psi" ); 
 			
@@ -202,14 +202,102 @@ switch ( getUnitSetNo(unitset)){
 
 // PT
 
-/*  specific enthalpy for a given pressure and temperature */
-double StmPTH(double pressure, double temperature);
+/*  specific enthalpy for a given pressure and temperature*/
+double StmPTH(double pressure, double temperature, char* unitset){
+switch ( getUnitSetNo(unitset)){
+		case 0: //eng
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/kg", "btu/lbm" ); 
+			
+		case 1: // "si"
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kJ/kg" ); 		
+		
+		case 5:  // "met"
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kCal/kg" ); 
 
+		case 2: // "engg"
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/kg", "btu/lbm" );   
+
+		case 3: //"sif":
+			return if97_pt_h(pressure, temperature);   
+
+						
+		case 4: //"sik"
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "kPa" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kJ/kg");   
+		
+		case 6:  // "metf"
+			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kCal/kg");   
+		
+		case 10:  // engo
+		case 11:  // meto
+		case 12:  // enggo
+		case 13:  // sifo
+		case 14:  // siko
+		case 15:  // sio
+		case 16:  // metfo
+			return DBL_MIN;  //1967 tables not supported yet
+			
+		case 100:  // unit string incorrect. Cant find unit No.
+			return DBL_MIN + 1.0;
+	}
+	
+	return DBL_MIN + 2.0;  // general error - should never occur
+}
 
 
 
 /*  specific entropy for a given pressure and temperature */
-double StmPTS(double pressure, double temperature);
+double StmPTS(double pressure, double temperature, char* unitset){
+switch ( getUnitSetNo(unitset)){
+		case 0: //eng
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "btu/(lbm F)" ); 
+			
+		case 1: // "si"
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)" ); 		
+		
+		case 5:  // "met"
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)" ); 
+
+		case 2: // "engg"
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "btu/(lbm F)" );   
+
+		case 3: //"sif":
+			return if97_pt_s(pressure, temperature);   
+
+						
+		case 4: //"sik"
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "kPa" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)");   
+		
+		case 6:  // "metf"
+			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)");   
+		
+		case 10:  // engo
+		case 11:  // meto
+		case 12:  // enggo
+		case 13:  // sifo
+		case 14:  // siko
+		case 15:  // sio
+		case 16:  // metfo
+			return DBL_MIN;  //1967 tables not supported yet
+			
+		case 100:  // unit string incorrect. Cant find unit No.
+			return DBL_MIN + 1.0;
+	}
+	
+	return DBL_MIN + 2.0;  // general error - should never occur
+}
+
 
 /*  specific volume for a given pressure and temperature */
 double StmPTV(double pressure, double temperature);

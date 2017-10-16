@@ -67,10 +67,10 @@ double StmTP(double temperature, char* unitset);
 // PT
 
 /** specific enthalpy for a given pressure and temperature */
-double StmPTH(double pressure, double temperature);
+double StmPTH(double pressure, double temperature, char* unitset);
 
 /** specific entropy for a given pressure and temperature */
-double StmPTS(double pressure, double temperature);
+double StmPTS(double pressure, double temperature, char* unitset);
 
 /** specific volume for a given pressure and temperature */
 double StmPTV(double pressure, double temperature);
