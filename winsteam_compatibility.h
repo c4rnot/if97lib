@@ -41,7 +41,9 @@
  * Quality	|   -		|   -		|   -		|   -		|   -		|   -		|   -		|
  * Sp. Heat	| btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
  * Thrm Cond| btu/h/ft/F|   W/m/C	| btu/h/ft/F|   W/m/K	|   W/m/C	|   W/m/C	|kCal/m/h/C	|
- * Dyn
+ * Dyn Visc	| lbm/ft/h  | Centipoise| lbm/ft/h  |  Pa.s     | Centipoise| Centipoise| Centipoise|
+ * Gamma    |      -    |      -    |      -    |      -    |      -    |      -    |      -    |
+ * sonic vel|   ft/s    |    m/s    |   ft/s    |    m/s    |    m/s    |    m/s    |    m/s    |
 */
 
 #include <stdio.h>
@@ -73,9 +75,9 @@ double StmPTH(double pressure, double temperature, char* unitset);
 double StmPTS(double pressure, double temperature, char* unitset);
 
 /** specific volume for a given pressure and temperature */
-double StmPTV(double pressure, double temperature);
+double StmPTV(double pressure, double temperature , char* unitset);
 
-/** specific heat capacity #TODO - Which one#  for a given pressure and temperature */
+/** specific isobaric heat capacity for a given pressure and temperature */
 double StmPTC(double pressure, double temperature);
 
 /** thermal conductivity for a given pressure and temperature */

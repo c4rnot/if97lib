@@ -1,4 +1,4 @@
-//          Copyright Martin Lord 2014-2015.
+//          Copyright Martin Lord 2014-2017.
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,7 @@
 
 /**
  * @copyright
- * Copyright Martin Lord 2014-2015. \n
+ * Copyright Martin Lord 2014-2017. \n
  * Distributed under the Boost Software License, Version 1.0. \n
  * (See accompanying file LICENSE_1_0.txt or copy at \n
  * http://www.boost.org/LICENSE_1_0.txt) \n
@@ -73,16 +73,16 @@ double if97_pt_s(double p_MPa, double t_K);
 /** specific volume (kg/m3)for a given p_(MPa) and t_(K) */
 double if97_pt_v(double p_MPa, double t_K);
 
-/** specific isochoric heat capacity for a given p_MPa and t_K */
+/** specific isochoric heat capacity (UNITS?) for a given p_MPa and t_K */
 double if97_pt_Cv(double p_MPa, double t_K);
 
 /** specific isobaric heat capacity for a given p_MPa and t_K */
 double if97_pt_Cp(double p_MPa, double t_K);
 
-/** thermal conductivity for a given p_MPa and t_K  TODO */
+/** thermal conductivity (mW/m/k) for a given p_MPa and t_K  TODO */
 double if97_pt_k(double p_MPa, double t_K);
 
-/** dynamic viscosity for a given p_MPa and t_K  TODO */
+/** dynamic viscosity (microPa s) for a given p_MPa and t_K  TODO */
 double if97_pt_mu(double p_MPa, double t_K);
 
 /** speed of sound (m/s)for a given p_(MPa) and t_(K) */

@@ -300,13 +300,156 @@ switch ( getUnitSetNo(unitset)){
 
 
 /*  specific volume for a given pressure and temperature */
-double StmPTV(double pressure, double temperature);
+double StmPTV(double pressure, double temperature, char* unitset){
+switch ( getUnitSetNo(unitset)){
+		case 0: //eng
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "m3/kg", "ft3/lb" ); 
+			
+		case 1: // "si"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg" ); 		
+		
+		case 5:  // "met"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg" ); 
 
-/*  specific heat capacity #TODO - Which one#  for a given pressure and temperature */
-double StmPTC(double pressure, double temperature);
+		case 2: // "engg"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),   "m3/kg", "ft3/lb" );   
+
+		case 3: //"sif":
+			return if97_pt_v(pressure, temperature);   
+
+						
+		case 4: //"sik"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "kPa" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg");   
+		
+		case 6:  // "metf"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg");   
+		
+		case 10:  // engo
+		case 11:  // meto
+		case 12:  // enggo
+		case 13:  // sifo
+		case 14:  // siko
+		case 15:  // sio
+		case 16:  // metfo
+			return DBL_MIN;  //1967 tables not supported yet
+			
+		case 100:  // unit string incorrect. Cant find unit No.
+			return DBL_MIN + 1.0;
+	}
+	
+	return DBL_MIN + 2.0;  // general error - should never occur
+}
+
+/*  specific isobaric heat capacity Cp for a given pressure and temperature */
+/* ********************************************************************************** */
+double StmPTC(double pressure, double temperature, char* unitset){
+switch ( getUnitSetNo(unitset)){
+		case 0: //eng
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "BTU/(lb R)" ); 
+			
+		case 1: // "si"
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)"); 		
+		
+		case 5:  // "met"
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)", "kJ/(kg K)" ); 
+
+		case 2: // "engg"
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),    "kJ/(kg K)",  "BTU/(lb R)" );   
+
+		case 3: //"sif":
+			return if97_pt_Cp(pressure, temperature);   
+
+						
+		case 4: //"sik"
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "kPa" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)");   
+		
+		case 6:  // "metf"
+			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)");   
+		
+		case 10:  // engo
+		case 11:  // meto
+		case 12:  // enggo
+		case 13:  // sifo
+		case 14:  // siko
+		case 15:  // sio
+		case 16:  // metfo
+			return DBL_MIN;  //1967 tables not supported yet
+			
+		case 100:  // unit string incorrect. Cant find unit No.
+			return DBL_MIN + 1.0;
+	}
+	
+	return DBL_MIN + 2.0;  // general error - should never occur
+}
+
+
+
+
+
+
+
+
+
+
 
 /*  thermal conductivity for a given pressure and temperature */
-double StmPTK(double pressure, double temperature);
+double StmPTK(double pressure, double temperature, char* unitset){
+switch ( getUnitSetNo(unitset)){
+		case 0: //eng
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "mW/m/K", "BTU/h/ft/F" ); 
+			
+		case 1: // "si"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K"); 		
+		
+		case 5:  // "met"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K" ); 
+
+		case 2: // "engg"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
+			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),   "mW/m/K", "BTU/h/ft/F" );   
+
+		case 3: //"sif":
+			return convertNamedUnit(if97_pt_v(pressure, temperature),"mW/m/K", "W/m/K");   
+
+						
+		case 4: //"sik"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "kPa" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K");   
+		
+		case 6:  // "metf"
+			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
+			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "kCal/m/h/C");   
+		
+		case 10:  // engo
+		case 11:  // meto
+		case 12:  // enggo
+		case 13:  // sifo
+		case 14:  // siko
+		case 15:  // sio
+		case 16:  // metfo
+			return DBL_MIN;  //1967 tables not supported yet
+			
+		case 100:  // unit string incorrect. Cant find unit No.
+			return DBL_MIN + 1.0;
+	}
+	
+	return DBL_MIN + 2.0;  // general error - should never occur
+}
 
 /*  dynamic viscosity for a given pressure and temperature */
 double StmPTM(double pressure, double temperature);
