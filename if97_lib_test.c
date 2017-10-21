@@ -21,6 +21,15 @@
 int main (int argc, char **argv)
 {
 
+// check threading using OpenMP test
+	printf ("\n\n************************************************************ \n" );
+	printf ("CHECK FOR MULTITHREADDING \n\n" );
+#pragma omp parallel
+	{
+	printf ("thread\n");
+	}
+
+
 	printf ("\n\n *** Testing  if97_pt_h  ****** \n\n" );
 	printf ("The output should be the following: \n\n");
 	printf ("p (MPa)	T (K)	h (Kj/kg)\n");

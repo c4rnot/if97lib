@@ -58,6 +58,8 @@ def configure(cnf):
 	if  cnf.env.THREAD == True: 
 		if cnf.env.CC_NAME == "gcc":
 			cnf.env.append_unique('CFLAGS', ['-fopenmp'])
+		if cnf.env.CC_NAME == "msvc":
+			cnf.env.append_unique('CFLAGS', ['/openmp'])
 		else:
 			pass
 	#cnf.env.CXXFLAGS = cnf.env.CFLAGS 
@@ -110,7 +112,7 @@ def build(bld):
 
 	bld.stlib(source='units.c', target='units')
 
-	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = ['if97', 'units'])	
+	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = list(wsCompatLibs))	
 	
 	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'winsteam_compatibility'] , lib = list(wsCompatLibs))
 	bld.program(source='region1_test.c', target='region1_test', use='if97', lib = list(if97libs))
