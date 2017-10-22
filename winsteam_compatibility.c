@@ -475,7 +475,7 @@ double StmPHV(double pressure, double enthalpy);
 /*  quality for a given pressure and enthalpy */
 double StmPHQ(double pressure, double enthalpy);
 
-/*  specific heat capacity #TODO - Which one# for a given pressure and enthalpy */
+/*  specific isobaric heat capacity Cp for a given pressure and enthalpy */
 double StmPHC(double pressure, double enthalpy);
 
 /*  speed of sound for a given pressure and enthalpy */
@@ -499,7 +499,7 @@ double StmPSV(double pressure, double entropy);
 /*  quality for a given pressure and entropy */
 double StmPSQ(double pressure, double entropy);
 
-/*  specific heat capacity #TODO - Which one# for a given pressure and entropy */
+/*  specific isobaric heat capacity Cp for a given pressure and entropy */
 double StmPSC(double pressure, double entropy);
 
 /*  speed of sound for a given pressure and entropy */
@@ -520,7 +520,7 @@ double StmTQS(double temperature, double quality);
 /*  specific volume for a given temperature and quality */
 double StmTQV(double temperature, double quality);
 
-/*  specific heat capacity #TODO - Which one#  for a given temperature and quality */
+/*  specific isobaric heat capacity Cp for a given temperature and quality */
 double StmTQC(double temperature, double quality);
 
 /*  thermal conductivity for a given temperature and quality */
@@ -546,7 +546,7 @@ double StmPQS(double pressure, double quality);
 /*  specific volume for a given pressure and quality */
 double StmPQV(double pressure, double quality);
 
-/*  specific heat capacity #TODO - which one?# for a given pressure and quality */
+/*  specific isobaric heat capacity Cp for a given pressure and quality */
 double StmPQC(double pressure, double quality);
 
 /*  thermal conductivity for a given pressure and quality */

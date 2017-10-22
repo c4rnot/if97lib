@@ -40,7 +40,9 @@ def configure(cnf):
 	print ('Compile with multithreadding support	: ' , cnf.options.thread)
 	
 	cnf.env.THREAD = cnf.options.thread
-    
+	
+	cnf.check(features='c cprogram', lib=['m'], cflags=['-Wall'],  uselib_store='M')
+	cnf.check(features='c cprogram', lib=['gomp'], cflags=['-Wall', '-fopenmp'],  uselib_store='GOMP')
 
 	print ("c compiler is " + cnf.env.CC_NAME,cnf.env.CC)
 	if cnf.env.CC_NAME == "gcc":
@@ -55,13 +57,15 @@ def configure(cnf):
 		#compiler optimisation for executable size
 		#cnf.env.append_unique('CFLAGS', ['-Os'])
 	
-	if  cnf.env.THREAD == True: 
-		if cnf.env.CC_NAME == "gcc":
-			cnf.env.append_unique('CFLAGS', ['-fopenmp'])
-		if cnf.env.CC_NAME == "msvc":
-			cnf.env.append_unique('CFLAGS', ['/openmp'])
-		else:
-			pass
+#	if  cnf.env.THREAD == True: 
+#		if cnf.env.CC_NAME == "gcc":
+#			cnf.env.append_unique('CFLAGS', ['-fopenmp'])
+#		if cnf.env.CC_NAME == "msvc":
+#			cnf.env.append_unique('CFLAGS', ['/openmp'])
+#		else:
+#			pass
+
+
 	#cnf.env.CXXFLAGS = cnf.env.CFLAGS 
 
 	#ctx.env.append_value('CXXFLAGS', ['-O2', '-g']) 
@@ -90,10 +94,10 @@ def build(bld):
 
 	#gcc needs to be told to link to libm but msvc fails if told to do so
 	if97libs =[]
-	if bld.env.CC_NAME != "msvc":
-		if97libs.append_unique('m')
-	if bld.env.THREAD== "true":
-		if97libs.append_unique('gomp')
+#	if bld.env.CC_NAME != "msvc":
+#		if97libs.append_unique('m')
+#	if bld.env.THREAD== "true":
+#		if97libs.append_unique('gomp')
 	
 	
 	wsCompatLibs = if97libs
@@ -114,13 +118,13 @@ def build(bld):
 
 	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = list(wsCompatLibs))	
 	
-	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'winsteam_compatibility'] , lib = list(wsCompatLibs))
-	bld.program(source='region1_test.c', target='region1_test', use='if97', lib = list(if97libs))
-	bld.program(source='region2_test.c', target='region2_test', use='if97', lib = list(if97libs)) 
-	bld.program(source='region3_test.c', target='region3_test', use='if97', lib = list(if97libs)) 	
-	bld.program(source='region4_test.c', target='region4_test', use='if97', lib = list(r4TestLibs))
-	bld.program(source='region5_test.c', target='region5_test', use='if97', lib = list(if97libs))
-	bld.program(source='b23_test.c',     target='B23test', use='if97', lib = list(if97libs)) 
+	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'winsteam_compatibility', 'M'] , lib = 'units')
+	bld.program(source='region1_test.c', target='region1_test',  use=['if97', 'M', 'GOMP'])
+	bld.program(source='region2_test.c', target='region2_test',  use=['if97', 'M', 'GOMP'])
+	bld.program(source='region3_test.c', target='region3_test',  use=['if97', 'M', 'GOMP'])
+	bld.program(source='region4_test.c', target='region4_test', use=['if97', 'M', 'GOMP'])
+	bld.program(source='region5_test.c', target='region5_test', use=['if97', 'M'])
+	bld.program(source='b23_test.c',     target='B23test', use=['if97', 'M', 'GOMP']) 
 	
 
 	
