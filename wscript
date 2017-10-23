@@ -41,8 +41,9 @@ def configure(cnf):
 	
 	cnf.env.THREAD = cnf.options.thread
 	
-	cnf.check(features='c cprogram', lib=['m'], cflags=['-Wall'],  uselib_store='M')
-	cnf.check(features='c cprogram', lib=['gomp'], cflags=['-Wall', '-fopenmp'],  uselib_store='GOMP')
+	
+#	cnf.check(features='c cprogram', lib=['m'], cflags=['-Wall'],  uselib_store='M')
+#	cnf.check(features='c cprogram', lib=['gomp'], cflags=['-Wall', '-fopenmp'],  uselib_store='GOMP')
 
 	print ("c compiler is " + cnf.env.CC_NAME,cnf.env.CC)
 	if cnf.env.CC_NAME == "gcc":
@@ -57,13 +58,13 @@ def configure(cnf):
 		#compiler optimisation for executable size
 		#cnf.env.append_unique('CFLAGS', ['-Os'])
 	
-#	if  cnf.env.THREAD == True: 
-#		if cnf.env.CC_NAME == "gcc":
-#			cnf.env.append_unique('CFLAGS', ['-fopenmp'])
-#		if cnf.env.CC_NAME == "msvc":
-#			cnf.env.append_unique('CFLAGS', ['/openmp'])
-#		else:
-#			pass
+	if  cnf.env.THREAD == True: 
+		if cnf.env.CC_NAME == "gcc":
+			cnf.env.append_unique('CFLAGS', ['-fopenmp'])
+		if cnf.env.CC_NAME == "msvc":
+			cnf.env.append_unique('CFLAGS', ['/openmp'])
+		else:
+			pass
 
 
 	#cnf.env.CXXFLAGS = cnf.env.CFLAGS 
