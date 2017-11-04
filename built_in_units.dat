@@ -18,28 +18,25 @@
 
 
 //Temperature
-,{ "Kelvin", "°K", 	TEMPERATURE, { {0.0, 1.0 }, 0.0},	"Kelvin", true}
-,{ "Celcius", "°C", TEMPERATURE, { {+ 273.15, 1.0 },  0.0}, "Kelvin", false}
-,{ "Centigrade", "°C", TEMPERATURE, { {+ 273.15, 1.0 }, 0.0},	"Kelvin", false}
-,{ "Rankine", "°R", TEMPERATURE,  { { 0.0, 5.0/9.0 }, 0.0}, "Kelvin", false}
-,{ "Fahrenheit", "°F", TEMPERATURE, { {(+ 459.67 * 5.0/9.0), 5.0/9.0 }, 0.0}, "Kelvin", false}
+,{ "K", "°K", 	TEMPERATURE, { {0.0, 1.0 }, 0.0},	"K", true}
+,{ "C", "°C", TEMPERATURE, { {+ 273.15, 1.0 },  0.0}, "K", false}
+,{ "R", "°R", TEMPERATURE,  { { 0.0, 5.0/9.0 }, 0.0}, "K", false}
+,{ "F", "°F", TEMPERATURE, { {(+ 459.67 * 5.0/9.0), 5.0/9.0 }, 0.0}, "K", false}
 
 
 //Pressure
-,{ "Bar", "bar", PRESSURE, { {0.0, 100000.0 }, 0.0}, "Pascal", false}
+,{ "bar", "bar", PRESSURE, { {0.0, 100000.0 }, 0.0}, "Pascal", false}
 ,{ "Pascal", "Pa", PRESSURE, { {0.0, 1.0 }, 0.0}, "Pascal", true}
-,{ "psi", "psi", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
-//,{ "psi absolute", "psia", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
-//,{ "psi gauge", "psig", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
+,{ "psia", "psia", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
+,{ "psig", "psig", PRESSURE, { {101325.0, 6894.757293 }, 0.0}, "Pascal", false}
 ,{ "standard atmosphere", "atm", PRESSURE, { {0.0, 101325.0 }, 0.0}, "Pascal", false}
 ,{ "technical atmosphere", "at", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
-,{ "kilogram force per square centimetre", "kgf/cm^2", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
+,{ "kg/cm2", "ata", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
 ,{ "millimetres of mercury", "mmHg", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
 ,{ "torr", "torr", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
 ,{ "inches of mercury", "inHg", PRESSURE, { {0.0, 3386.388158 }, 0.0}, "Pascal", false}
-,{ "Kilopascal", "kPa", PRESSURE, { {0.0, 1e3 }, 0.0}, "Pascal", false}
 ,{ "kPa", "kPa", PRESSURE, { {0.0, 1e3 }, 0.0}, "Pascal", false}
-,{ "Megapascal", "MPa", PRESSURE, { {0.0, 1e6 }, 0.0}, "Pascal", false}
+,{ "MPa", "MPa", PRESSURE, { {0.0, 1e6 }, 0.0}, "Pascal", false}
 
 //Energy
 ,{ "Joule", "J", ENERGY, { {0.0, 1.0 }, 0.0}, "Joule", true}

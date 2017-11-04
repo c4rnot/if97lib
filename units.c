@@ -29,7 +29,7 @@ const typUnit builtInUnits[] = {
 
 
 double applyCoeffs (double input, typConvCoeffs coeffs) {
-return coeffs.dblPow[0] + input * coeffs.dblPow[1];
+	return coeffs.dblPow[0] + input * coeffs.dblPow[1];
 }
 
 
@@ -140,6 +140,41 @@ double convertNamedUnit (double inVal, char strInUnit[], char strOutUnit[]){
 		// First convert to the SI unit
 		valSI = inVal * builtInUnits[inUnitIndex].tConvCoeffs.dblPow[1] + builtInUnits[inUnitIndex].tConvCoeffs.dblPow[0];
 		
+		
+		printf( "%f  %s\n", valSI, strInUnitSI);
+		
+		// then convert from the SI unit to the output unit
+		return (valSI - builtInUnits[outUnitIndex].tConvCoeffs.dblPow[0]) / builtInUnits[outUnitIndex].tConvCoeffs.dblPow[1] ;
+		
+		}
+		
+	return DBL_MIN;  //Error  incompatible units.  TODO may need code to go through an intermediate conversion step
+}
+
+
+double convertNamedUnitp (double inVal, char* strInUnit[], char* strOutUnit[]){
+	if (strcmp(strInUnit, strOutUnit) == 0) return inVal; //if the input unit is the output unit return unchanged
+	
+	int inUnitIndex = -1;
+	int outUnitIndex = -1;
+	char strInUnitSI[NAMESTRLEN] = "void";
+	char strOutUnitSI[NAMESTRLEN] = "void";
+	double valSI = DBL_MIN;
+	
+
+	
+	inUnitIndex = getUnitIndex( strInUnit);
+	strcpy ( strInUnitSI, builtInUnits[inUnitIndex].strConvertsTo);
+	// printf ("SI Unit is = %s\n", strInUnitSI);
+
+	outUnitIndex = getUnitIndex( strOutUnit);
+	strcpy ( strOutUnitSI, builtInUnits[outUnitIndex].strConvertsTo);
+	
+	if(strcmp(strInUnitSI, strOutUnitSI) == 0) {  // OK - compatible units
+		
+		// First convert to the SI unit
+		valSI = inVal * builtInUnits[inUnitIndex].tConvCoeffs.dblPow[1] + builtInUnits[inUnitIndex].tConvCoeffs.dblPow[0];
+		
 		//
 		 printf( "%f  %s\n", valSI, strInUnitSI);
 		
@@ -150,6 +185,8 @@ double convertNamedUnit (double inVal, char strInUnit[], char strOutUnit[]){
 		
 		return DBL_MIN;  //Error  incompatible units.  TODO may need code to go through an intermediate conversion step
 }
+
+
 
 double isCompatible (int inUnit, int outUnit){
 		return -1.0;

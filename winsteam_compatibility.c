@@ -18,7 +18,7 @@
 /*
  * Unit Set	| English	| SI		| English	| SI		| SI kPa	| Metric	| Metric	|
  * 			|			| Customary	| Gauge		| Formal	|			|			| Formal	|
- * No.		|   0		|   1		|   2		|   3		|   4		|   5		|   6		|
+ * Set No.	|   0		|   1		|   2		|   3		|   4		|   5		|   6		|
  * Name		|  "ENG"	|  "SI"		|  "ENGG"	|  "SIF"	|  "SIK"	|   "MET"	|  "METF"	|
  * Temp		|   F		|   C		|   F		|   K		|   C		|   C		|   C		|
  * Pressure	|   Psia	|   Bar		|   Psig	|   MPa		|   kPa		|   Bar		|   kg/cm 2	|
@@ -26,10 +26,14 @@
  * Entropy	| btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
  * Sp. Vol	|   ft3/lb	|   m3/kg	|   ft3/lb	|   m3/kg	|   m3/kg	|   m3/kg	|	 m3/kg	|
  * Quality	|   -		|   -		|   -		|   -		|   -		|   -		|   -		|
- * Sp. Heat	| btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
+ * Cp       | btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
  * Thrm Cond| btu/h/ft/F|   W/m/C	| btu/h/ft/F|   W/m/K	|   W/m/C	|   W/m/C	|kCal/m/h/C	|
- * Dyn
-*/
+ * Dyn Visc |  lb/ft/h  | centipoise|  lb/ft/h  |   Pa.s    | centipoise| centipoise| centipoise|
+ * Cp/Cv    |     -     |     -     |     -     |     -     |     -     |     -     |     -     |
+ * Sonic Vel|  ft/s     |    m/s    |    m/s    |    m/s    |    m/s    |    m/s    |    m/s    |
+ *
+ * IFC-67 tables add 10 to the Set No.
+ */
 
 #include <stdio.h>
 #include <string.h>   // for strcmp
@@ -42,7 +46,48 @@
 #define UNITSTRLEN 5
 
 
+/*
+typedef struct sctUnitSet {
+	char strName[15];
+	char strTempUnits[15];
+	char strPressUnits[15];
+	char strEnthalpyUnits[15];
+	char strEntropyUnits[15];
+	char strVolUnits[15];
+	char strQualUnits[15];
+	char strHeatCapUnits[15];
+	char strThermalCondUnits[15];
+	char strDynViscUnits[15];
+	char strGammaUnits[15];
+	char strSpeedUnits[15];
+} typUnitSet;
+*/
+/*
+const typUnitSet unitSets[] = {
+	{ "ENG", "F", "psia", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s" },
+	{ "SI", "C", "bar", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s"},
+	{ "ENGG", "F", "psig", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s"},
+	{ "SIF", "K", "MPa", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/K", "W/m/K", "Pa.s", "-", "m/s" },
+	{ "SIK", "C", "kPa", "kJ/kg", "kJ/kg/C", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s" },
+	{ "MET", "C", "bar", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "W/m/C", "centipoise", "-", "m/s"},
+	{ "METF", "C", "kg/cm2", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "kCal/m/h/C", "centipoise", "-", "m/s" }
+};
+*/
 
+const char *arrUSets [7][12] =  {  // [unitset][unittype]
+	{ "ENG", "F", "psia", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s" },
+	{ "SI", "C", "bar", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s"},
+	{ "ENGG", "F", "psig", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s"},
+	{ "SIF", "K", "MPa", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/K", "W/m/K", "Pa.s", "-", "m/s" },
+	{ "SIK", "C", "kPa", "kJ/kg", "kJ/kg/C", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s" },
+	{ "MET", "C", "bar", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "W/m/C", "centipoise", "-", "m/s"},
+	{ "METF", "C", "kg/cm2", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "kCal/m/h/C", "centipoise", "-", "m/s" }
+};
+
+
+enum param { NAME, TEMP, PRESS, ENTH, ENTR, VOL, QUAL, SPEC_HEAT, COND, VISC, GAMMA, VEL };
+
+enum uSet { ENG, SI, ENGG, SIF, SIK, MET, METF};
 
 //============================================
 // internally used routines
@@ -119,85 +164,30 @@ int getUnitSetNo (char *unitset){
 
 /* saturation temperature for a given pressure */
 double StmPT(double pressure, char* unitset){
-	//char strLowercase [UNITSTRLEN] ="";
 	
-	switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  "psi" , "MPa")), "kelvin", "fahrenheit");
-			
-		case 1: // "si"
-		case 5:  // "met"
-			return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  "bar" , "MPa")), "kelvin", "celcius");
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS])), arrUSets[SIF][TEMP], arrUSets[iUSet][TEMP]);
+	
 
-		case 2: // "engg"
-			return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  "psi" , "MPa") + 0.101325), "kelvin", "fahrenheit");
-
-		case 3: //"sif":
-			return if97_Ps_t(pressure);
-			
-			
-		case 4: //"sik"
-			return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  "kilopascal" , "MPa")), "kelvin", "celcius");
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  "technical atmosphere" , "MPa")), "kelvin", "celcius");
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
-	
-	return DBL_MIN + 2.0;  // general error - should never occur
-	
 } // saturation temperature
 
 
 
 /*  saturation pressure for a given temperatrue */
 double StmTP(double temperature, char* unitset){
-	switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "MPa", "psi" ); 
-			
-		case 1: // "si"
-		case 5:  // "met"
-			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "celcius", "kelvin" )), "MPa", "bar"  );  
-
-		case 2: // "engg"
-			return (convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "fahrenheit", "kelvin" )), "MPa"  , "psi" ) - 14.69594878);  
-
-		case 3: //"sif":
-			return if97_Ts_p(temperature);
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "celcius", "kelvin" )), "MPa" , "kilopascal" );   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature, "celcius", "kelvin" )), "MPa" , "technical atmosphere"  ); 
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), arrUSets[SIF][PRESS], arrUSets[iUSet][PRESS]);
+
+} //saturation pressure
 
 
 // PT

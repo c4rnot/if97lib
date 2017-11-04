@@ -118,7 +118,7 @@ double convertUnit (double inVal, int inUnit, int outUnit);
 /** converts a unit by passing the unit names. It will determine the 
  * indices from the names.  Error value equal to DBL_MIN in <float.h>*/
 double convertNamedUnit (double inVal, char strInUnit[], char strOutUnit[]);
-
+double convertNamedUnitp (double inVal, char* strInUnit[], char* strOutUnit[]);
 
 double isCompatible (int inUnit, int outUnit);
 
