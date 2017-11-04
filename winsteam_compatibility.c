@@ -21,12 +21,12 @@
  * Set No.	|   0		|   1		|   2		|   3		|   4		|   5		|   6		|
  * Name		|  "ENG"	|  "SI"		|  "ENGG"	|  "SIF"	|  "SIK"	|   "MET"	|  "METF"	|
  * Temp		|   F		|   C		|   F		|   K		|   C		|   C		|   C		|
- * Pressure	|   Psia	|   Bar		|   Psig	|   MPa		|   kPa		|   Bar		|   kg/cm 2	|
+ * Pressure	|   Psia	|   Bar		|   Psig	|   MPa		|   kPa		|   Bar		|   kg/cm2 	|
  * Enthalpy	|	btu/lbm	|   kJ/kg	|   btu/lbm	|   kJ/kg	|   kJ/kg	|   kCal/kg	|   kCal/kg	|
- * Entropy	| btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
+ * Entropy	| btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kCal/kg/C	| kCal/kg/C	|
  * Sp. Vol	|   ft3/lb	|   m3/kg	|   ft3/lb	|   m3/kg	|   m3/kg	|   m3/kg	|	 m3/kg	|
  * Quality	|   -		|   -		|   -		|   -		|   -		|   -		|   -		|
- * Cp       | btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kJ/kg/C	| kJ/kg/C	|
+ * Cp       | btu/lbm/F	| kJ/kg/C	| btu/lbm/F	| kJ/kg/K	| kJ/kg/C	| kCal/kg/C	| kCal/kg/C	|
  * Thrm Cond| btu/h/ft/F|   W/m/C	| btu/h/ft/F|   W/m/K	|   W/m/C	|   W/m/C	|kCal/m/h/C	|
  * Dyn Visc |  lb/ft/h  | centipoise|  lb/ft/h  |   Pa.s    | centipoise| centipoise| centipoise|
  * Cp/Cv    |     -     |     -     |     -     |     -     |     -     |     -     |     -     |
@@ -46,42 +46,16 @@
 #define UNITSTRLEN 5
 
 
-/*
-typedef struct sctUnitSet {
-	char strName[15];
-	char strTempUnits[15];
-	char strPressUnits[15];
-	char strEnthalpyUnits[15];
-	char strEntropyUnits[15];
-	char strVolUnits[15];
-	char strQualUnits[15];
-	char strHeatCapUnits[15];
-	char strThermalCondUnits[15];
-	char strDynViscUnits[15];
-	char strGammaUnits[15];
-	char strSpeedUnits[15];
-} typUnitSet;
-*/
-/*
-const typUnitSet unitSets[] = {
-	{ "ENG", "F", "psia", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s" },
-	{ "SI", "C", "bar", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s"},
-	{ "ENGG", "F", "psig", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s"},
-	{ "SIF", "K", "MPa", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/K", "W/m/K", "Pa.s", "-", "m/s" },
-	{ "SIK", "C", "kPa", "kJ/kg", "kJ/kg/C", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s" },
-	{ "MET", "C", "bar", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "W/m/C", "centipoise", "-", "m/s"},
-	{ "METF", "C", "kg/cm2", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "kCal/m/h/C", "centipoise", "-", "m/s" }
-};
-*/
+
 
 const char *arrUSets [7][12] =  {  // [unitset][unittype]
-	{ "ENG", "F", "psia", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s" },
-	{ "SI", "C", "bar", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s"},
-	{ "ENGG", "F", "psig", "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F", "lb/ft/h", "-", "ft/s"},
-	{ "SIF", "K", "MPa", "kJ/kg", "kJ/kg/K", "m3/kg", "-", "kJ/kg/K", "W/m/K", "Pa.s", "-", "m/s" },
-	{ "SIK", "C", "kPa", "kJ/kg", "kJ/kg/C", "m3/kg", "-", "kJ/kg/C", "W/m/C", "centipoise", "-", "m/s" },
-	{ "MET", "C", "bar", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "W/m/C", "centipoise", "-", "m/s"},
-	{ "METF", "C", "kg/cm2", "kCal/kg", "kCal/kg/C", "m3/kg", "-", "kCal/kg/C", "kCal/m/h/C", "centipoise", "-", "m/s" }
+	{ "ENG",  "F", "psia",  "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F",  "lb/ft/h",    "-", "ft/s" },
+	{ "SI",   "C", "bar",   "kJ/kg",  "kJ/kg/K",  "m3/kg",  "-", "kJ/kg/C",  "W/m/C",       "centipoise", "-", "m/s"},
+	{ "ENGG", "F", "psig",  "btu/lb", "btu/lb/F", "ft3/lb", "-", "btu/lb/F", "btu/h/ft/F",  "lb/ft/h",    "-", "ft/s"},
+	{ "SIF",  "K", "MPa",   "kJ/kg",  "kJ/kg/K",  "m3/kg",  "-", "kJ/kg/K",  "W/m/K",       "Pa.s",       "-", "m/s" },
+	{ "SIK",  "C", "kPa",   "kJ/kg",  "kJ/kg/C",  "m3/kg",  "-", "kJ/kg/C",  "W/m/C",       "centipoise", "-", "m/s" },
+	{ "MET",  "C", "bar",   "kCal/kg","kCal/kg/C","m3/kg",  "-", "kCal/kg/C","kCal/m/h/C",       "centipoise", "-", "m/s"},
+	{ "METF", "C", "kg/cm2","kCal/kg","kCal/kg/C","m3/kg",  "-", "kCal/kg/C","kCal/m/h/C",  "centipoise", "-", "m/s" }
 };
 
 
@@ -92,7 +66,7 @@ enum uSet { ENG, SI, ENGG, SIF, SIK, MET, METF};
 //============================================
 // internally used routines
 
-/*
+/*  already provided by libunuts
 char *lowercase (char *strOutput, const char *strInput, int OutLen){
 	
 //	char *ptrInChar = strInput; // point to first character of input
@@ -119,7 +93,7 @@ char *lowercase (char *strOutput, const char *strInput, int OutLen){
 //=================
 // EXTERNAL FUNCTIONS
 
-//* get the integer value of the unit set calls for 67 tables  are +10*/
+//* get the integer value of the unit set calls for IFC 67 tables  are +10 */
 int getUnitSetNo (char *unitset){
 	char strLowercase [UNITSTRLEN] = "";
 	lowercase(strLowercase, unitset, UNITSTRLEN);
@@ -159,7 +133,7 @@ int getUnitSetNo (char *unitset){
 }
 
 
-// SATURATION LINE
+// ********   SATURATION LINE   **************
 
 
 /* saturation temperature for a given pressure */
@@ -173,7 +147,7 @@ double StmPT(double pressure, char* unitset){
 	return convertNamedUnit(if97_Ps_t(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS])), arrUSets[SIF][TEMP], arrUSets[iUSet][TEMP]);
 	
 
-} // saturation temperature
+} // StmPT
 
 
 
@@ -187,383 +161,640 @@ double StmTP(double temperature, char* unitset){
 	
 	return convertNamedUnit(if97_Ts_p(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), arrUSets[SIF][PRESS], arrUSets[iUSet][PRESS]);
 
-} //saturation pressure
+} // StmTP
 
 
-// PT
+
+
+// ***************** PT *********************
 
 /*  specific enthalpy for a given pressure and temperature*/
 double StmPTH(double pressure, double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/kg", "btu/lbm" ); 
-			
-		case 1: // "si"
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kJ/kg" ); 		
-		
-		case 5:  // "met"
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kCal/kg" ); 
-
-		case 2: // "engg"
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/kg", "btu/lbm" );   
-
-		case 3: //"sif":
-			return if97_pt_h(pressure, temperature);   
-
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "kPa" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kJ/kg");   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/kg", "kCal/kg");   
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_h(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][ENTH], arrUSets[iUSet][ENTH]);
+
+} // StmPTH
 
 
 
 /*  specific entropy for a given pressure and temperature */
 double StmPTS(double pressure, double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "btu/(lbm F)" ); 
-			
-		case 1: // "si"
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)" ); 		
-		
-		case 5:  // "met"
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)" ); 
-
-		case 2: // "engg"
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "btu/(lbm F)" );   
-
-		case 3: //"sif":
-			return if97_pt_s(pressure, temperature);   
-
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "kPa" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)");   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "kJ/(kg K)", "kJ/(kg K)");   
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_s(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][ENTR], arrUSets[iUSet][ENTR]);
+
+} // StmPTS
 
 
 /*  specific volume for a given pressure and temperature */
 double StmPTV(double pressure, double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "m3/kg", "ft3/lb" ); 
-			
-		case 1: // "si"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg" ); 		
-		
-		case 5:  // "met"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg" ); 
-
-		case 2: // "engg"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),   "m3/kg", "ft3/lb" );   
-
-		case 3: //"sif":
-			return if97_pt_v(pressure, temperature);   
-
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "kPa" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg");   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "m3/kg", "m3/kg");   
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][VOL], arrUSets[iUSet][VOL]);
+
+} // StmPTV
+
+
 
 /*  specific isobaric heat capacity Cp for a given pressure and temperature */
-/* ********************************************************************************** */
 double StmPTC(double pressure, double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "kJ/(kg K)", "BTU/(lb R)" ); 
-			
-		case 1: // "si"
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)"); 		
-		
-		case 5:  // "met"
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)", "kJ/(kg K)" ); 
-
-		case 2: // "engg"
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),    "kJ/(kg K)",  "BTU/(lb R)" );   
-
-		case 3: //"sif":
-			return if97_pt_Cp(pressure, temperature);   
-
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "kPa" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)");   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),   "kJ/(kg K)",  "kJ/(kg K)");   
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_Cp(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][SPEC_HEAT], arrUSets[iUSet][SPEC_HEAT]);
 
-
-
-
-
-
-
+} // StmPTC
 
 
 
 
 /*  thermal conductivity for a given pressure and temperature */
 double StmPTK(double pressure, double temperature, char* unitset){
-switch ( getUnitSetNo(unitset)){
-		case 0: //eng
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),  "mW/m/K", "BTU/h/ft/F" ); 
-			
-		case 1: // "si"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K"); 		
-		
-		case 5:  // "met"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "bar" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K" ); 
-
-		case 2: // "engg"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure + 14.69594878,  "psi" , "MPa"), \
-			convertNamedUnit (temperature,  "fahrenheit" , "kelvin")),   "mW/m/K", "BTU/h/ft/F" );   
-
-		case 3: //"sif":
-			return convertNamedUnit(if97_pt_v(pressure, temperature),"mW/m/K", "W/m/K");   
-
-						
-		case 4: //"sik"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "kPa" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "W/m/K");   
-		
-		case 6:  // "metf"
-			return convertNamedUnit(if97_pt_v(convertNamedUnit (pressure,  "technical atmosphere" , "MPa"), \
-			convertNamedUnit (temperature,  "celcius" , "kelvin")),  "mW/m/K", "kCal/m/h/C");   
-		
-		case 10:  // engo
-		case 11:  // meto
-		case 12:  // enggo
-		case 13:  // sifo
-		case 14:  // siko
-		case 15:  // sio
-		case 16:  // metfo
-			return DBL_MIN;  //1967 tables not supported yet
-			
-		case 100:  // unit string incorrect. Cant find unit No.
-			return DBL_MIN + 1.0;
-	}
 	
-	return DBL_MIN + 2.0;  // general error - should never occur
-}
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_k(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][COND], arrUSets[iUSet][COND]);
+
+} // StmPTK
+
+
 
 /*  dynamic viscosity for a given pressure and temperature */
-double StmPTM(double pressure, double temperature);
+double StmPTM(double pressure, double temperature, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_mu(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][VISC], arrUSets[iUSet][VISC]);
+
+} // StmPTM
+
+
+
 
 /*  speed of sound for a given pressure and temperature */
-double StmPTW(double pressure, double temperature);
+double StmPTW(double pressure, double temperature, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_Vs(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][VEL], arrUSets[iUSet][VEL]);
+
+} // StmPTW
+
+
 
 /*  isentropic expansion coefficient for a given pressure and temperature */
-double StmPTG(double pressure, double temperature);
+double StmPTG(double pressure, double temperature, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pt_gamma(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP])), \
+							arrUSets[SIF][GAMMA], arrUSets[iUSet][GAMMA]);
+
+} // StmPTG
+
+/*  Uncomment as these become availabel in if97_lib
+
+// ************** PH *********************
+
+//  temperature for a given pressure and enthalpy
+double StmPHT(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_t(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][TEMP], arrUSets[iUSet][TEMP]);
+
+} // StmPHT
 
 
-// PH
-
-/*  temperature for a given pressure and enthalpy */
-double StmPHT(double pressure, double enthalpy);
-
-/*  specific entropy for a given pressure and enthalpy */
-double StmPHS(double pressure, double enthalpy);
-
-/*  specific volume for a given pressure and enthalpy */
-double StmPHV(double pressure, double enthalpy);
-
-/*  quality for a given pressure and enthalpy */
-double StmPHQ(double pressure, double enthalpy);
-
-/*  specific isobaric heat capacity Cp for a given pressure and enthalpy */
-double StmPHC(double pressure, double enthalpy);
-
-/*  speed of sound for a given pressure and enthalpy */
-double StmPHW(double pressure, double enthalpy);
-
-/*  isentropic expansion coefficient for a given pressure and enthalpy */
-double StmPHG(double pressure, double enthalpy);
 
 
-// PS
+//  specific entropy for a given pressure and enthalpy 
+double StmPHS(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_s(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][ENTR], arrUSets[iUSet][ENTR]);
 
-/*  temperature for a given pressure and entropy */
-double StmPST(double pressure, double entropy);
-
-/*  specific enthalpy for a given pressure and entropy */
-double StmPSH(double pressure, double entropy);
-
-/*  specific volume for a given pressure and entropy */
-double StmPSV(double pressure, double entropy);
-
-/*  quality for a given pressure and entropy */
-double StmPSQ(double pressure, double entropy);
-
-/*  specific isobaric heat capacity Cp for a given pressure and entropy */
-double StmPSC(double pressure, double entropy);
-
-/*  speed of sound for a given pressure and entropy */
-double StmPSW(double pressure, double entropy);
-
-/*  isentropic expansion coefficient for a given pressure and entropy */
-double StmPSG(double pressure, double entropy);
+} // StmPHS
 
 
-// TQ
 
-/*  specific enthalpy for a given temperature and quality */
-double StmTQH(double temperature, double quality);
+//  specific volume for a given pressure and enthalpy
+double StmPHV(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_v(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][VOL], arrUSets[iUSet][VOL]);
 
-/*  specific entropy for a given temperature and quality */
-double StmTQS(double temperature, double quality);
-
-/*  specific volume for a given temperature and quality */
-double StmTQV(double temperature, double quality);
-
-/*  specific isobaric heat capacity Cp for a given temperature and quality */
-double StmTQC(double temperature, double quality);
-
-/*  thermal conductivity for a given temperature and quality */
-double StmTQK(double temperature, double quality);
-
-/*  dynamic viscosity for a given temperature and quality */
-double StmTQM(double temperature, double quality);
-
-/*  sonic speed for a given temperature and quality */
-double StmTQW(double temperature, double quality);
-
-/*  isentropic expansion coefficient # TODO - what is this? # for a given temperature and quality */
-double StmTQG(double temperature, double quality);
-
-//PQ
-
-/*  specific enthalpy for a given pressure and quality */
-double StmPQH(double pressure, double quality);
-
-/*  specific entropy for a given pressure and quality */
-double StmPQS(double pressure, double quality);
-
-/*  specific volume for a given pressure and quality */
-double StmPQV(double pressure, double quality);
-
-/*  specific isobaric heat capacity Cp for a given pressure and quality */
-double StmPQC(double pressure, double quality);
-
-/*  thermal conductivity for a given pressure and quality */
-double StmPQK(double pressure, double quality);
+} // StmPHV
 
 
-/*  dynamic viscosity for a given pressure and quality */
-double StmPQM(double pressure, double quality);
 
-/*  speed of sound for a given pressure and quality */
-double StmPQW(double pressure, double quality);
+//  quality for a given pressure and enthalpy
+double StmPHQ(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_q(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][QUAL], arrUSets[iUSet][QUAL]);
 
-/*  dynamic viscosity for a given pressure and quality */
-double StmPQG(double pressure, double quality);
+} // StmPHQ
+
+
+
+//  specific isobaric heat capacity Cp for a given pressure and enthalpy
+double StmPHC(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_Cp(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][SPEC_HEAT], arrUSets[iUSet][SPEC_HEAT]);
+
+} // StmPHC
+
+
+
+//  speed of sound for a given pressure and enthalpy
+double StmPHW(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_Vs(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][VEL], arrUSets[iUSet][VEL]);
+
+} // StmPHW
+
+
+
+//  isentropic expansion coefficient for a given pressure and enthalpy
+double StmPHG(double pressure, double enthalpy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ph_gamma(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (enthalpy,  arrUSets[iUSet][ENTH] , arrUSets[SIF][ENTH])), \
+							arrUSets[SIF][GAMMA], arrUSets[iUSet][GAMMA]);
+
+} // StmPHW
+
+
+// *************  PS  ***************************
+
+//  temperature for a given pressure and entropy
+double StmPST(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_t(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][TEMP], arrUSets[iUSet][TEMP]);
+
+} // StmPST
+
+
+
+//  specific enthalpy for a given pressure and entropy
+double StmPSH(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_h(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][ENTH], arrUSets[iUSet][ENTH]);
+
+} // StmPSH
+
+
+
+//  specific volume for a given pressure and entropy
+double StmPSV(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_v(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][VOL], arrUSets[iUSet][VOL]);
+
+} // StmPSV
+
+
+
+//  quality for a given pressure and entropy
+double StmPSQ(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_q(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][QUAL], arrUSets[iUSet][QUAL]);
+
+} // StmPSQ
+
+
+
+//  specific isobaric heat capacity Cp for a given pressure and entropy
+double StmPSC(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_Cp(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][SPEC_HEAT], arrUSets[iUSet][SPEC_HEAT]);
+
+} // StmPSC
+
+//  speed of sound for a given pressure and entropy
+double StmPSW(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_Vs(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][VEL], arrUSets[iUSet][VEL]);
+
+} // StmPSW
+
+
+
+//  isentropic expansion coefficient for a given pressure and entropy
+double StmPSG(double pressure, double entropy, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_ps_gamma(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (entropy,  arrUSets[iUSet][ENTR] , arrUSets[SIF][ENTR])), \
+							arrUSets[SIF][GAMMA], arrUSets[iUSet][GAMMA]);
+
+} // StmPSG
+
+
+
+// *************  TQ  ********************
+
+//  specific enthalpy for a given temperature and quality
+double StmTQH(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_h(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][ENTH], arrUSets[iUSet][ENTH]);
+
+} // StmTQH
+
+
+
+//  specific entropy for a given temperature and quality
+double StmTQS(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_s(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][ENTR], arrUSets[iUSet][ENTR]);
+
+} // StmTQS
+
+
+
+//  specific volume for a given temperature and quality
+double StmTQV(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_v(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VOL], arrUSets[iUSet][VOL]);
+
+} // StmTQV
+
+
+
+//  specific isobaric heat capacity Cp for a given temperature and quality
+double StmTQC(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_Cp(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][SPEC_HEAT], arrUSets[iUSet][SPEC_HEAT]);
+
+} // StmTQC
+
+
+
+//  thermal conductivity for a given temperature and quality
+double StmTQK(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_k(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][COND], arrUSets[iUSet][COND]);
+
+} // StmTQK
+
+
+
+//  dynamic viscosity for a given temperature and quality
+double StmTQM(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_mu(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VISC], arrUSets[iUSet][VISC]);
+
+} // StmTQM
+
+
+
+//  sonic speed for a given temperature and quality
+double StmTQW(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_Vs(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VEL], arrUSets[iUSet][VEL]);
+
+} // StmTQW
+
+
+
+//  isentropic expansion coefficient for a given temperature and quality
+double StmTQG(double temperature, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_tq_gamma(convertNamedUnit (temperature,  arrUSets[iUSet][TEMP] , arrUSets[SIF][TEMP]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][GAMMA], arrUSets[iUSet][GAMMA]);
+
+} // StmTQG
+
+
+
+// **************** PQ  ******************
+
+//  specific enthalpy for a given pressure and quality
+double StmPQH(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_h(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][ENTH], arrUSets[iUSet][ENTH]);
+
+} // StmPQH
+
+
+
+//  specific entropy for a given pressure and quality 
+double StmPQS(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_s(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][ENTR], arrUSets[iUSet][ENTR]);
+
+} // StmPQS
+
+
+
+//  specific volume for a given pressure and quality
+double StmPQV(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_v(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VOL], arrUSets[iUSet][VOL]);
+
+} // StmPQV
+
+
+
+//  specific isobaric heat capacity Cp for a given pressure and quality
+double StmPQC(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_Cp(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][SPEC_HEAT], arrUSets[iUSet][SPEC_HEAT]);
+
+} // StmPQC
+
+
+
+//  thermal conductivity for a given pressure and quality
+double StmPQK(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_k(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][COND], arrUSets[iUSet][COND]);
+
+} // StmPQK
+
+
+//  dynamic viscosity for a given pressure and quality
+double StmPQM(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_mu(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VISC], arrUSets[iUSet][VISC]);
+
+} // StmPQM
+
+
+
+//  speed of sound for a given pressure and quality
+double StmPQW(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_Vs(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][VEL], arrUSets[iUSet][VEL]);
+
+} // StmPQW
+
+
+
+//  dynamic viscosity for a given pressure and quality
+double StmPQG(double pressure, double quality, char* unitset){
+	
+	int iUSet = getUnitSetNo(unitset);
+	
+	if (iUSet > 6 ) return DBL_MIN;  //1967 tables not supported yet
+	if (iUSet == 100)  return DBL_MIN + 1.0;  //unit string incorrect. Cant find unit No.
+	
+	return convertNamedUnit(if97_pq_gamma(convertNamedUnit (pressure,  arrUSets[iUSet][PRESS] , arrUSets[SIF][PRESS]), \
+									  convertNamedUnit (quality,  arrUSets[iUSet][QUAL] , arrUSets[SIF][QUAL])), \
+							arrUSets[SIF][GAMMA], arrUSets[iUSet][GAMMA]);
+
+} // StmPQH
+
+
+
 
 
 // MISCELLANEOUS
 
-/*  converts ITS68 temperature to ITS90 */
-double StmTEMPIT(double temp68);
+//  converts ITS68 temperature to ITS90
+double StmTEMPIT(double temp68, char* unitset);
 
-/*  converts ITS90 temperature to ITS68 */
-double StmTEMPTI(double temp90) ;
+//  converts ITS90 temperature to ITS68
+double StmTEMPTI(double temp90, char* unitset) ;
 
 // text StmVER(void);
 
-
+*/
 
 
 

@@ -78,43 +78,43 @@ double StmPTS(double pressure, double temperature, char* unitset);
 double StmPTV(double pressure, double temperature , char* unitset);
 
 /** specific isobaric heat capacity for a given pressure and temperature */
-double StmPTC(double pressure, double temperature);
+double StmPTC(double pressure, double temperature, char* unitset);
 
 /** thermal conductivity for a given pressure and temperature */
-double StmPTK(double pressure, double temperature);
+double StmPTK(double pressure, double temperature, char* unitset);
 
 /** dynamic viscosity for a given pressure and temperature */
-double StmPTM(double pressure, double temperature);
+double StmPTM(double pressure, double temperature, char* unitset);
 
 /** speed of sound for a given pressure and temperature */
-double StmPTW(double pressure, double temperature);
+double StmPTW(double pressure, double temperature, char* unitset);
 
 /** isentropic expansion coefficient for a given pressure and temperature */
-double StmPTG(double pressure, double temperature);
+double StmPTG(double pressure, double temperature, char* unitset);
 
 
 // PH
 
 /** temperature for a given pressure and enthalpy */
-double StmPHT(double pressure, double enthalpy);
+double StmPHT(double pressure, double enthalpy, char* unitset);
 
 /** specific entropy for a given pressure and enthalpy */
-double StmPHS(double pressure, double enthalpy);
+double StmPHS(double pressure, double enthalpy, char* unitset);
 
 /** specific volume for a given pressure and enthalpy */
-double StmPHV(double pressure, double enthalpy);
+double StmPHV(double pressure, double enthalpy, char* unitset);
 
 /** quality for a given pressure and enthalpy */
-double StmPHQ(double pressure, double enthalpy);
+double StmPHQ(double pressure, double enthalpy, char* unitset);
 
 /** specific heat capacity #TODO - Which one# for a given pressure and enthalpy */
-double StmPHC(double pressure, double enthalpy);
+double StmPHC(double pressure, double enthalpy, char* unitset);
 
 /** speed of sound for a given pressure and enthalpy */
-double StmPHW(double pressure, double enthalpy);
+double StmPHW(double pressure, double enthalpy, char* unitset);
 
 /** isentropic expansion coefficient for a given pressure and enthalpy */
-double StmPHG(double pressure, double enthalpy);
+double StmPHG(double pressure, double enthalpy, char* unitset);
 
 
 // PS

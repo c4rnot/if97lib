@@ -7,9 +7,14 @@
 //  name * multiplication + offset = converts_to
 // ,{"name", "symbol", TYPE,	{{ offset, multiplication}, unused }		"converts_to",   SI?}
 
+
+// Dimensionless
+,{ "-", "-", 	DIMLESS, { {0.0, 1.0 }, 0.0},	"-", true}
+
+
 // Mass
-,{ "kilogram", "kg", 	MASS, { {0.0, 1.0 }, 0.0},	"kilogram", true}
-,{ "pound (avdp)", "lb", 	MASS, { {0.0, 0.45359237 }, 0.0},	"kilogram", true}
+//,{ "kilogram", "kg", 	MASS, { {0.0, 1.0 }, 0.0},	"kilogram", true}
+//,{ "pound (avdp)", "lb", 	MASS, { {0.0, 0.45359237 }, 0.0},	"kilogram", true}
 
 
 
@@ -25,42 +30,56 @@
 
 
 //Pressure
-,{ "bar", "bar", PRESSURE, { {0.0, 100000.0 }, 0.0}, "Pascal", false}
 ,{ "Pascal", "Pa", PRESSURE, { {0.0, 1.0 }, 0.0}, "Pascal", true}
+,{ "bar", "bar", PRESSURE, { {0.0, 100000.0 }, 0.0}, "Pascal", false}
 ,{ "psia", "psia", PRESSURE, { {0.0, 6894.757293 }, 0.0}, "Pascal", false}
 ,{ "psig", "psig", PRESSURE, { {101325.0, 6894.757293 }, 0.0}, "Pascal", false}
-,{ "standard atmosphere", "atm", PRESSURE, { {0.0, 101325.0 }, 0.0}, "Pascal", false}
+//,{ "standard atmosphere", "atm", PRESSURE, { {0.0, 101325.0 }, 0.0}, "Pascal", false}
 ,{ "technical atmosphere", "at", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
 ,{ "kg/cm2", "ata", PRESSURE, { {0.0, 9.80665E4 }, 0.0}, "Pascal", false}
-,{ "millimetres of mercury", "mmHg", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
-,{ "torr", "torr", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
-,{ "inches of mercury", "inHg", PRESSURE, { {0.0, 3386.388158 }, 0.0}, "Pascal", false}
 ,{ "kPa", "kPa", PRESSURE, { {0.0, 1e3 }, 0.0}, "Pascal", false}
 ,{ "MPa", "MPa", PRESSURE, { {0.0, 1e6 }, 0.0}, "Pascal", false}
+//,{ "millimetres of mercury", "mmHg", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
+//,{ "torr", "torr", PRESSURE, { {0.0, 133.3223684 }, 0.0}, "Pascal", false}
+//,{ "inches of mercury", "inHg", PRESSURE, { {0.0, 3386.388158 }, 0.0}, "Pascal", false}
 
+/*  Not used
 //Energy
 ,{ "Joule", "J", ENERGY, { {0.0, 1.0 }, 0.0}, "Joule", true}
 ,{ "kilojoule", "kJ", ENERGY, { {0.0, 1000.0 }, 0.0}, "Joule", false}
 ,{ "BTU", "BTU", ENERGY, { {0.0, 1055.055853 }, 0.0}, "Joule", false}
 ,{ "kilocalorie", "kCal", ENERGY, { {0.0, 4186.8 }, 0.0}, "Joule", false}
+*/
 
 // Thermodynamic derived units: Specific Enthalpy
 ,{ "Joule per kilogram", "J/kg", SPECIFIC_ENTHALPY, { {0.0, 1.0 }, 0.0}, "Joule per kilogram", true}
-,{ "kilojoule per kilogram", "kJ/kg", SPECIFIC_ENTHALPY, { {0.0, 1000.0 }, 0.0}, "Joule per kilogram", false}
-,{ "btu per pound", "BTU/lb", SPECIFIC_ENTHALPY, { {0.0, 1055.055853 /0.45359237 }, 0.0}, "Joule per kilogram", false}
-,{ "kilocalorie per kilogram", "kJ/kg", SPECIFIC_ENTHALPY, { {0.0, 4186.8 }, 0.0}, "Joule per kilogram", false}
+,{ "kJ/kg", "kJ/kg", SPECIFIC_ENTHALPY, { {0.0, 1000.0 }, 0.0}, "Joule per kilogram", false}
+,{ "btu/lb", "BTU/lb", SPECIFIC_ENTHALPY, { {0.0, 1055.055853 /0.45359237 }, 0.0}, "Joule per kilogram", false}
+,{ "kCal/kg", "kCal/kg", SPECIFIC_ENTHALPY, { {0.0, 4186.8 }, 0.0}, "Joule per kilogram", false}
 
 // Thermodynamic derived units: Specific Entropy
 ,{"joule per kilogram kelvin", "J/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 1.0}, 0.0 },		"joule per kilogram kelvin",   true}
-,{"kilojoule per kilogram kelvin", "kJ/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 1000.0}, 0.0 },		"joule per kilogram kelvin",   false}
-
-,{"BTU per pound Fahrenheit", "btu/(lbm F)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
-
-,{"BTU per pound rankine", "btu/(lbm R)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
-
-
+,{"kJ/kg/K", "kJ/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 1000.0}, 0.0 },		"joule per kilogram kelvin",   false}
+,{"kJ/kg/C", "kJ/(kg C)", SPECIFIC_ENTROPY,	{{ 0.0, 1000.0}, 0.0 },		"joule per kilogram kelvin",   false}
+,{"btu/lb/F", "btu/(lbm F)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
+,{"kCal/kg/C", "kCal/(kg K)", SPECIFIC_ENTROPY,	{{ 0.0, 4186.8}, 0.0 },		"joule per kilogram kelvin",   false}
+//,{"BTU per pound rankine", "btu/(lbm R)", SPECIFIC_ENTROPY,	{{ 0.0, 1055.055853 /( 0.45359237 * 5.0/9.0)}, 0.0 },		"joule per kilogram kelvin",   false}
 
 
+// Specific Volume
+,{"m3/kg", "m3/kg", SPECIFIC_VOLUME,	{{ 0.0, 1.0}, 0.0 },		"m3/kg",   true}
+,{"ft3/lb", "ft3/lb", SPECIFIC_VOLUME,	{{ 0.0, 0.02831684659*2.20462}, 0.0 },		"m3/kg",   false}
 
 
+// Specific heat capacity
+,{"J/kg/K", "J/(kg K)", SPECIFIC_VOLUME,	{{ 0.0, 1.0}, 0.0 },		"J/kg/K",   true}
+,{"kJ/kg/K", "kJ(kg K)", SPECIFIC_VOLUME,	{{ 0.0, 1000.0}, 0.0 },		"J/kg/K",   false}
+,{"btu/lb/F", "BTU/(lb F)", SPECIFIC_VOLUME,	{{ 0.0, 1055.055853*2.20462*10.0/18.0}, 0.0 },		"J/kg/K",   false}
+,{"kJ/kg/C", "kJ/(kg C)", SPECIFIC_VOLUME,	{{ 0.0, 1000.0}, 0.0 },		"J/kg/K",   false}
+,{"kCal/kg/K", "kCal/ (kg K)", SPECIFIC_VOLUME,	{{ 0.0, 4186.8}, 0.0 },		"J/kg/K",   false}
 
+
+// Thermal Conductivity
+,{"W/m/K", "W/(m K)", THERMAL_CONDUCTIVITY,	{{ 0.0, 1.0}, 0.0 },		"W/m/K",   true}
+,{"W/m/C", "W/(m C)", THERMAL_CONDUCTIVITY,	{{ 0.0, 1.0}, 0.0 },		"W/m/K",   false}
+// WRONG,{"btu/h/ft/F" "btu/h/ft/F", THERMAL_CONDUCTIVITY,	{{ 0.0, 1.0}, 0.0 },		"W/m/K",   false}

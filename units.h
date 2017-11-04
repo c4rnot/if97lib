@@ -77,7 +77,8 @@ enum unitType_t {
 	MASS_FLOW = 40,
 	VOLUMETRIC_FLOW = 41,
 	DYNAMIC_VISCOSITY =42,
-	KINEMATIC_VISCOSITY = 43,				
+	KINEMATIC_VISCOSITY = 43,
+	THERMAL_CONDUCTIVITY = 45,
 };
 
 
@@ -107,7 +108,7 @@ typedef struct sctUnit {
 
 
 /** gets the index of the unit for passing to other functions */
-int getUnitIndex ( char strUnit[]);
+int getUnitIndex ( const char strUnit[]);
 
 /** get the conversion coefficients corresponding to UnitIndex */
 typConvCoeffs getCoeffs (int UnitIndex);
@@ -117,8 +118,7 @@ double convertUnit (double inVal, int inUnit, int outUnit);
 
 /** converts a unit by passing the unit names. It will determine the 
  * indices from the names.  Error value equal to DBL_MIN in <float.h>*/
-double convertNamedUnit (double inVal, char strInUnit[], char strOutUnit[]);
-double convertNamedUnitp (double inVal, char* strInUnit[], char* strOutUnit[]);
+double convertNamedUnit (double inVal, const char strInUnit[], const char strOutUnit[]);
 
 double isCompatible (int inUnit, int outUnit);
 
