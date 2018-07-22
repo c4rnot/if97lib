@@ -60,22 +60,22 @@
 
 
 /** saturation temperature for a given pressure */
-double StmPT(double pressure, char* unitset);
+double StmPT(double pressure, char* unitset); //OK except enggo
 
 /** saturation pressure for a given temperatrue */
-double StmTP(double temperature, char* unitset);
+double StmTP(double temperature, char* unitset); //OK except enggo
 
 
 // PT
 
 /** specific enthalpy for a given pressure and temperature */
-double StmPTH(double pressure, double temperature, char* unitset);
+double StmPTH(double pressure, double temperature, char* unitset);  //OK except enggo
 
 /** specific entropy for a given pressure and temperature */
-double StmPTS(double pressure, double temperature, char* unitset);
+double StmPTS(double pressure, double temperature, char* unitset);  //OK except enggo
 
 /** specific volume for a given pressure and temperature */
-double StmPTV(double pressure, double temperature , char* unitset);
+double StmPTV(double pressure, double temperature , char* unitset);  //OK except eng, enggo.  engg not checked yet
 
 /** specific isobaric heat capacity for a given pressure and temperature */
 double StmPTC(double pressure, double temperature, char* unitset);

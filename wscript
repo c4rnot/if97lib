@@ -28,13 +28,20 @@ out = 'build'   # where the built programs will be put.  it must not be . or..
 def options(opt):
 	opt.load('compiler_c')
 	# opt.load('compiler_cxx') #uncomment if there is c++ code
+	opt.load('doxygen')
+	opt.load('swig')
+	opt.load('python')
 
 	opt.add_option('--nothread', action='store_false',  dest='thread', default=True,  help='switch multithreadding support off')
-        
+	opt.add_option('--nodoc', action='store_false',  dest='doxygen', default=True,  help='switch documentation generation off')
+	opt.add_option('--nopybindings', action='store_false',  dest='swig_pyton', default=True,  help='switch python bindings generation off')	
 
 def configure(cnf):
 	cnf.load('compiler_c')
 	# cnf.load('compiler_cxx') #uncomment if there is c++ code
+	cnf.load('doxygen')
+	cnf.load('swig')
+	cnf.load('python')
 
 	
 	print ('Compile with multithreadding support	: ' , cnf.options.thread)
@@ -80,6 +87,9 @@ def configure(cnf):
 def build(bld):
 	# so that bld.program etc. know what to do for c source code without bespoke rules
 	bld.load('compiler_c')
+	bld.load('doxygen')
+	bld.load('swig')
+	bld.load('python')
 	# bld.load('compiler_cxx') #uncomment if there is c++ code
 	
 	
@@ -127,11 +137,29 @@ def build(bld):
 	bld.program(source='region5_test.c', target='region5_test', use=['if97', 'M'])
 	bld.program(source='b23_test.c',     target='B23test', use=['if97', 'M', 'GOMP']) 
 	
+	#generate the osteam_wrap c source using swig
+	# some inspiration here https://github.com/waf-project/waf/blob/master/playground/swig/wscript
+	#NOT WORKING
+	#bld(
+	#	features = 'cshlib pyext',
+	#	source = 'osteam.i',
+	#	target = 'osteam_pylib',
+	#	swig_flags = '-python',
+	#	use = 'winsteam_compatibility',
+	#	)
+		
+
+
+
+		
 
 	
 	# compile files under development without linking
 	#bld.objects(source='IF97_Region4.c', target='myobjects')
-
+	
+	# build documentation
+	if bld.env.DOXYGEN:
+		bld(features="doxygen", doxyfile='Doxyfile')
 
 
 def dist(dst):
