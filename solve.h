@@ -61,7 +61,7 @@ typedef struct sctSolvResult {
  *  
  * result tolerance is the error from perfect solution as a percentage of the 
  * value to be found.  See chapter 12 of IAPWS-IF97
- * i.e. guess is an acceptabel solution when  
+ * i.e. guess is an acceptable solution when  
  *  result_tol_pct <= ((*func(guess) - Common_in_var)/ Common_in_var) * 100
  * 
  * A guess tolerance is used to make a second guess.  

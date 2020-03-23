@@ -9,6 +9,7 @@
 
 #ifndef IF97_COMMON_H
 #define IF97_COMMON_H
+
 #include <stdbool.h>
 
 // ********REGION BOUNDARY CONSTANTS**************//
@@ -45,9 +46,14 @@
 
 	#define IF97_R 0.461526  // KJ / Kg.K 	Specific gas constant for ordinary 'water'
 	
-	#define IF97_TC 647.096  //  K  		Critical Temperature
-	#define IF97_PC 22.064 //  MPa			Critical Pressure
-	#define IF97_RHOC 322.0  //  kg / m3	Critical Density
+	#define IF97_TC     647.096  //  K  	Critical Temperature
+	#define IF97_PC      22.064 //  MPa		Critical Pressure
+	#define IF97_RHOC    322.0  //  kg/m3	Critical Density
+	#define IF97_T_TRIP  273.16  // K		Triple point temperature
+	#define IF97_P_TRIP  611.657 // Pa		Triple point pressure
+	#define IF97_H_TRIP  0.611 783 // J/kg	Triple point specific enthalpy
+	
+	
 	
 	#define PSTAR_R1  16.53  // MPa
 	#define TSTAR_R1  1386.0  // K
@@ -66,6 +72,23 @@
 	
 	#define PSTAR_R5 1.0  //MPa
 	#define TSTAR_R5 1000.0 //K
+
+
+
+
+// ********  UNIT TESTING **************//
+
+
+	#define TEST_ACCURACY 8  //  expected matches actual to how many significant figures
+	#define TESTLOGLOC "IF97LibTest.log"
+	#define VERBOSE_TEST true  // true means each unit should write each test to the log
+	
+	// bitwise test error codes. //
+	#define TEST_PASS 0
+	#define TEST_FAIL 1  /* Test failed for any reason */
+	#define TEST_INCORRECT 2 /* Test failed because the result was not as expected */
+	#define TEST_INCOMPLETE 4  /* test failed because the feature is not yet implemented */
+
 	
 // ********COMMON DATA STRUCTURES **************//	
 	
@@ -96,6 +119,12 @@ enum phase_t {
 	VAPOUR = 3, vapour = 3, Vapour =3,  
 };
 
+
+enum tol_type{
+	SIG_FIG,
+	ABS,
+	PERCENT,
+};
 
 typedef struct sctSteamState {  //-9999 if not applicable
 	double p_MPa;

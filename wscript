@@ -30,7 +30,7 @@ def options(opt):
 	# opt.load('compiler_cxx') #uncomment if there is c++ code
 	opt.load('doxygen')
 	opt.load('swig')
-	opt.load('python')
+	#opt.load('python')
 
 	opt.add_option('--nothread', action='store_false',  dest='thread', default=True,  help='switch multithreadding support off')
 	opt.add_option('--nodoc', action='store_false',  dest='doxygen', default=True,  help='switch documentation generation off')
@@ -41,7 +41,7 @@ def configure(cnf):
 	# cnf.load('compiler_cxx') #uncomment if there is c++ code
 	cnf.load('doxygen')
 	cnf.load('swig')
-	cnf.load('python')
+	#cnf.load('python')
 
 	
 	print ('Compile with multithreadding support	: ' , cnf.options.thread)
@@ -89,7 +89,7 @@ def build(bld):
 	bld.load('compiler_c')
 	bld.load('doxygen')
 	bld.load('swig')
-	bld.load('python')
+	#bld.load('python')
 	# bld.load('compiler_cxx') #uncomment if there is c++ code
 	
 	
@@ -126,16 +126,21 @@ def build(bld):
 	iapws_surftens.c solve.c if97_lib.c', target='if97') 
 
 	bld.stlib(source='units.c', target='units')
-
-	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = list(wsCompatLibs))	
+	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = list(wsCompatLibs))
 	
-	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'winsteam_compatibility', 'M'] , lib = 'units')
-	bld.program(source='region1_test.c', target='region1_test',  use=['if97', 'M', 'GOMP'])
-	bld.program(source='region2_test.c', target='region2_test',  use=['if97', 'M', 'GOMP'])
-	bld.program(source='region3_test.c', target='region3_test',  use=['if97', 'M', 'GOMP'])
-	bld.program(source='region4_test.c', target='region4_test', use=['if97', 'M', 'GOMP'])
-	bld.program(source='region5_test.c', target='region5_test', use=['if97', 'M'])
-	bld.program(source='b23_test.c',     target='B23test', use=['if97', 'M', 'GOMP']) 
+	bld.stlib(source='IF97_B23_test.c',     target='b23test', use=['if97', 'M', 'GOMP'])
+	bld.stlib(source='IF97_Region1_test.c', target='region1_test',  use=['if97', 'M', 'GOMP'])
+	bld.stlib(source='IF97_Region2_test.c', target='region2_test',  use=['if97', 'M', 'GOMP'])
+	bld.stlib(source='IF97_Region3_test.c', target='region3_test',  use=['if97', 'M', 'GOMP'])
+	bld.stlib(source='IF97_Region4_test.c', target='region4_test', use=['if97', 'M', 'GOMP'])
+	bld.stlib(source='IF97_Region5_test.c', target='region5_test', use=['if97', 'M'])
+	
+	
+	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'b23test', 'region1_test', \
+	'region2_test', 'region3_test', 'region4_test', 'region5_test',  'winsteam_compatibility', 'M'] , lib = 'units')
+
+
+
 	
 	#generate the osteam_wrap c source using swig
 	# some inspiration here https://github.com/waf-project/waf/blob/master/playground/swig/wscript

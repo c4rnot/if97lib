@@ -260,7 +260,7 @@ double if97_r1_Cv (double p_MPa , double t_Kelvin ){
 
 // speed of sound in region 1 (m/s)
 // inputs need to convert to pure SI, hence the ´magic´ number
-// checked OK
+// TODO Check testing discrepancy
 double if97_r1_w (double p_MPa , double t_Kelvin ){
 	
 	double if97pi = p_MPa / PSTAR_R1;
