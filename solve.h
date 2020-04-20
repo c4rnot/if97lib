@@ -44,8 +44,10 @@
 #include <stdbool.h>
 
 
-#include <stdio.h>  //used for debugging only
 
+// bitwise test error codes. //
+#define SOLVE_CONVERGE 0   //Solver reports solution found
+#define SOLVE_NO_CONVERGE 8 // A solution did not converge within the maximum allowed number of iterations
 
 
 typedef struct sctSolvResult {
@@ -55,34 +57,41 @@ typedef struct sctSolvResult {
 } typSolvResult;
 
 
+enum SlvTolType{
+	SLV_SIG_FIG,
+	SLV_ABS,
+	SLV_PERCENT,
+};
 
-/**  Secant method:
+
+/**  Secant method for two variable PDE:
  * Use this if Newton Raphson doesn't solve or if the derivatives are not known.
  *  
- * result tolerance is the error from perfect solution as a percentage of the 
- * value to be found.  See chapter 12 of IAPWS-IF97
- * i.e. guess is an acceptable solution when  
- *  result_tol_pct <= ((*func(guess) - Common_in_var)/ Common_in_var) * 100
- * 
  * A guess tolerance is used to make a second guess.  
  * A secant is made between guess
  * and guess + guess_tol and guess - guess_tol.  The best of which is used
  * as guess 2 for the iteration.
  * 
  * Usage example using predefined function h(p,t) to find t(p,h)  
- * p is the common_in_var (it is a variable to both functions)
+ * p is the funcConst (it is a variable to both functions)
  * h is the func_result in var 
  * *function should point to h(p,t)  (pointer to the predefined function)
  * 
- * p is the first of the two variables in h(p,t) so isCommon_in_pos1 = true
+ * p is the first of the two variables in h(p,t) so isFuncConstPos1 = true
  * (if it were set to false, the method would try to put pressure in t and
  * guess p, leading to incorrect result.  Result should be sanity checked 
  * at least in testing.
  */
  
-typSolvResult  secant_solv ( double (*func)(double, double), double common_in_var, 
-							bool isCommon_in_pos1,   double func_seek_result_in_var, double in_guess,  
-							double guess_tol_pct, double result_tol_pct,   long int max_iterations);
+typSolvResult  secant_solv ( double (*func)(double, double),  // pointer to the function. one variable is known (held constant), the other is sought.
+							double funcConst, //  the function variable which is held constant
+							bool isFuncConstPos1,  // is input held constant the first of the two function variables? (false if it is the second)
+							double seek_result,  // the (known) result of the function when the sought variable is correct.
+							double in_guess,  // initial guess of the sought variable
+							double guess_tol_pct, //  
+							double solutionTol, //
+							int solutionTolType, //	SIG_FIG, ABS, PERCENT, - in this case defined in IF97_common.h
+							long int max_iterations);   // maximum number of iterations to attempt before declaring an error
 
 
 

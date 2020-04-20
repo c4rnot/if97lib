@@ -49,6 +49,7 @@
 #include "IF97_Region3.h"
 #include "IF97_Region4.h"
 #include "IF97_Region5.h"
+#include "solve.h"
 #include <math.h> // for pow, log
 
 
@@ -66,6 +67,9 @@ double if97_Ts_p(double Ts_K);
 
 /** specific enthalpy (kJ/kg) for a given p_(MPa) and t_(K) */
 double if97_pt_h(double p_MPa, double t_K);
+
+/** specific inernal energy (kJ/kg) for a given p_(MPa) and t_(K) */
+double if97_pt_u(double p_MPa, double t_K);
 
 /** specific entropy (kJ/kg/K)for a given p_(MPa) and t_(K) */
 double if97_pt_s(double p_MPa, double t_K);

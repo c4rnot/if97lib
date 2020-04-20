@@ -120,12 +120,16 @@ def build(bld):
 	except:
 		pass
 	
+	
+	bld.stlib(source = 'solve.c', target='solve')
+	bld.stlib(source='units.c', target='units')
+	
 	bld.stlib(source='IF97_common.c IF97_Region1.c  IF97_Region1bw.c \
 	IF97_Region2.c IF97_Region2bw.c IF97_Region2_met.c	\
 	IF97_Region3.c IF97_Region3bw.c IF97_Region4.c 	IF97_Region5.c IF97_B23.c \
-	iapws_surftens.c solve.c if97_lib.c', target='if97') 
+	iapws_surftens.c if97_lib.c', target='if97', lib=['solve']) 
 
-	bld.stlib(source='units.c', target='units')
+	
 	bld.stlib(source='winsteam_compatibility.c', target='winsteam_compatibility', lib = list(wsCompatLibs))
 	
 	bld.stlib(source='IF97_B23_test.c',     target='b23test', use=['if97', 'M', 'GOMP'])
@@ -134,10 +138,12 @@ def build(bld):
 	bld.stlib(source='IF97_Region3_test.c', target='region3_test',  use=['if97', 'M', 'GOMP'])
 	bld.stlib(source='IF97_Region4_test.c', target='region4_test', use=['if97', 'M', 'GOMP'])
 	bld.stlib(source='IF97_Region5_test.c', target='region5_test', use=['if97', 'M'])
+	bld.stlib(source='solve_test.c', target='solve_test', use=['if97', 'M', 'GOMP', 'solve'])
+	
 	
 	
 	bld.program(source='if97_lib_test.c', target='if97_lib_test', use=['if97', 'b23test', 'region1_test', \
-	'region2_test', 'region3_test', 'region4_test', 'region5_test',  'winsteam_compatibility', 'M'] , lib = 'units')
+	'region2_test', 'region3_test', 'region4_test', 'region5_test', 'solve_test', 'winsteam_compatibility', 'M'] , lib = ['units', 'solve'])
 
 
 

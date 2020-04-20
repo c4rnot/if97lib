@@ -44,11 +44,10 @@ int if97_region2_test (FILE *logFile){
 
 	fprintf(logFile, "*** IF97 REGION 2 PROPERTY (FORWARDS) EQUATIONS CHECK ***\n\n" );
 	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 0.0035, 300.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 0.0035, 700.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 30.0, 700.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
-	fprintf(logFile, "TODO Determine correct gibbs free energies for region 2 to check against\n\n");
-
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 0.0035, 300.0, -6.80544936074451, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 0.0035, 700.0, -3786.81595128593, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_g, 30.0, 700.0, -991.287342764431, TEST_ACCURACY, SIG_FIG, "if97_r2_g", logFile);
+	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_v, 0.0035, 300.0, 3.94913866e01, TEST_ACCURACY, SIG_FIG, "if97_r2_v", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_v, 0.0035, 700.0, 9.23015898e01, TEST_ACCURACY, SIG_FIG, "if97_r2_v", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2_v, 30.0, 700.0, 5.42946619e-3, TEST_ACCURACY, SIG_FIG, "if97_r2_v", logFile);
@@ -102,11 +101,10 @@ int if97_region2_test (FILE *logFile){
 
 	fprintf(logFile, "\n\n*** IF97 REGION 2 METASTABLE PROPERTY (FORWARDS) EQUATIONS CHECK ***\n\n" );
 
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.0,  450.0 , -1, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.0,  440.0 , -1, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.5,  450.0 , -1, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
-	fprintf(logFile, "TODO Determine correct gibbs free energies for region 2 to check against\n\n");
-	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.0,  450.0 , -186.160544760892, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.0,  440.0 , -120.811306099849, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_g, 1.5,  450.0 , -109.921586946687, TEST_ACCURACY, SIG_FIG, "if97_r2met_g", logFile);
+		
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_v, 1.0,  450.0 , 0.192516540, TEST_ACCURACY, SIG_FIG, "if97_r2met_v", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_v, 1.0,  440.0 , 0.186212297, TEST_ACCURACY, SIG_FIG, "if97_r2met_v", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r2met_v, 1.5,  450.0 , 0.121685206, TEST_ACCURACY, SIG_FIG, "if97_r2met_v", logFile);

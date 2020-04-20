@@ -31,18 +31,15 @@
 #include "IF97_Region3.h"
 #include "IF97_Region3bw.h"
 #include <math.h> // for pow, log
-/* #ifdef _OPENMP // multithreading via libgomp
- # include <omp.h>
- #endif
-*/
- #include <stdio.h>  //used for debugging only
+
+#include <stdio.h>  //used for debugging only
 
 
 //***************************************************************
 //****** REGION 3 HELMHOLTZ FREE ENERGY AND DERIVATIVES**************
 
 
-	
+
 const typIF97Coeffs_IJn  PHI_COEFFS_R3[] = {
 	{0,    0,	 0.0} 				   //0  i starts at 1, so 0th i is not used
 	,{ 0,    0,    0.10658070028513E1}	// "0, 0" are "-, -" in the standard
@@ -311,9 +308,9 @@ double if97_r3_w (double rho_kgPerM3 , double t_Kelvin ) {
 
 
 
-/*  TODO:  What are Joule Thompson Coefficient, isothermal throttling coefficient
+/*  TODO: Joule Thompson Coefficient, isothermal throttling coefficient
  *  and isentropic temperature - pressure coefficient in the Moscow Power 
- * Institute page for region 3?
+ * Institute page for region 3
  * 
  * http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-Region3.xmcd
  */

@@ -70,13 +70,25 @@
 
 /** checks if a combination of Pressure (MPa) and Temperature (K) is in 
  * the near critical region where the IAPWS-IF97 numerical consistency 
- * criteria of 0.001% on enthalpy and entropy and 0.1% on Cp and Vs are 
- * not met.  See figure 2   
+ * criteria of 0.001% on enthalpy and entropy specific volume and 0.01% on Cp are 
+ * not met with the backwards equations. They nevertheless provide a close approximation for interation
+ * See figure 2   
  */
 bool isNearCritical(double p_MPa, double t_K);
 
 
-// Region 3 v(p, t) subregion boundary equations exposed for testing
+/**  Region 3 specific volume (m3/kg) using backwards equations.  These meet the
+*    criteria of 0.001% on enthalpy and entropy specific volume and 0.01% on Cp
+*    outside the near critical region, which can be checked with "isNearCritical"
+*    in the near critical region the backwards equations should provide a good starting 
+*    guess for iteration 
+*/
+double if97_R3bw_v_pt (double p_MPa, double t_K);
+
+
+//******  remaining functions exposed only for unit testing **************
+
+// Region 3 v(p, t) subregion boundary equations 
 
 /**  Region 3a/3b boundary. see equation 2.  critical isentrope from 25MPa to 100 MPa */
 double if97_r3ab_p_t (double p_MPa);
@@ -110,15 +122,22 @@ double if97_r3qu_p_t (double p_MPa);
 double if97_r3rx_p_t (double p_MPa);
 
 
+/**  Auxiliary Region 3u/3v boundary. see equation 2.  Valid: Pressure from 21.9316 MPa to 22.5 MPa  */
+double if97_r3uv_p_t (double p_MPa);
+
+/** Auxiliary Region 3w/3x boundary.  See equation 2. Valid: Pressure from 21.9010 MPa to 22.5 MPa  */
+double if97_r3wx_p_t (double p_MPa);
+
 
 /** Determines subregion for calculation of v (p, t) in region 3
  * Results: 1=3a, 2=3b, 3=3c etc...   100 = near critical region   0 = error: not region 3
  *  this function assumes you are already know you are in region 3
  * see table 2
  */
-int if97_r3_pt_subregion(double p_MPa, double t_K);
+char if97_r3_pt_subregion(double p_MPa, double t_K);
 
-/* **************************************************** */
+
+/* ************* Region 3 v(p, t) backwards equations************************************* */
 
 /** specific volume (m3/kg) in region 3a for a given temperature (K) and pressure (MPa) */
 double if97_r3a_v_pt (double p_MPa, double t_K);
@@ -179,6 +198,10 @@ double if97_r3s_v_pt (double p_MPa, double t_K);
 
 /** specific volume (m3/kg) in region 3t for a given temperature (K) and pressure (MPa) */
 double if97_r3t_v_pt (double p_MPa, double t_K);
+
+
+/* ************* Region 3 v(p, t) auxiliary equations********************************** */
+
 
 /** specific volume (m3/kg) in region 3u for a given temperature (K) and pressure (MPa) */
 double if97_r3u_v_pt (double p_MPa, double t_K);

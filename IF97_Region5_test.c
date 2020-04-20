@@ -45,11 +45,10 @@ int if97_region5_test (FILE *logFile){
 
 	fprintf(logFile, "*** IF97 REGION 5 (high temperature steam) PROPERTY (FORWARDS) EQUATIONS CHECK ***\n" );
 	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 0.5, 1500.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 30.0, 1500.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 30.0, 2000.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);
-	fprintf(logFile, "TODO  obtain expected g to crosscheck\n\n" );
-	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_g, 0.5, 1500.0, -9261.36457876123, TEST_ACCURACY, SIG_FIG, "if97_r5_g", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_g, 30.0, 1500.0, -6427.31684918484, TEST_ACCURACY, SIG_FIG, "if97_r5_g", logFile);	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_g, 30.0, 2000.0, -10501.5844236579, TEST_ACCURACY, SIG_FIG, "if97_r5_g", logFile);
+		
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 0.5, 1500.0, 1.38455090e00, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 30.0, 1500.0, 2.30761299e-02, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_v, 30.0, 2000.0, 3.11385219e-02, TEST_ACCURACY, SIG_FIG, "if97_r5_v", logFile);
@@ -62,46 +61,23 @@ int if97_region5_test (FILE *logFile){
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_u, 30.0, 1500.0, 4.47495124e03, TEST_ACCURACY, SIG_FIG, "if97_r5_u", logFile);	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_u, 30.0, 2000.0, 5.63707038e03, TEST_ACCURACY, SIG_FIG, "if97_r5_u", logFile);
 	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 0.5, 1500.0, 4.52749310e03, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 30.0, 1500.0, 4.47495124e03, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 30.0, 2000.0, 5.63707038e03, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 0.5, 1500.0, 9.654088753313, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 30.0, 1500.0, 7.729701326183, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_s, 30.0, 2000.0, 8.536405231138, TEST_ACCURACY, SIG_FIG, "if97_r5_s", logFile);	
 	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cp, 0.5, 1500.0, 2.61609445e00, TEST_ACCURACY, SIG_FIG, "if97_r5_Cp", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cp, 30.0, 1500.0, 2.72724317e00, TEST_ACCURACY, SIG_FIG, "if97_r5_Cp", logFile);	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cp, 30.0, 2000.0, 2.88569882e00, TEST_ACCURACY, SIG_FIG, "if97_r5_Cp", logFile);
 	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 0.5, 1500.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 30.0, 1500.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);	
-	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 30.0, 2000.0, -1, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);
-	fprintf(logFile, "TODO  obtain expected Cv to crosscheck\n\n" );
-	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 0.5, 1500.0, 2.1533778351, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 30.0, 1500.0, 2.192748293665, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);	
+	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_Cv, 30.0, 2000.0, 2.395894362358, TEST_ACCURACY, SIG_FIG, "if97_r5_Cv", logFile);
+		
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_w, 0.5, 1500.0, 9.17068690e02, TEST_ACCURACY, SIG_FIG, "if97_r5_w", logFile);
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_w, 30.0, 1500.0, 9.28548002e02, TEST_ACCURACY, SIG_FIG, "if97_r5_w", logFile);	
 	intermediateResult = intermediateResult | testDoubleInput ( if97_r5_w, 30.0, 2000.0, 1.06736948e03, TEST_ACCURACY, SIG_FIG, "if97_r5_w", logFile);
 	
-	
-	printf ("\n\n************************************************************ \n" );
-	printf ("IF97 REGION 5 (high temperature steam) PROPERTY (FORWARDS) EQUATIONS CHECK \n\n" );
-	printf ("The output should be the following: \n\n");
-	printf ("\t\tT= 1500 K \tT= 1500 K \tT= 2000 K\n");
-	printf ("\t\tp= 0.5 MPa \tp= 30 MPa \tp= 30 MPa\n\n");
 
-	printf ("g  (kJ/kg)\t?????????\t?????????\t???????????\t(1)\n");	
-	printf ("v  (m3/kg)\t1.38455090e+00\t2.30761299e–02\t3.11385219e-02\n");
-	printf ("h  (kJ/kg)\t5.21976855e+03\t5.16723514e+03\t6.57122604e+03\n");
-	printf ("u  (kJ/kg)\t4.52749310e+03\t4.47495124e+03\t5.63707038e+03\n");
-	printf ("s  (kJ/kg.K)\t9.65408875e+00\t7.72970133e+00\t8.53640523e+00\n");
-	printf ("Cp (kJ/kg.K)\t2.61609445e+00\t2.72724317e+00\t2.88569882e+00\n");
-	printf ("Cv (kJ/kg.K)\t?????????\t?????????\t???????????\\t(2)\n");
-	printf ("w  (m/s)\t9.17068690e+02\t9.28548002e+02\t1.06736948e+03\n\n");
-	
-	printf ("\n(1) Using Freesteam \n(2) Using Moscow Power Institute calculation \n    http://twt.mpei.ac.ru/mcs/worksheets/iapws/IAPWS-IF97-metastable-vapor.xmcd\n\n");
-	printf ("*******OUTPUT************\n");
-	
-
-	
-	
-	
 	if (intermediateResult != 0)
 		intermediateResult= intermediateResult | TEST_FAIL;
 	return intermediateResult;	
